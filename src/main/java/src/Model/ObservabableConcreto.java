@@ -5,7 +5,7 @@ import java.util.List;
 
 public class ObservabableConcreto implements Observerbable {
 
-    private List<Observer> observers;
+    private List<Observer> observers = new ArrayList<>();
 
     // a
     // b
