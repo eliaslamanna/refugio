@@ -3,7 +3,7 @@ package src.Model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ObservabableConcreto implements Observerbable {
+public class ObservabableConcreto implements Observable {
 
     private List<Observer> observers;
 

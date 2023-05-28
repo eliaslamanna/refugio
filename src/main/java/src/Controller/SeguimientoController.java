@@ -9,18 +9,18 @@ public class SeguimientoController {
 
     private List<Seguimiento> seguimientos;
 
-    private SeguimientoController instancia;
+    private static SeguimientoController instancia;
 
     private SeguimientoController() {
         this.seguimientos = new ArrayList<>();
     }
 
-    public SeguimientoController getInstancia() {
-        if(this.instancia == null) {
-            this.instancia = new SeguimientoController();
+    public static SeguimientoController getInstancia() {
+        if(instancia == null) {
+            instancia = new SeguimientoController();
         }
 
-        return this.instancia;
+        return instancia;
     }
 
     public void enviarRecordatorio() {

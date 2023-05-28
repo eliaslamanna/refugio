@@ -1,6 +1,6 @@
 package src.Model;
 
-public interface Observerbable {
+public interface Observable {
 
     void agregarObserver(Observer o);
 

@@ -10,13 +10,13 @@ public class AnimalController {
 
     private List<Animal> animales;
 
-    private AnimalController instancia;
+    private static AnimalController instancia;
 
     private AnimalController() {
         this.animales = new ArrayList<>();
     }
 
-    public AnimalController getInstancia() {
+    public static AnimalController getInstancia() {
         if(instancia == null) {
             instancia = new AnimalController();
         }

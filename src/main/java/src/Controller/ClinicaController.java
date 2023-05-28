@@ -18,7 +18,7 @@ public class ClinicaController {
 
     private List<Alarma> alarmas;
 
-    private ClinicaController instancia;
+    private static ClinicaController instancia;
 
     private ClinicaController() {
         this.historiales = new ArrayList<>();
@@ -26,12 +26,12 @@ public class ClinicaController {
         this.alarmas = new ArrayList<>();
     }
 
-    public ClinicaController getInstancia() {
-        if(this.instancia == null) {
-            this.instancia = new ClinicaController();
+    public static ClinicaController getInstancia() {
+        if(instancia == null) {
+            instancia = new ClinicaController();
         }
 
-        return this.instancia;
+        return instancia;
     }
 
     public HistoriaClinicaPdf exportarFichaMedicaPDF(AnimalDTO animal) {

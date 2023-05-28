@@ -14,19 +14,19 @@ public class AdopcionesController {
 
     private List<Adopcion> adopciones;
 
-    private AdopcionesController instancia;
+    private static AdopcionesController instancia;
 
     private AdopcionesController() {
         this.adopciones = new ArrayList<>();
         this.adoptantes = new ArrayList<>();
     }
 
-    public AdopcionesController getInstancia() {
-        if(this.instancia == null) {
-            this.instancia = new AdopcionesController();
+    public static AdopcionesController getInstancia() {
+        if(instancia == null) {
+            instancia = new AdopcionesController();
         }
 
-        return this.instancia;
+        return instancia;
     }
 
     public void altaAdoptante(AdoptanteDTO adoptante) {
