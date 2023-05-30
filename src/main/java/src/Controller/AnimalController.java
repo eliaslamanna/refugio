@@ -24,8 +24,16 @@ public class AnimalController {
         return instancia;
     }
 
-    public void altaAnimal(AnimalDTO animal) {
-        // TODO implement here
+    public void altaAnimal(AnimalDTO animalDTO) {
+        Animal animal = new Animal(animalDTO);
+        animales.add(animal);
+
+        System.out.println("Se agrego al animal " + animal.getNombre() + " con exito.");
+        System.out.println("\n");
+    }
+
+    public List<Animal> getAnimales() {
+        return animales;
     }
 
 }
