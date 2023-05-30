@@ -1,0 +1,16 @@
+
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(øëô
+O
+java:S1172"-Remove this unused method parameter "animal".(´´Êèüÿÿÿÿ8Åóª£†1
+T
+java:S1135"2Complete the task associated to this TODO comment.(ÉÜ¾Áûÿÿÿÿ8Åóª£†1
+E
+java:S1068"*Remove this unused "animal" private field.(¡¥ä•ùÿÿÿÿ
+M
+java:S1068"2Remove this unused "intervenciones" private field.(ØÌËòùÿÿÿÿ
+P
+java:S1068"5Remove this unused "visitasADomicilio" private field.(×¾Á«üÿÿÿÿ
+I
+java:S1068"3Remove this unused "fechaDeCreacion" private field.(â¢Œ‚
+F
+java:S1068"0Remove this unused "ultimoCambio" private field.(²şà×

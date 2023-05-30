@@ -2,6 +2,6 @@ package src.Model;
 
 public interface Observer {
 
-    void update();
+    void atenderAlarma(Alarma alarma);
 
 }

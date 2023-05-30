@@ -1,0 +1,9 @@
+
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ψλτ
+J
+java:S1068"/Remove this unused "fechaVisita" private field.(‡Ψ’ÿÿÿÿÿ
+G
+java:S1068
+"1Remove this unused "observaciones" private field.(ψ¤Λ
+G
+java:S1068",Remove this unused "encuesta" private field.(”ηϋ­ώÿÿÿÿ

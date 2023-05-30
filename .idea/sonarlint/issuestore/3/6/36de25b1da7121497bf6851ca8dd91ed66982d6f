@@ -1,0 +1,23 @@
+
+v	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(øëô8·ÉÖ£†1
+r	java:S116	"VRename this field "Responsable" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ã”–£8·ÉÖ£†1
+w
+java:S1845"ZRename field "responsable" to prevent any misunderstanding/clash with field "Responsable".(éÈ¥Ã8¸ÉÖ£†1
+S
+java:S1172"7Remove this unused method parameter "diasRecordatorio".( “­8î×Ù£†1
+O
+java:S1135"2Complete the task associated to this TODO comment.(¶è¸ 8Êƒ©¤†1
+L
+java:S1068	"/Remove this unused "Responsable" private field.(Ã”–£8¹ÉÖ£†1
+T
+java:S1068"2Remove this unused "cadenciaVisita" private field.(êñãıûÿÿÿÿ8¹ÉÖ£†1
+Q
+java:S1068"4Remove this unused "continuarVisitas" private field.(¦¦·8¹ÉÖ£†1
+V
+java:S1068"4Remove this unused "diasRecordatorio" private field.(ˆ‚Ïİûÿÿÿÿ8¹ÉÖ£†1
+R
+java:S1068"5Remove this unused "visitasADomicilio" private field.(ÿù¾ı8¹ÉÖ£†1
+L
+java:S1068"/Remove this unused "responsable" private field.(éÈ¥Ã8¹ÉÖ£†1
+N
+java:S1068",Remove this unused "adopcion" private field.(¦¶Òúÿÿÿÿ8¹ÉÖ£†1

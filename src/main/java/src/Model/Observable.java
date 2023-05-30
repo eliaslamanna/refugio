@@ -2,10 +2,10 @@ package src.Model;
 
 public interface Observable {
 
-    void agregarObserver(Observer o);
+    void agregarVeterinario(Observer o);
 
-    void removerObserver(Observer o);
+    void removerVeterinario(Observer o);
 
-    void informarObservers();
+    void informarVeterinarios(Alarma alarma);
 
 }
