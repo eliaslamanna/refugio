@@ -6,13 +6,13 @@ public class AlarmaDTO {
 
     private int periodicidad;
 
-    private Control control;
+    private ControlDTO control;
 
     public int getPeriodicidad() {
         return periodicidad;
     }
 
-    public Control getControl() {
+    public ControlDTO getControl() {
         return control;
     }
 

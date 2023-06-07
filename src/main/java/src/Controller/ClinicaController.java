@@ -46,7 +46,11 @@ public class ClinicaController {
     }
 
     public void añadirAlarma(SeguimientoMedicoDTO seguimiento, AlarmaDTO alarma) {
-        // TODO implement here
+        Alarma alarmaNueva = new Alarma(alarma.periodicidad, alarma.control);
+
+        //encontrar seguimientoMedicoDTO en array this.seguimientos
+        this.seguimientos[X].añadirAlarma(alarmaNueva);
+
     }
 
     public void nuevoSeguimientoMedico(SeguimientoMedicoDTO seguimiento) {

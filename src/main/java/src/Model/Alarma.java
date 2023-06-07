@@ -7,9 +7,12 @@ public class Alarma {
 
     private Control control;
 
-    public Alarma(int periodicidad, Control control) {
+    public Alarma(int periodicidad, ControlDTO controldto) {
         this.periodicidad = periodicidad;
+
+        Control control = new Control(controldto);
         this.control = control;
+        
     }
 
 }

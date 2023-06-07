@@ -13,4 +13,12 @@ public class Control {
 
     private List<Tratamiento> tratamientos;
 
+    public Control(Date momentoDeEjecucion, Veterinario veterinario, List<AccionDTO> acciones, List<TratamientoDTO> tratamientos){
+        this.momentoDeEjecucion = momentoDeEjecucion;
+        this. veterinario = veterinario;
+        //Crear funcion para cargar DTOs en el array de acciones y tratamientos
+        this.acciones = acciones;
+        this.tratamientos = tratamientos;
+    }
+
 }
