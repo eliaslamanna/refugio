@@ -1,60 +1,84 @@
 package src.DTO;
 
-import java.util.*;
 
+import java.util.UUID;
 
 public class AnimalDTO {
 
+    private String id;
+
     private String nombre;
 
-    private Float altura;
-    
-    private Float peso;
+    private Double altura;
 
-    private int edad;
+    private Double peso;
+
+    private Integer edadAprox;
 
     private String condicionMedica;
 
-    private Boolean esSalvaje;
+    private TipoAnimal tipoAnimal;
 
-    private Boolean enTratamiento;
-
-    public AnimalDTO(String nombre, Float altura, Float peso, int edad, String condicionMedica, Boolean esSalvaje, Boolean enTratamiento) {
+    public AnimalDTO(String nombre, Integer edadAprox, Double peso, Double altura, String condicionMedica, TipoAnimal tipoAnimal) {
+        this.id = UUID.randomUUID().toString();
         this.nombre = nombre;
-        this.altura = altura;
+        this.edadAprox = edadAprox;
         this.peso = peso;
-        this.edad = edad;
+        this.altura = altura;
         this.condicionMedica = condicionMedica;
-        this.esSalvaje = esSalvaje;
-        this.enTratamiento = enTratamiento;
+        this.tipoAnimal = tipoAnimal;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public Float getAltura() {
-        return altura;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public Float getPeso() {
+    public Integer getEdadAprox() {
+        return edadAprox;
+    }
+
+    public void setEdadAprox(Integer edadAprox) {
+        this.edadAprox = edadAprox;
+    }
+
+    public Double getPeso() {
         return peso;
     }
 
-    public int getEdad() {
-        return edad;
+    public void setPeso(Double peso) {
+        this.peso = peso;
+    }
+
+    public Double getAltura() {
+        return altura;
+    }
+
+    public void setAltura(Double altura) {
+        this.altura = altura;
     }
 
     public String getCondicionMedica() {
         return condicionMedica;
     }
 
-    public Boolean getEsSalvaje() {
-        return esSalvaje;
+    public void setCondicionMedica(String condicionMedica) {
+        this.condicionMedica = condicionMedica;
     }
 
-    public Boolean getEnTratamiento() {
-        return enTratamiento;
+    public TipoAnimal getTipoAnimal() {
+        return tipoAnimal;
+    }
+
+    public void setTipoAnimal(TipoAnimal tipoAnimal) {
+        this.tipoAnimal = tipoAnimal;
     }
 
 }

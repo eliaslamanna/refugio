@@ -8,32 +8,18 @@ import java.util.*;
 
 public class AnimalController {
 
-    private List<Animal> animales;
+    private Animal animal;
 
-    private static AnimalController instancia;
-
-    private AnimalController() {
-        this.animales = new ArrayList<>();
+    public AnimalController() {
+        animal = new Animal();
     }
 
-    public static AnimalController getInstancia() {
-        if(instancia == null) {
-            instancia = new AnimalController();
-        }
-
-        return instancia;
+    public void ingresarAnimal(AnimalDTO animalDTO) {
+        animal.ingresarAnimal(animalDTO);
     }
 
-    public void altaAnimal(AnimalDTO animalDTO) {
-        Animal animal = new Animal(animalDTO);
-        animales.add(animal);
-
-        System.out.println("Se agrego al animal " + animal.getNombre() + " con exito.");
-        System.out.println("\n");
-    }
-
-    public List<Animal> getAnimales() {
-        return animales;
+    public AnimalDTO buscarAnimal(String idAnimal) {
+        return animal.buscarAnimal(idAnimal);
     }
 
 }
