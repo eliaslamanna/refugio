@@ -18,8 +18,8 @@ public class AnimalController {
         animal.ingresarAnimal(animalDTO);
     }
 
-    public AnimalDTO buscarAnimal(String idAnimal) {
-        return animal.buscarAnimal(idAnimal);
+    public Animal buscarAnimal(String nombre) {
+        return animal.buscarAnimal(nombre);
     }
 
 }

@@ -1,25 +1,100 @@
 package src.Model;
 
-import src.BaseDeDatos;
+import src.DTO.TipoAnimal;
+import src.Refugio;
 import src.DTO.AnimalDTO;
 
 public class Animal {
 
-    public void ingresarAnimal(AnimalDTO animalDTO) {
-        if (BaseDeDatos.getInstancia().animalYaExiste(animalDTO.getId())) {
+    private String nombre;
+
+    private Double altura;
+
+    private Double peso;
+
+    private Integer edadAprox;
+
+    private String condicionMedica;
+
+    private TipoAnimal tipoAnimal;
+
+    public Animal() {
+    }
+
+    public Animal(String nombre, Integer edadAprox, Double peso, Double altura, String condicionMedica, TipoAnimal tipoAnimal) {
+        this.nombre = nombre;
+        this.edadAprox = edadAprox;
+        this.peso = peso;
+        this.altura = altura;
+        this.condicionMedica = condicionMedica;
+        this.tipoAnimal = tipoAnimal;
+    }
+
+    public void ingresarAnimal(AnimalDTO animal) {
+        Animal animalParaGuardar = new Animal(animal.getNombre(), animal.getEdadAprox(), animal.getPeso(), animal.getAltura(), animal.getCondicionMedica(), animal.getTipoAnimal());
+        if (Refugio.getInstancia().animalYaExiste(animalParaGuardar)) {
             System.out.println("\n El animal ya existe en la base de datos\n");
-        }else {
-            registrarAnimal(animalDTO);
+        } else {
+            Refugio.getInstancia().ingresarAnimal(animalParaGuardar);
+            System.out.println(String.format("Se ingreso el animal %s exitosamente.", animal.getNombre()));
         }
     }
 
-    public void registrarAnimal(AnimalDTO animal) {
-        BaseDeDatos.getInstancia().ingresarAnimal(animal);
-        System.out.println(String.format("Se ingreso el animal %s con id %s exitosamente.", animal.getNombre(), animal.getId()));
+    public Animal buscarAnimal(String nombre) {
+        Animal animalBuscado = Refugio.getInstancia().buscarAnimal(nombre);
+        if(animalBuscado == null) {
+            System.out.println(String.format("No se encontro el animal %s.", nombre));
+        }
+
+        return animalBuscado;
     }
 
-    public AnimalDTO buscarAnimal(String idAnimal) {
-        return BaseDeDatos.getInstancia().buscarAnimal(idAnimal);
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public Integer getEdadAprox() {
+        return edadAprox;
+    }
+
+    public void setEdadAprox(Integer edadAprox) {
+        this.edadAprox = edadAprox;
+    }
+
+    public Double getPeso() {
+        return peso;
+    }
+
+    public void setPeso(Double peso) {
+        this.peso = peso;
+    }
+
+    public Double getAltura() {
+        return altura;
+    }
+
+    public void setAltura(Double altura) {
+        this.altura = altura;
+    }
+
+    public String getCondicionMedica() {
+        return condicionMedica;
+    }
+
+    public void setCondicionMedica(String condicionMedica) {
+        this.condicionMedica = condicionMedica;
+    }
+
+    public TipoAnimal getTipoAnimal() {
+        return tipoAnimal;
+    }
+
+    public void setTipoAnimal(TipoAnimal tipoAnimal) {
+        this.tipoAnimal = tipoAnimal;
     }
 
 }

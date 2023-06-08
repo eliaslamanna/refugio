@@ -3,6 +3,7 @@ package src;
 import src.Controller.AnimalController;
 import src.DTO.AnimalDTO;
 import src.DTO.TipoAnimal;
+import src.Model.Animal;
 
 import java.util.List;
 import java.util.Scanner;
@@ -42,12 +43,11 @@ public class Main {
                     inicio();
                     break;
                 case "2" :
-                    System.out.println("\nIngrese el id del animal");
-                    String idAnimal = scanner.nextLine();
-                    AnimalDTO animalBuscado = animalController.buscarAnimal(idAnimal);
+                    System.out.println("\nIngrese el nombre del animal");
+                    String nombreAnimal = scanner.nextLine();
+                    Animal animalBuscado = animalController.buscarAnimal(nombreAnimal);
                     if (animalBuscado != null) {
                         System.out.println("\n/-----------------------------/");
-                        System.out.println("Id -> " + animalBuscado.getId());
                         System.out.println("Nombre -> " + animalBuscado.getNombre());
                         System.out.println("Edad -> " + animalBuscado.getEdadAprox());
                         System.out.println("Peso -> " + animalBuscado.getPeso());
@@ -61,9 +61,8 @@ public class Main {
                 case "3":
                     System.out.println("\nLista de animales");
                     System.out.println("/-----------------------------/");
-                    List<AnimalDTO> animales = BaseDeDatos.getInstancia().obtenerAnimales();
+                    List<Animal> animales = Refugio.getInstancia().obtenerAnimales();
                     animales.forEach(animal -> {
-                        System.out.println("Id -> " + animal.getId());
                         System.out.println("Nombre -> " + animal.getNombre());
                         System.out.println("Tipo -> " + animal.getTipoAnimal());
                         System.out.println("-----------------------------");
