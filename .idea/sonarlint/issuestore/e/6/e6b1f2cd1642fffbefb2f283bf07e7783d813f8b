@@ -1,0 +1,25 @@
+
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ıõÓ
+´
+java:S6548"˜A Singleton implementation was detected. Make sure the use of the Singleton pattern is required and the implementation is the right one for the context.(ªĞüÿÿÿÿ
+H
+java:S1172%"-Remove this unused method parameter "animal".(à¢—ÿÿÿÿÿ
+M
+java:S1135&"2Complete the task associated to this TODO comment.(ÉÜ¾Áûÿÿÿÿ
+H
+java:S1172+"-Remove this unused method parameter "animal".(ÿè öÿÿÿÿÿ
+M
+java:S1135,"2Complete the task associated to this TODO comment.(ÉÜ¾Áûÿÿÿÿ
+h	java:S1000"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ªİé¼ûÿÿÿÿ
+M
+java:S11351"2Complete the task associated to this TODO comment.(ÉÜ¾Áûÿÿÿÿ
+M
+java:S11355"2Complete the task associated to this TODO comment.(ÉÜ¾Áûÿÿÿÿ
+M
+java:S1135:"2Complete the task associated to this TODO comment.(ÉÜ¾Áûÿÿÿÿ
+J
+java:S1068"/Remove this unused "historiales" private field.(Å²ˆÌúÿÿÿÿ
+F
+java:S1068"0Remove this unused "seguimientos" private field.(ÖæÀ–
+A
+java:S1068"+Remove this unused "alarmas" private field.(óóö×
