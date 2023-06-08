@@ -1,11 +1,6 @@
 package src.DTO;
 
-
-import java.util.UUID;
-
 public class AnimalDTO {
-
-    private String id;
 
     private String nombre;
 
@@ -20,17 +15,12 @@ public class AnimalDTO {
     private TipoAnimal tipoAnimal;
 
     public AnimalDTO(String nombre, Integer edadAprox, Double peso, Double altura, String condicionMedica, TipoAnimal tipoAnimal) {
-        this.id = UUID.randomUUID().toString();
         this.nombre = nombre;
         this.edadAprox = edadAprox;
         this.peso = peso;
         this.altura = altura;
         this.condicionMedica = condicionMedica;
         this.tipoAnimal = tipoAnimal;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public String getNombre() {
