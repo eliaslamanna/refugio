@@ -16,13 +16,37 @@ public class Main {
         AnimalController animalController = new AnimalController();
         Scanner scanner = new Scanner(System.in);
 
+        System.out.println("\nBienvenido al refugio de animales\n");
         inicio(scanner, animalController);
 
         System.out.println("Finalizo el programa");
     }
 
     private static void inicio(Scanner scanner, AnimalController animalController) {
-        var tipoUsuario = loggeo(scanner);
+        System.out.println("Que desea hacer?");
+        System.out.println("1. Ingresar al sistema");
+        System.out.println("2. Salir");
+        String opcion = scanner.nextLine();
+
+        switch (opcion) {
+            case "1":
+                String tipoUsuario = loggeo(scanner);
+
+                switch (tipoUsuario) {
+                    case "1":
+                        menuVeterinario(scanner, animalController);
+                        break;
+                    default:
+                        menuVisitador(scanner, animalController);
+                        break;
+                }
+                break;
+            default:
+                System.out.println("\nFinalizo el programa\n");
+                break;
+        }
+
+        String tipoUsuario = loggeo(scanner);
 
         switch (tipoUsuario) {
             case "1":
@@ -35,7 +59,7 @@ public class Main {
     }
 
     private static String loggeo(Scanner scanner) {
-        System.out.println("Ingrese el nombre de usuario:");
+        System.out.println("\nIngrese el nombre de usuario:");
         String nombreUsuario = scanner.nextLine();
 
         System.out.println("\nHola " + nombreUsuario);
