@@ -37,8 +37,8 @@ public class Refugio {
         return animales;
     }
 
-    public Animal buscarAnimal(String nombreAnimal) {
-        return animales.stream().filter(animal -> animal.getNombre().equals(nombreAnimal)).findFirst().orElse(null);
+    public Animal buscarAnimal(String idAnimal) {
+        return animales.stream().filter(animal -> animal.getId().equals(idAnimal)).findFirst().orElse(null);
     }
 
 }
