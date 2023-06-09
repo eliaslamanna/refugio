@@ -4,7 +4,11 @@ import src.DTO.TipoAnimal;
 import src.Refugio;
 import src.DTO.AnimalDTO;
 
+import java.util.UUID;
+
 public class Animal {
+
+    private String id;
 
     private String nombre;
 
@@ -22,6 +26,7 @@ public class Animal {
     }
 
     public Animal(String nombre, Integer edadAprox, Double peso, Double altura, String condicionMedica, TipoAnimal tipoAnimal) {
+        this.id = UUID.randomUUID().toString();
         this.nombre = nombre;
         this.edadAprox = edadAprox;
         this.peso = peso;
@@ -40,10 +45,10 @@ public class Animal {
         }
     }
 
-    public Animal buscarAnimal(String nombre) {
-        Animal animalBuscado = Refugio.getInstancia().buscarAnimal(nombre);
+    public Animal buscarAnimal(String idAnimal) {
+        Animal animalBuscado = Refugio.getInstancia().buscarAnimal(idAnimal);
         if(animalBuscado == null) {
-            System.out.println(String.format("No se encontro el animal %s.", nombre));
+            System.out.println(String.format("No se encontro el animal con id %s.", idAnimal));
         }
 
         return animalBuscado;
@@ -51,6 +56,10 @@ public class Animal {
 
     public String getNombre() {
         return nombre;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public void setNombre(String nombre) {
