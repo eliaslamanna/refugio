@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Seguimiento {
 
-    private Visitador Responsable;
+    private Usuario Responsable;
 
     private int cadenciaVisita;
 
@@ -18,7 +18,7 @@ public class Seguimiento {
 
     private List<VisitaADomicilio> visitasADomicilio = new ArrayList<>();
 
-    private Visitador responsable;
+    private Usuario responsable;
 
     private Adopcion adopcion;
 

@@ -1,24 +1,14 @@
-package src.Model;
+package src.DTO;
 
-import java.util.*;
+import src.Model.Rol;
 
-
-public class Usuario {
+public class UsuarioDTO {
     private String _nombre;
     private String _apellido;
     private String _telefono;
     private String _email;
     private String _dni;
-    private Enum<Rol> _rol;
-
-    public Usuario (String nombre, String apellido, String telefono, String email, String dni, Enum rol){
-        _nombre=nombre;
-        _apellido=apellido;
-        _telefono=telefono;
-        _email=email;
-        _dni=dni;
-        _rol=rol;
-    }
+    private Rol _rol;
 
     public String get_nombre() {
         return _nombre;
@@ -60,12 +50,11 @@ public class Usuario {
         this._dni = _dni;
     }
 
-    public Enum<Rol> get_rol() {
+    public Rol get_rol() {
         return _rol;
     }
 
-    public void set_rol(Enum<Rol> _rol) {
+    public void set_rol(Rol _rol) {
         this._rol = _rol;
     }
-
 }
