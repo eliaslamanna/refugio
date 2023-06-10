@@ -1,19 +1,29 @@
 package src.DTO;
 
-import src.Model.Control;
+import java.time.LocalDateTime;
 
 public class AlarmaDTO {
 
-    private int periodicidad;
+    private LocalDateTime periodicidad;
 
-    private Control control;
+    private String idControl;
 
-    public int getPeriodicidad() {
-        return periodicidad;
+    public LocalDateTime getPeriodicidad() {
+        return this.periodicidad;
     }
 
-    public Control getControl() {
-        return control;
+    public void setPeriodicidad(LocalDateTime periodicidad){
+        this.periodicidad = periodicidad;
     }
+
+    public String getControl() {
+        return this.idControl;
+    }
+
+    public void setControl(String idControl){
+
+        this.idControl = idControl;
+    }
+
 
 }

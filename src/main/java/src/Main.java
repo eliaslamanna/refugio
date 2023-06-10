@@ -3,6 +3,9 @@ package src;
 import src.Controller.AnimalController;
 import src.DTO.AnimalDTO;
 import src.DTO.TipoAnimal;
+
+import src.DTO.UsuarioDTO;
+
 import src.Model.Animal;
 
 import java.util.List;
@@ -10,16 +13,16 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        AnimalController animalController = new AnimalController();
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("\nBienvenido al refugio de animales\n");
-        inicio(scanner, animalController);
+        inicio(scanner);
 
         System.out.println("Finalizo el programa");
     }
 
-    private static void inicio(Scanner scanner, AnimalController animalController) {
+
+    private static void inicio(Scanner scanner) {
         System.out.println("Que desea hacer?");
         System.out.println("1. Ingresar al sistema");
         System.out.println("2. Salir");
@@ -31,10 +34,10 @@ public class Main {
 
                 switch (tipoUsuario) {
                     case "1":
-                        menuVeterinario(scanner, animalController);
+                        menuVeterinario(scanner);
                         break;
                     default:
-                        menuVisitador(scanner, animalController);
+                        menuVisitador(scanner);
                         break;
                 }
                 break;
@@ -47,10 +50,9 @@ public class Main {
 
         switch (tipoUsuario) {
             case "1":
-                menuVeterinario(scanner, animalController);
+                menuVeterinario(scanner);
                 break;
             default:
-                menuVisitador(scanner, animalController);
                 break;
         }
     }
@@ -80,7 +82,8 @@ public class Main {
         System.out.println("4. Salir\n");
     }
 
-    private static void menuVeterinario(Scanner scanner, AnimalController animalController) {
+
+    private static void menuVeterinario(Scanner scanner) {
         inicioVeterinario();
 
         String opcion = scanner.nextLine();
@@ -104,13 +107,13 @@ public class Main {
                     String tipo = scanner.nextLine();
                     TipoAnimal tipoAnimal = tipo.equals("S") ? TipoAnimal.SALVAJE : TipoAnimal.DOMESTICO;
                     AnimalDTO animalDTO = new AnimalDTO(nombre, edadAprox, peso, altura, condicionMedica, tipoAnimal);
-                    animalController.ingresarAnimal(animalDTO);
+                    AnimalController.getInstancia().ingresarAnimal(animalDTO,new UsuarioDTO());
                     inicioVeterinario();
                     break;
                 case "2" :
                     System.out.println("\nIngrese el nombre del animal");
                     String nombreAnimal = scanner.nextLine();
-                    Animal animalBuscado = animalController.buscarAnimal(nombreAnimal);
+                    Animal animalBuscado = AnimalController.getInstancia().buscarAnimal(nombreAnimal);
                     if (animalBuscado != null) {
                         System.out.println("\n/-----------------------------/");
                         System.out.println("Nombre -> " + animalBuscado.getNombre());
@@ -126,7 +129,7 @@ public class Main {
                 case "3":
                     System.out.println("\nLista de animales");
                     System.out.println("/-----------------------------/");
-                    List<Animal> animales = Refugio.getInstancia().obtenerAnimales();
+                    List<Animal> animales = AnimalController.getInstancia().obtenerAnimales();
                     animales.forEach(animal -> {
                         System.out.println("Nombre -> " + animal.getNombre());
                         System.out.println("Tipo -> " + animal.getTipoAnimal());
@@ -140,11 +143,11 @@ public class Main {
             }
             opcion = scanner.nextLine();
         }
-
-        inicio(scanner, animalController);
+        inicio(scanner);
     }
 
-    private static void menuVisitador(Scanner scanner, AnimalController animalController) {
+
+    private static void menuVisitador(Scanner scanner) {
         inicioVisitador();
 
         String opcion = scanner.nextLine();
@@ -156,7 +159,7 @@ public class Main {
                 case "2" :
                     System.out.println("\nIngrese el id del animal");
                     String idAnimal = scanner.nextLine();
-                    Animal animalBuscado = animalController.buscarAnimal(idAnimal);
+                    Animal animalBuscado = AnimalController.getInstancia().buscarAnimal(idAnimal);
                     if (animalBuscado != null) {
                         System.out.println("\n/-----------------------------/");
                         System.out.println("ID -> " + animalBuscado.getId());
@@ -173,7 +176,7 @@ public class Main {
                 case "3":
                     System.out.println("\nLista de animales");
                     System.out.println("/-----------------------------/");
-                    List<Animal> animales = Refugio.getInstancia().obtenerAnimales();
+                    List<Animal> animales = AnimalController.getInstancia().obtenerAnimales();
                     animales.forEach(animal -> {
                         System.out.println("Nombre -> " + animal.getNombre());
                         System.out.println("Tipo -> " + animal.getTipoAnimal());
@@ -188,7 +191,8 @@ public class Main {
             opcion = scanner.nextLine();
         }
 
-        inicio(scanner, animalController);
+
+        inicio(scanner);
     }
 
 }
