@@ -1,5 +1,7 @@
 package src.Model;
 
+import src.DTO.HistoriaClinicaDTO;
+
 public interface EstrategiaExportacion {
-    String exportar(FichaMedica fichaMedica);
+    void exportar(HistoriaClinicaDTO historia);
 }

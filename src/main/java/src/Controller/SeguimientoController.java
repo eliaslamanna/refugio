@@ -1,5 +1,6 @@
 package src.Controller;
 
+import src.Model.DatosNotificacion;
 import src.Model.Seguimiento;
 
 import java.util.*;
@@ -23,8 +24,11 @@ public class SeguimientoController {
         return instancia;
     }
 
-    public void enviarRecordatorio() {
-
+    public void enviarRecordatorio(String id_adoptante) {
+        for (Seguimiento seguimiento : seguimientos){
+            DatosNotificacion datos = seguimiento.getDatosAdoptante(id_adoptante);
+            seguimiento.enviarRecordatorio(datos);
+        }
     }
 
 }

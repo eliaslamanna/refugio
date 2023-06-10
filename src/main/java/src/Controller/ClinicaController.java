@@ -5,7 +5,11 @@ import src.DTO.AnimalDTO;
 import src.DTO.SeguimientoMedicoDTO;
 
 import src.Model.Alarma;
+
 import src.Model.Control;
+
+import src.Model.Animal;
+
 import src.Model.HistoriaClinica;
 import src.Model.SeguimientoMedico;
 
@@ -74,12 +78,20 @@ public class ClinicaController {
     }
 
 
-    public HistoriaClinicaExcel exportarFichaMedicaExcel(AnimalDTO animal) {
-        // TODO implement here
-        return null;
+
+    public HistoriaClinica exportarFichaMedica(AnimalDTO animal) {
+        for (HistoriaClinica historia :
+                this.historiales) {
+            for (Animal animal1 : AnimalController.getInstancia().getAnimales()) {
+                if (animal.getId() == animal1.getId()) {
+                    historia.exportarFichaMedica(animal);
+                }
+            }
+            return null;
+        }
     }
 
-    public void agregarAlarma(String idSeguimiento, AlarmaDTO alarma) {
+    public void agregarAlarma (String idSeguimiento, AlarmaDTO alarma) {
 
         // Se valida si existe el seguimiento y el control para añadir la alarma
         Control control = buscarControl(alarma.getControl());

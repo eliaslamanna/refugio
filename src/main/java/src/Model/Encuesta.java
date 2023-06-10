@@ -8,4 +8,9 @@ public class Encuesta {
 
     private EstadoLimpiezaAmbiente ambiente;
 
+    public Encuesta(EstadoLimpiezaAmbiente estado, EstadoLimpiezaAmbiente limpieza, EstadoLimpiezaAmbiente ambiente) {
+        this.estado = estado;
+        this.limpieza = limpieza;
+        this.ambiente = ambiente;
+    }
 }

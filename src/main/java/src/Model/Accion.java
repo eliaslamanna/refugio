@@ -13,6 +13,7 @@ public enum Accion {
         }
     },
 
+
     PESO{
         public String toString(){
             return "Control de Peso";
@@ -38,3 +39,4 @@ public enum Accion {
     },
 
     }
+

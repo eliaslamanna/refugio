@@ -1,5 +1,6 @@
 package src.Model;
 import src.Controller.AdopcionesController;
+import src.Controller.AnimalController;
 
 
 public class Adopcion {
@@ -16,18 +17,21 @@ public class Adopcion {
 
 
 
-    public Adopcion( String IdAdoptante, String IdAnimal){
+    public Adopcion( String IdAdoptante, String IdAnimal, int cadenciaVisita, EstrategiaNotificacion estrategia, int diasRecordatorio){
+        Seguimiento newSeguimiento = new Seguimiento(// TODO como setear visitador? ,cadenciaVisita, estrategia, diasRecordatorio);
         this.adoptante = AdopcionesController.getInstancia().buscarAdoptante(IdAdoptante);
-        this.mascota = Refugio.getInstancia().buscarAnimal(IdAnimal);
-        this.seguimiento = new Seguimiento();// que deberia generar?
-
+        this.mascota = AnimalController.getInstancia().buscarAnimal(IdAnimal);
+        this.seguimiento = newSeguimiento;
     }
 
 
+    public Seguimiento getSeguimiento() {
+        return seguimiento;
+    }
 
 
-    public void enviarRecordatorio() {
-        // TODO implement here
+    public static DatosNotificacion getDatosDeAdoptante(String id_adoptante){
+        return AdopcionesController.getInstancia().getDatosDeAdoptante(id_adoptante);
     }
 
 }

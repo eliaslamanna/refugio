@@ -1,7 +1,7 @@
 package src.DTO;
 
 public class AnimalDTO {
-
+    private String Id;
     private String nombre;
 
     private Double altura;
@@ -81,4 +81,19 @@ public class AnimalDTO {
         return this.enTratamiento;
     }
 
+    public String getId() {
+        return Id;
+    }
+
+    public Boolean getEnTratamiento() {
+        return enTratamiento;
+    }
+
+    public void setId(String id) {
+        Id = id;
+    }
+
+    public void setEnTratamiento(Boolean enTratamiento) {
+        this.enTratamiento = enTratamiento;
+    }
 }

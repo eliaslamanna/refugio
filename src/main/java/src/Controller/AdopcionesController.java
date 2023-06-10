@@ -1,8 +1,7 @@
 package src.Controller;
 
 import src.DTO.AdoptanteDTO;
-import src.Model.Adopcion;
-import src.Model.Adoptante;
+import src.Model.*;
 
 import java.util.*;
 
@@ -48,9 +47,9 @@ public class AdopcionesController {
     }
 
 
-    public void CrearAdopcion( String idadoptante, String idmascota){
+    public void CrearAdopcion(String idadoptante, String idmascota, int cadenciaVisita, EstrategiaNotificacion notificacion, int diasRecordatorio){
 
-        Adopcion adopcionParaGuardar = new Adopcion(idadoptante, idmascota);
+        Adopcion adopcionParaGuardar = new Adopcion(idadoptante, idmascota,cadenciaVisita, notificacion, diasRecordatorio);
         if (adopcionParaGuardar.getAnimal().getenTratamiento()) {
             System.out.println("Error: La mascota no está disponible para adopción.");
             return;
@@ -61,13 +60,32 @@ public class AdopcionesController {
         }
         else {
             adopciones.add(adopcionParaGuardar);
+
         }
 
 
+
+    }
+    public Adopcion obtenerAdopcion(Adoptante adoptante, Animal animal) {
+        for (Adopcion adopcion : adopciones) {
+            if (adopcion.getAdoptante().equals(adoptante) && adopcion.getAnimal().equals(animal)) {
+                return adopcion;
+            }
+        }
+        return null; // Si no se encuentra la adopción con los criterios especificados
+    }
+    public DatosNotificacion getDatosDeAdoptante(String id_adoptante){
+        for (Adoptante adoptante:
+             adoptantes) {
+            if (adoptante.getId() == id_adoptante){
+                DatosNotificacion datos = new DatosNotificacion(adoptante.getTelefono(), adoptante.getDireccion(), "Su visita esta proxima a su fecha!");
+                return datos;
+            }
+        }
+        return null;
     }
 
-        public void enviarRecordatorio() {
-        // TODO implement here
-    }
+
+
 
 }

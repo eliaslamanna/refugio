@@ -1,6 +1,7 @@
 package src.Model;
 
 
+import src.Controller.AdopcionesController;
 import src.DTO.VisitaDTO;
 
 import java.time.LocalDate;
@@ -12,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Seguimiento {
+
 
     private Usuario Responsable;
 
@@ -27,7 +29,15 @@ public class Seguimiento {
 
     private Usuario responsable;
 
-    private Adopcion adopcion;
+
+    public Seguimiento(Visitador responsable, int cadenciaVisita, EstrategiaNotificacion medioNotificacion, int diasRecordatorio, List<VisitaADomicilio> visitasADomicilio, Adopcion adopcion) {
+        this.cadenciaVisita = cadenciaVisita;
+        this.medioNotificacion = medioNotificacion;
+        this.continuarVisitas = true;
+        this.diasRecordatorio = diasRecordatorio;
+        this.visitasADomicilio = generarPrimeraVisita(cadenciaVisita);
+        this.responsable = responsable;
+    }
 
     private VisitaADomicilio getVisitaMasReciente() {
         VisitaADomicilio visitaMasReciente = this.visitasADomicilio.get(0);
@@ -55,7 +65,7 @@ public class Seguimiento {
         this.medioNotificacion = metodoPreferido;
     }
 
-    public void crearVisita(VisitaDTO visitaDTO) {
+    public void crearProximaVisita(VisitaDTO visitaDTO) {
         VisitaADomicilio newVisita = new VisitaADomicilio( getProximaFechaDeVisita(getVisitaMasReciente().getFechaVisita()), visitaDTO.getObservaciones(), visitaDTO.getEncuesta());
         this.visitasADomicilio.add(newVisita);
     }
@@ -68,6 +78,19 @@ public class Seguimiento {
         calendario.add(Calendar.DAY_OF_YEAR, this.cadenciaVisita);
 
         return calendario.getTime();
+    }
+
+    private List<VisitaADomicilio> generarPrimeraVisita(int cadencia){
+        Date fechaHoy = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        List<VisitaADomicilio> visitasLista = null;
+        VisitaADomicilio primeraVisita = new VisitaADomicilio(getProximaFechaDeVisita(fechaHoy),"",new Encuesta(EstadoLimpiezaAmbiente.MALO,EstadoLimpiezaAmbiente.MALO,EstadoLimpiezaAmbiente.MALO));
+        visitasLista.add(primeraVisita);
+        return visitasLista;
+    }
+
+    public DatosNotificacion getDatosAdoptante(String id_adoptante){
+        // TODO Como encontrar los datos del adoptante?
+        return null;
     }
 
 }

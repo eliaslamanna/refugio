@@ -11,10 +11,13 @@ public class VisitaADomicilio {
 
     private Encuesta encuesta;
 
+    private boolean terminada;
+
     public VisitaADomicilio(Date fechaVisita, String observaciones, Encuesta encuesta) {
         this.fechaVisita = fechaVisita;
         this.observaciones = observaciones;
         this.encuesta = encuesta;
+        this.terminada = false;
     }
 
     public void setFechaVisita(Date fechaVisita) {

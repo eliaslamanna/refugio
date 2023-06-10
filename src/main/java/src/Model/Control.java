@@ -33,4 +33,35 @@ public class Control {
         return idControl;
     }
 
+    public void setMomentoDeEjecucion(Date momentoDeEjecucion) {
+        this.momentoDeEjecucion = momentoDeEjecucion;
+    }
+
+    public void setVeterinario(Veterinario veterinario) {
+        this.veterinario = veterinario;
+    }
+
+    public void setAcciones(List<Accion> acciones) {
+        this.acciones = acciones;
+    }
+
+    public void setTratamientos(List<Tratamiento> tratamientos) {
+        this.tratamientos = tratamientos;
+    }
+
+    public Date getMomentoDeEjecucion() {
+        return momentoDeEjecucion;
+    }
+
+    public Veterinario getVeterinario() {
+        return veterinario;
+    }
+
+    public List<Accion> getAcciones() {
+        return acciones;
+    }
+
+    public List<Tratamiento> getTratamientos() {
+        return tratamientos;
+    }
 }
