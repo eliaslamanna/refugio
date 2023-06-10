@@ -191,4 +191,24 @@ public class Main {
         inicio(scanner, animalController);
     }
 
+    private static void menuVisitas(Scanner scanner) {
+        boolean opcionOk = true;
+        System.out.println("\nElige la en animal adoptado que estas revisando");
+        System.out.println("LISTA DE ANIMALES");
+        String idAnimal = scanner.nextLine();
+        while (!opcionOk) {
+            System.out.println("\nEstado general del animal ( (M)alo/(R)regular/(B)ueno )");
+            String estado = scanner.nextLine();
+            if (estado.equalsIgnoreCase("M") || estado.equalsIgnoreCase("Malo") ||
+                    estado.equalsIgnoreCase("R") || estado.equalsIgnoreCase("Regular") ||
+                    estado.equalsIgnoreCase("B") || estado.equalsIgnoreCase("Bueno")){
+            }
+            }
+        }
+        swi
+        System.out.println("3. Listar animales");
+        System.out.println("4. Salir\n");
+    }
+
+
 }

@@ -24,7 +24,7 @@ public class SeguimientoController {
     }
 
     public void enviarRecordatorio() {
-        // TODO implement here
+
     }
 
 }
