@@ -7,7 +7,7 @@ public class Control {
 
     private Date momentoDeEjecucion;
 
-    private Veterinario veterinario;
+    private Usuario veterinario;
 
     private List<Accion> acciones;
 
