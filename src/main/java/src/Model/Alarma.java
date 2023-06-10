@@ -1,18 +1,30 @@
 package src.Model;
 
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class Alarma {
 
-    private int periodicidad;
+    private String idAlarma;
+    private LocalDateTime periodicidad;
 
     private Control control;
 
-    public Alarma(int periodicidad, ControlDTO controldto) {
-        this.periodicidad = periodicidad;
+    public Alarma(LocalDateTime periodicidad, Control control) {
 
-        Control control = new Control(controldto);
+        this.idAlarma = UUID.randomUUID().toString();
+        this.periodicidad = periodicidad;
         this.control = control;
-        
+
+    }
+
+
+    public LocalDateTime getPeriodicidad(){
+        return periodicidad;
+    }
+
+    public String getIdAlarma(){
+        return idAlarma;
     }
 
 }

@@ -1,21 +1,23 @@
-package src.Model;
+package src.DTO;
 
-import src.DTO.AlarmaDTO;
-
-import src.DTO.AnimalDTO;
-
-import java.util.*;
+import java.util.List;
 
 
 public class SeguimientoMedicoDTO {
 
     private AnimalDTO animal;
 
-    private List<Alarma> alarmas;
+    private List<AlarmaDTO> alarmas;
 
-    public SeguimientoMedico(AnimalDTO animal) {
-        this.alarmas = new ArrayList<>();
+    public void setAnimal(AnimalDTO animal) {
         this.animal = animal;
     }
+
+    public AnimalDTO getAnimal() {
+        return this.animal;
+    }
+
+
+
 
 }

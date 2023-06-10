@@ -8,4 +8,11 @@ public class Tratamiento {
 
     private Boolean finalizado;
 
+    public void Tratamiento(int duracion, String nombre, Boolean finalizado){
+
+        this.duracion = duracion;
+        this.nombre = nombre;
+        this.finalizado = finalizado;
+    }
+
 }

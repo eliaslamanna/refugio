@@ -1,9 +1,15 @@
 package src.Model;
 
-import java.util.*;
+import src.DTO.AccionDTO;
+import src.DTO.TratamientoDTO;
 
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 public class Control {
+
+    private String idControl;
 
     private Date momentoDeEjecucion;
 
@@ -11,14 +17,20 @@ public class Control {
 
     private List<Accion> acciones;
 
-    private List<Tratamiento> tratamientos;
+    private List<TratamientoDTO> tratamientos;
 
     public Control(Date momentoDeEjecucion, Veterinario veterinario, List<AccionDTO> acciones, List<TratamientoDTO> tratamientos){
+        this.idControl = UUID.randomUUID().toString();
         this.momentoDeEjecucion = momentoDeEjecucion;
         this. veterinario = veterinario;
         //Crear funcion para cargar DTOs en el array de acciones y tratamientos
-        this.acciones = acciones;
+        //Accion nuevaAccion = Accion()
+        //this.acciones = acciones;
         this.tratamientos = tratamientos;
+    }
+
+    public String getIdControl(){
+        return idControl;
     }
 
 }
