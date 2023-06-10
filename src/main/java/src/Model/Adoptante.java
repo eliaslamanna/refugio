@@ -1,8 +1,5 @@
 package src.Model;
 
-import src.DTO.AdoptanteDTO;
-import src.Refugio;
-
 import java.util.UUID;
 
 public class Adoptante {
@@ -108,27 +105,5 @@ public class Adoptante {
 
     public Adoptante(){
 
-    }
-
-
-    public void AltaAdoptante(AdoptanteDTO adoptante) {
-        Adoptante adoptanteParaGuardar = new Adoptante(adoptante.getNombre(), adoptante.getApellido(), adoptante.getEstadoCivil(),
-                adoptante.getDireccion(), adoptante.getTelefono(), adoptante.getOcupacion(), adoptante.getOtrasMascotas(),
-                adoptante.getMotivoAdopcion(), adoptante.getTipoAnimalInteresado());
-
-        if (Refugio.getInstancia().AdoptanteYaExiste(adoptanteParaGuardar)) {
-            System.out.println("\n El adoptante ya existe en la base de datos\n");
-        } else {
-            Refugio.getInstancia().IngresarAdoptante(adoptanteParaGuardar);
-            System.out.println(String.format("Se ingresó el adoptante %s %s exitosamente.", adoptante.getNombre(), adoptante.getApellido()));
-        }
-    }
-
-    public Adoptante buscarAdoptante(String idAdoptante) {
-        Adoptante adoptanteBuscado = Refugio.getInstancia().buscarAdoptante(idAdoptante);
-        if (adoptanteBuscado == null) {
-            System.out.println(String.format("No se encontró el adoptante con ID %s.", idAdoptante));
-        }
-        return adoptanteBuscado;
     }
 }
