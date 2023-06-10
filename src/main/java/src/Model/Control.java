@@ -37,7 +37,7 @@ public class Control {
         this.momentoDeEjecucion = momentoDeEjecucion;
     }
 
-    public void setVeterinario(Veterinario veterinario) {
+    public void setVeterinario(Usuario veterinario) {
         this.veterinario = veterinario;
     }
 
@@ -53,7 +53,7 @@ public class Control {
         return momentoDeEjecucion;
     }
 
-    public Veterinario getVeterinario() {
+    public Usuario getVeterinario() {
         return veterinario;
     }
 

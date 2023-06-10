@@ -56,6 +56,7 @@ public class ClinicaController {
         return instancia;
     }
 
+
     public void crearHistoriaClinica(AnimalDTO animal, UsuarioDTO veterinario) {
         this.crearHistoriaClinica(
                 new Animal(animal.getNombre(), animal.getEdadAprox(), animal.getPeso(), animal.getAltura()

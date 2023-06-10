@@ -17,8 +17,8 @@ public class Adopcion {
 
 
 
-    public Adopcion( String IdAdoptante, String IdAnimal, int cadenciaVisita, EstrategiaNotificacion estrategia, int diasRecordatorio){
-        Seguimiento newSeguimiento = new Seguimiento(// TODO como setear visitador? ,cadenciaVisita, estrategia, diasRecordatorio);
+    public Adopcion( String IdAdoptante, String IdAnimal, int cadenciaVisita, EstrategiaNotificacion estrategia, int diasRecordatorio, Usuario visitador){
+        Seguimiento newSeguimiento = new Seguimiento(visitador ,cadenciaVisita, estrategia, diasRecordatorio);
         this.adoptante = AdopcionesController.getInstancia().buscarAdoptante(IdAdoptante);
         this.mascota = AnimalController.getInstancia().buscarAnimal(IdAnimal);
         this.seguimiento = newSeguimiento;

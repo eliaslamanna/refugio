@@ -7,15 +7,14 @@ import src.DTO.VisitaDTO;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class Seguimiento {
+<<<<<<< HEAD
 
 
     private Usuario Responsable;
+    private String idSeguimiento;
 
     private int cadenciaVisita;
 
@@ -30,7 +29,8 @@ public class Seguimiento {
     private Usuario responsable;
 
 
-    public Seguimiento(Visitador responsable, int cadenciaVisita, EstrategiaNotificacion medioNotificacion, int diasRecordatorio, List<VisitaADomicilio> visitasADomicilio, Adopcion adopcion) {
+    public Seguimiento(Usuario responsable, int cadenciaVisita, EstrategiaNotificacion medioNotificacion, int diasRecordatorio) {
+        this.idSeguimiento = UUID.randomUUID().toString();
         this.cadenciaVisita = cadenciaVisita;
         this.medioNotificacion = medioNotificacion;
         this.continuarVisitas = true;
@@ -65,8 +65,8 @@ public class Seguimiento {
         this.medioNotificacion = metodoPreferido;
     }
 
-    public void crearProximaVisita(VisitaDTO visitaDTO) {
-        VisitaADomicilio newVisita = new VisitaADomicilio( getProximaFechaDeVisita(getVisitaMasReciente().getFechaVisita()), visitaDTO.getObservaciones(), visitaDTO.getEncuesta());
+    public void crearProximaVisita() {
+        VisitaADomicilio newVisita = new VisitaADomicilio( getProximaFechaDeVisita(getVisitaMasReciente().getFechaVisita()),"", new Encuesta(EstadoLimpiezaAmbiente.MALO,EstadoLimpiezaAmbiente.MALO,EstadoLimpiezaAmbiente.MALO));
         this.visitasADomicilio.add(newVisita);
     }
 
@@ -80,9 +80,9 @@ public class Seguimiento {
         return calendario.getTime();
     }
 
-    private List<VisitaADomicilio> generarPrimeraVisita(int cadencia){
+    private List<VisitaADomicilio> generarPrimeraVisita(){
         Date fechaHoy = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
-        List<VisitaADomicilio> visitasLista = null;
+        List<VisitaADomicilio> visitasLista = new ArrayList<>();
         VisitaADomicilio primeraVisita = new VisitaADomicilio(getProximaFechaDeVisita(fechaHoy),"",new Encuesta(EstadoLimpiezaAmbiente.MALO,EstadoLimpiezaAmbiente.MALO,EstadoLimpiezaAmbiente.MALO));
         visitasLista.add(primeraVisita);
         return visitasLista;
@@ -90,7 +90,68 @@ public class Seguimiento {
 
     public DatosNotificacion getDatosAdoptante(String id_adoptante){
         // TODO Como encontrar los datos del adoptante?
+
         return null;
     }
 
+    public Usuario getResponsable() {
+        return responsable;
+    }
+
+    public int getCadenciaVisita() {
+        return cadenciaVisita;
+    }
+
+    public EstrategiaNotificacion getMedioNotificacion() {
+        return medioNotificacion;
+    }
+
+    public Boolean getContinuarVisitas() {
+        return continuarVisitas;
+    }
+
+    public int getDiasRecordatorio() {
+        return diasRecordatorio;
+    }
+
+    public List<VisitaADomicilio> getVisitasADomicilio() {
+        return visitasADomicilio;
+    }
+
+    public String getIdSeguimiento() {
+        return idSeguimiento;
+    }
+
+    public VisitaADomicilio getUltimaVisita(){
+        VisitaADomicilio ultimaVisita = visitasADomicilio.get(visitasADomicilio.size()-1);
+        return ultimaVisita;
+    }
+
+    public void setIdSeguimiento(String idSeguimiento) {
+        this.idSeguimiento = idSeguimiento;
+    }
+
+    public void setCadenciaVisita(int cadenciaVisita) {
+        this.cadenciaVisita = cadenciaVisita;
+    }
+
+    public void setMedioNotificacion(EstrategiaNotificacion medioNotificacion) {
+        this.medioNotificacion = medioNotificacion;
+    }
+
+    public void setContinuarVisitas(Boolean continuarVisitas) {
+        this.continuarVisitas = continuarVisitas;
+    }
+
+    public void setDiasRecordatorio(int diasRecordatorio) {
+        this.diasRecordatorio = diasRecordatorio;
+    }
+
+    public void setVisitasADomicilio(List<VisitaADomicilio> visitasADomicilio) {
+        this.visitasADomicilio = visitasADomicilio;
+    }
+
+    public void setResponsable(Usuario responsable) {
+        this.responsable = responsable;
+    }
 }

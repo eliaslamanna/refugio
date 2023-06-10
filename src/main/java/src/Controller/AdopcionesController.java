@@ -47,9 +47,9 @@ public class AdopcionesController {
     }
 
 
-    public void CrearAdopcion(String idadoptante, String idmascota, int cadenciaVisita, EstrategiaNotificacion notificacion, int diasRecordatorio){
-
-        Adopcion adopcionParaGuardar = new Adopcion(idadoptante, idmascota,cadenciaVisita, notificacion, diasRecordatorio);
+    public void CrearAdopcion(String idadoptante, String idmascota, int cadenciaVisita, EstrategiaNotificacion notificacion, int diasRecordatorio, String idVisitador){
+        Usuario resposableSeguimiento = SeguimientoController.getInstancia().getVisitador(idVisitador);
+        Adopcion adopcionParaGuardar = new Adopcion(idadoptante, idmascota,cadenciaVisita, notificacion, diasRecordatorio, resposableSeguimiento);
         if (adopcionParaGuardar.getAnimal().getenTratamiento()) {
             System.out.println("Error: La mascota no está disponible para adopción.");
             return;
@@ -66,9 +66,9 @@ public class AdopcionesController {
 
 
     }
-    public Adopcion obtenerAdopcion(Adoptante adoptante, Animal animal) {
+    public Adopcion obtenerAdopcion(String idAnimal) {
         for (Adopcion adopcion : adopciones) {
-            if (adopcion.getAdoptante().equals(adoptante) && adopcion.getAnimal().equals(animal)) {
+            if (adopcion.getAnimal().getId() == idAnimal) {
                 return adopcion;
             }
         }
