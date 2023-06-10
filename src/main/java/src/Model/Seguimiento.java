@@ -10,7 +10,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 public class Seguimiento {
-<<<<<<< HEAD
 
 
     private Usuario Responsable;
@@ -35,7 +34,7 @@ public class Seguimiento {
         this.medioNotificacion = medioNotificacion;
         this.continuarVisitas = true;
         this.diasRecordatorio = diasRecordatorio;
-        this.visitasADomicilio = generarPrimeraVisita(cadenciaVisita);
+        this.visitasADomicilio = generarPrimeraVisita();
         this.responsable = responsable;
     }
 
