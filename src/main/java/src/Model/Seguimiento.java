@@ -1,6 +1,8 @@
 package src.Model;
 
 
+import src.DTO.VisitaDTO;
+
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
