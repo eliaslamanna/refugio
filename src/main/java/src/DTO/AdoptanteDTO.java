@@ -9,6 +9,19 @@ public class AdoptanteDTO {
     private String ocupacion;
     private int otrasMascotas;
 
+    public AdoptanteDTO(String nombre, String apellido, String estadoCivil, String direccion, String telefono,
+                        String ocupacion, int otrasMascotas, String motivoAdopcion, String tipoAnimalInteresado, int id) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.estadoCivil = estadoCivil;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.ocupacion = ocupacion;
+        this.otrasMascotas = otrasMascotas;
+        this.motivoAdopcion = motivoAdopcion;
+        this.tipoAnimalInteresado = tipoAnimalInteresado;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -83,5 +96,6 @@ public class AdoptanteDTO {
 
     private String motivoAdopcion;
     private String tipoAnimalInteresado;
+
 
 }

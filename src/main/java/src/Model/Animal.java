@@ -20,6 +20,7 @@ public class Animal {
 
     private TipoAnimal tipoAnimal;
 
+    private boolean enTratamiento;
 
     public Animal(String nombre, Integer edadAprox, Double peso, Double altura, String condicionMedica, TipoAnimal tipoAnimal) {
         this.id = UUID.randomUUID().toString();
@@ -29,6 +30,7 @@ public class Animal {
         this.altura = altura;
         this.condicionMedica = condicionMedica;
         this.tipoAnimal = tipoAnimal;
+        this.enTratamiento = false;
     }
 
     public String getNombre() {
@@ -81,6 +83,10 @@ public class Animal {
 
     public void setTipoAnimal(TipoAnimal tipoAnimal) {
         this.tipoAnimal = tipoAnimal;
+    }
+
+    public boolean getenTratamiento(){
+        return this.enTratamiento;
     }
 
 }

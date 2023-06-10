@@ -14,6 +14,11 @@ public class AnimalDTO {
 
     private TipoAnimal tipoAnimal;
 
+    private Boolean enTratamiento;
+
+
+
+
     public AnimalDTO(String nombre, Integer edadAprox, Double peso, Double altura, String condicionMedica, TipoAnimal tipoAnimal) {
         this.nombre = nombre;
         this.edadAprox = edadAprox;
@@ -21,6 +26,7 @@ public class AnimalDTO {
         this.altura = altura;
         this.condicionMedica = condicionMedica;
         this.tipoAnimal = tipoAnimal;
+        this.enTratamiento = false;
     }
 
     public String getNombre() {
@@ -69,6 +75,10 @@ public class AnimalDTO {
 
     public void setTipoAnimal(TipoAnimal tipoAnimal) {
         this.tipoAnimal = tipoAnimal;
+    }
+
+    public boolean getenTratamiento(){
+        return this.enTratamiento;
     }
 
 }
