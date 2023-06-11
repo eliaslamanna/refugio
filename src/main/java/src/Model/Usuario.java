@@ -17,9 +17,9 @@ public class Usuario {
 
     private String dni;
 
-    private String tipo;
+    private Rol tipo;
 
-    public Usuario(String nombre, String apellido, String telefono, String mail, String dni, String tipo) {
+    public Usuario(String nombre, String apellido, String telefono, String mail, String dni, Rol tipo) {
         this.idUsuario = UUID.randomUUID().toString();
         this.nombre = nombre;
         this.apellido = apellido;
@@ -53,7 +53,7 @@ public class Usuario {
         return dni;
     }
 
-    public String getTipo() {
+    public Rol getTipo() {
         return tipo;
     }
 
@@ -81,7 +81,7 @@ public class Usuario {
         this.dni = dni;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(Rol tipo) {
         this.tipo = tipo;
     }
 }
