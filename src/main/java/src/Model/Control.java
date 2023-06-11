@@ -17,9 +17,9 @@ public class Control {
 
     private List<Accion> acciones;
 
-    private List<TratamientoDTO> tratamientos;
+    private List<Tratamiento> tratamientos;
 
-    public Control(Date momentoDeEjecucion, Veterinario veterinario, List<AccionDTO> acciones, List<TratamientoDTO> tratamientos){
+    public Control(Date momentoDeEjecucion, Usuario veterinario, List<AccionDTO> acciones, List<Tratamiento> tratamientos){
         this.idControl = UUID.randomUUID().toString();
         this.momentoDeEjecucion = momentoDeEjecucion;
         this. veterinario = veterinario;

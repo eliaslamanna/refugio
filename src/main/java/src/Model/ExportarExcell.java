@@ -13,7 +13,7 @@ public class ExportarExcell implements EstrategiaExportacion {
             System.out.println("Acciones:" );
             for (Accion accion:
                  control.getAcciones()) {
-                System.out.println(accion.getNombre());
+                System.out.println(accion.toString());
             }
             System.out.println("Tratamientos:" );
             for (Tratamiento tratamiento:

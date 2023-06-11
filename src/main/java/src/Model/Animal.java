@@ -1,6 +1,7 @@
 package src.Model;
 
 import src.Controller.AnimalController;
+import src.DTO.AnimalDTO;
 import src.DTO.TipoAnimal;
 
 import java.util.UUID;
@@ -34,25 +35,6 @@ public class Animal {
         this.enTratamiento = false;
     }
 
-
-    public void ingresarAnimal(AnimalDTO animal) {
-        Animal animalParaGuardar = new Animal(animal.getNombre(), animal.getEdadAprox(), animal.getPeso(), animal.getAltura(), animal.getCondicionMedica(), animal.getTipoAnimal());
-        if (AnimalController.animalYaExiste(animalParaGuardar)) {
-            System.out.println("\n El animal ya existe en la base de datos\n");
-        } else {
-            AnimalController.ingresarAnimal(animalParaGuardar);
-            System.out.println(String.format("Se ingreso el animal %s exitosamente.", animal.getNombre()));
-        }
-    }
-
-    public Animal buscarAnimal(String idAnimal) {
-        Animal animalBuscado = AnimalController.buscarAnimal(idAnimal);
-        if(animalBuscado == null) {
-            System.out.println(String.format("No se encontro el animal con id %s.", idAnimal));
-        }
-
-        return animalBuscado;
-    }
 
 
     public String getNombre() {

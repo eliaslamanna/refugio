@@ -57,25 +57,11 @@ public class ClinicaController {
     }
 
 
-    public void crearHistoriaClinica(AnimalDTO animal, UsuarioDTO veterinario) {
-        this.crearHistoriaClinica(
-                new Animal(animal.getNombre(), animal.getEdadAprox(), animal.getPeso(), animal.getAltura()
-                , animal.getCondicionMedica(), animal.getTipoAnimal())
-                ,new Usuario(veterinario.get_nombre(), veterinario.get_apellido(), veterinario.get_telefono()
-                        , veterinario.get_email(), veterinario.get_dni(), veterinario.get_rol()))                ;
-
-    }
-
     public void crearHistoriaClinica(Animal animal, Usuario veterinario) {
 
         HistoriaClinica historiaClinica = new HistoriaClinica(animal,veterinario);
         historiales.add(historiaClinica);
 
-    }
-
-    public HistoriaClinicaPdf exportarFichaMedicaPDF(AnimalDTO animal) {
-        // TODO implement here
-        return null;
     }
 
 
@@ -88,8 +74,8 @@ public class ClinicaController {
                     historia.exportarFichaMedica(animal);
                 }
             }
-            return null;
         }
+        return null;
     }
 
     public void agregarAlarma (String idSeguimiento, AlarmaDTO alarma) {

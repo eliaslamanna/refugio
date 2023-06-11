@@ -1,7 +1,7 @@
 
 package src.DTO;
 
-import src.Model.Veterinario;
+import src.Model.Usuario;
 
 import java.util.Date;
 import java.util.List;
@@ -11,7 +11,7 @@ public class ControlDTO {
 
     private Date momentoDeEjecucion;
 
-    private Veterinario veterinario;
+    private Usuario veterinario;
 
     private List<AccionDTO> acciones;
 
@@ -27,11 +27,11 @@ public class ControlDTO {
         return this.momentoDeEjecucion;
     }
 
-    public void setVeterinario(Veterinario veterinario){
+    public void setVeterinario(Usuario veterinario){
         this.veterinario = veterinario;
     }
 
-    public Veterinario getVeterinario(){
+    public Usuario getVeterinario(){
         return this.veterinario;
     }
 
