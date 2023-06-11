@@ -56,5 +56,15 @@ public class AnimalController {
         return animales;
     }
 
+    
+    public List<Animal> getAnimalesDisponibles(){
+        List <Animal> animalesDisponibles = new ArrayList<>();
+        for (Animal animal : animales) {
+            if(!animal.getenTratamiento()){
+                animalesDisponibles.add(animal);
+            }
+        }
+        return animalesDisponibles;
+    }
 
 }
