@@ -1,6 +1,7 @@
 package src.Model;
 import src.Controller.AdopcionesController;
 import src.Controller.AnimalController;
+import src.Controller.SeguimientoController;
 
 
 public class Adopcion {
@@ -22,6 +23,7 @@ public class Adopcion {
         this.adoptante = AdopcionesController.getInstancia().buscarAdoptante(IdAdoptante);
         this.mascota = AnimalController.getInstancia().buscarAnimal(IdAnimal);
         this.seguimiento = newSeguimiento;
+        SeguimientoController.getInstancia().agregarSeguimiento(newSeguimiento);
     }
 
 
