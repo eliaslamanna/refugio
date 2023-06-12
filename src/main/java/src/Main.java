@@ -7,11 +7,14 @@ import src.DTO.TipoAnimal;
 import src.DTO.UsuarioDTO;
 
 import src.Model.Animal;
+import src.Service.AutenticacionService;
 
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+
+    private static UsuarioDTO usuarioAuntenticado=new UsuarioDTO();
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -23,68 +26,53 @@ public class Main {
 
 
     private static void inicio(Scanner scanner) {
-        System.out.println("Que desea hacer?");
-        System.out.println("1. Ingresar al sistema");
-        System.out.println("2. Salir");
-        String opcion = scanner.nextLine();
 
-        switch (opcion) {
-            case "1":
-                String tipoUsuario = loggeo(scanner);
+        String tipoUsuario;
+        String opcion = "0";
 
-                switch (tipoUsuario) {
-                    case "1":
-                        menuVeterinario(scanner);
-                        break;
-                    default:
-                        menuVisitador(scanner);
-                        break;
-                }
-                break;
-            default:
-                System.out.println("\nFinalizo el programa\n");
-                break;
+        while (!opcion.equals("2")) {
+
+            System.out.println("Que desea hacer?");
+            System.out.println("1. Ingresar al sistema");
+            System.out.println("2. Salir");
+            opcion = scanner.nextLine();
+
+            switch (opcion) {
+                case "1":
+
+                    System.out.println("\nIngrese el id de usuario:");
+                    usuarioAuntenticado.setIdUsuario(scanner.nextLine());
+                    usuarioAuntenticado = AutenticacionService.getInstance().autenticarUsuario(usuarioAuntenticado);
+
+                    if (usuarioAuntenticado.isEstaAutenticado()) {
+                        switch (usuarioAuntenticado.getTipo().toString()) {
+                            case "VETERINARIO":
+                                menuVeterinario(scanner);
+                                break;
+                            case "VISITADOR":
+                                menuVisitador(scanner);
+                                break;
+                        }
+                    }
+                    break;
+                default:
+                    System.out.println("\nFinalizo el programa\n");
+                    break;
+            }
+
         }
-
-        String tipoUsuario = loggeo(scanner);
-
-        switch (tipoUsuario) {
-            case "1":
-                menuVeterinario(scanner);
-                break;
-            default:
-                break;
-        }
     }
 
-    private static String loggeo(Scanner scanner) {
-        System.out.println("\nIngrese el nombre de usuario:");
-        String nombreUsuario = scanner.nextLine();
-
-        System.out.println("\nHola " + nombreUsuario);
-        System.out.println("Quiere ingresar como: \n1. Veterinario \n2. Visitador");
-        return scanner.nextLine();
-    }
-
-    private static void inicioVeterinario() {
+    private static void inicioGestionarAnimalesVeterinario() {
         System.out.println("\nQue desea hacer?");
-        System.out.println("1. Ingresar animal");
+        System.out.println("1. Agregar animal");
         System.out.println("2. Buscar animal");
-        System.out.println("3. Listar animales");
-        System.out.println("4. Salir\n");
+        System.out.println("3. Buscar todos los animales");
+        System.out.println("4. Menu anterior\n");
     }
 
-    private static void inicioVisitador() {
-        System.out.println("\nQue desea hacer?");
-        System.out.println("1. Generar visita");
-        System.out.println("2. Buscar animal");
-        System.out.println("3. Listar animales");
-        System.out.println("4. Salir\n");
-    }
-
-
-    private static void menuVeterinario(Scanner scanner) {
-        inicioVeterinario();
+    private static void gestionarAnimalesVeterinario(Scanner scanner) {
+        inicioGestionarAnimalesVeterinario();
 
         String opcion = scanner.nextLine();
         while (!opcion.equals("4")) {
@@ -107,10 +95,10 @@ public class Main {
                     String tipo = scanner.nextLine();
                     TipoAnimal tipoAnimal = tipo.equals("S") ? TipoAnimal.SALVAJE : TipoAnimal.DOMESTICO;
                     AnimalDTO animalDTO = new AnimalDTO(nombre, edadAprox, peso, altura, condicionMedica, tipoAnimal);
-                    AnimalController.getInstancia().ingresarAnimal(animalDTO,new UsuarioDTO());
-                    inicioVeterinario();
+                    AnimalController.getInstancia().ingresarAnimal(animalDTO, usuarioAuntenticado);
+                    inicioGestionarAnimalesVeterinario();
                     break;
-                case "2" :
+                case "2":
                     System.out.println("\nIngrese el nombre del animal");
                     String nombreAnimal = scanner.nextLine();
                     Animal animalBuscado = AnimalController.getInstancia().buscarAnimal(nombreAnimal);
@@ -124,7 +112,7 @@ public class Main {
                         System.out.println("Tipo -> " + animalBuscado.getTipoAnimal());
                         System.out.println("/-----------------------------/");
                     }
-                    inicioVeterinario();
+                    inicioGestionarAnimalesVeterinario();
                     break;
                 case "3":
                     System.out.println("\nLista de animales");
@@ -135,10 +123,147 @@ public class Main {
                         System.out.println("Tipo -> " + animal.getTipoAnimal());
                         System.out.println("-----------------------------");
                     });
-                    inicioVeterinario();
+                    inicioGestionarAnimalesVeterinario();
                     break;
                 default:
-                    inicioVeterinario();
+                    inicioGestionarAnimalesVeterinario();
+                    break;
+            }
+            opcion = scanner.nextLine();
+        }
+        menuVeterinario(scanner);
+    }
+
+    private static void inicioGestionarAdopciones() {
+        System.out.println("\nQue desea hacer?");
+        System.out.println("1. Crear Adopcion");
+        System.out.println("2. Menu anterior\n");
+    }
+
+    private static void gestionarAdopciones(Scanner scanner){
+        inicioGestionarAdopciones();
+
+        String opcion = scanner.nextLine();
+        while (!opcion.equals("2")) {
+            switch (opcion) {
+                case "1":
+                    inicioGestionarAdopciones();
+                    break;
+                default:
+                    inicioGestionarAdopciones();
+                    break;
+            }
+            opcion = scanner.nextLine();
+        }
+
+        menuVeterinario(scanner);
+    }
+
+    private static void inicioGestionarSalud() {
+        System.out.println("\nQue desea hacer?");
+        System.out.println("1. Exportar Ficha medica");
+        System.out.println("2. Menu anterior\n");
+    }
+
+    private static void gestionarSalud(Scanner scanner){
+        inicioGestionarSalud();
+
+        String opcion = scanner.nextLine();
+        while (!opcion.equals("2")) {
+            switch (opcion) {
+                case "1":
+                    inicioGestionarSalud();
+                    break;
+                default:
+                    inicioGestionarSalud();
+                    break;
+            }
+            opcion = scanner.nextLine();
+        }
+
+        menuVeterinario(scanner);
+    }
+    private static void inicioProgramarAlarmas() {
+        System.out.println("\nQue desea hacer?");
+        System.out.println("1. Elegir animal");
+        System.out.println("2. Menu anterior\n");
+    }
+
+    private static void programarAlarmas(Scanner scanner){
+        inicioProgramarAlarmas();
+
+        String opcion = scanner.nextLine();
+        while (!opcion.equals("2")) {
+            switch (opcion) {
+                case "1":
+                    inicioProgramarAlarmas();
+                    break;
+                default:
+                    inicioProgramarAlarmas();
+                    break;
+            }
+            opcion = scanner.nextLine();
+        }
+
+        menuVeterinario(scanner);
+    }
+    private static void inicioAtenderAlarmas() {
+        System.out.println("\nQue desea hacer?");
+        System.out.println("1. Elegir animal");
+        System.out.println("2. Menu anterior\n");
+    }
+
+    private static void atenderAlarmas(Scanner scanner){
+        inicioAtenderAlarmas();
+
+        String opcion = scanner.nextLine();
+        while (!opcion.equals("2")) {
+            switch (opcion) {
+                case "1":
+                    inicioAtenderAlarmas();
+                    break;
+                default:
+                    inicioAtenderAlarmas();
+                    break;
+            }
+            opcion = scanner.nextLine();
+        }
+
+        menuVeterinario(scanner);
+    }
+
+    private static void inicioVeterinario() {
+        System.out.println("\nQue desea hacer?");
+        System.out.println("1. Gestionar Animales");
+        System.out.println("2. Gestionar Adopciones");
+        System.out.println("3. Gestionar Salud");
+        System.out.println("4. Programar Alarmas");
+        System.out.println("5. Atender Alarmas");
+        System.out.println("6. menu anterior\n");
+    }
+
+    private static void menuVeterinario(Scanner scanner) {
+        inicioVeterinario();
+
+        String opcion = scanner.nextLine();
+        while (!opcion.equals("6")) {
+            switch (opcion) {
+                case "1":
+                    gestionarAnimalesVeterinario(scanner);
+                    break;
+                case "2":
+                    gestionarAdopciones(scanner);
+                    break;
+                case "3":
+                    gestionarSalud(scanner);
+                    break;
+                case "4":
+                    programarAlarmas(scanner);
+                    break;
+                case "5":
+                    atenderAlarmas(scanner);
+                    break;
+                default:
                     break;
             }
             opcion = scanner.nextLine();
@@ -147,22 +272,53 @@ public class Main {
     }
 
 
+    private static void inicioVisitador() {
+        System.out.println("\nQue desea hacer?");
+        System.out.println("1. Gestionar Animales");
+        System.out.println("2. Completar visita");
+        System.out.println("3. Salir\n");
+    }
+
     private static void menuVisitador(Scanner scanner) {
         inicioVisitador();
 
         String opcion = scanner.nextLine();
-        while (!opcion.equals("4")) {
+        while (!opcion.equals("3")) {
             switch (opcion) {
                 case "1":
-
+                    gestionarAnimalesVisitador(scanner);
                     break;
-                case "2" :
-                    System.out.println("\nIngrese el id del animal");
-                    String idAnimal = scanner.nextLine();
-                    Animal animalBuscado = AnimalController.getInstancia().buscarAnimal(idAnimal);
+                case "2":
+                    gestionarVisitas(scanner);
+                    break;
+                default:
+                    break;
+            }
+            opcion = scanner.nextLine();
+        }
+
+        inicio(scanner);
+    }
+
+    private static void inicioGestionarAnimalesVisitador() {
+        System.out.println("\nQue desea hacer?");
+        System.out.println("1. Buscar animal");
+        System.out.println("2. Buscar todos los animales");
+        System.out.println("3. Menu anterior\n");
+    }
+
+    private static void gestionarAnimalesVisitador(Scanner scanner) {
+        inicioGestionarAnimalesVisitador();
+
+        String opcion = scanner.nextLine();
+        while (!opcion.equals("3")) {
+            switch (opcion) {
+                case "1":
+                    System.out.println("\nIngrese el nombre del animal");
+                    String nombreAnimal = scanner.nextLine();
+                    Animal animalBuscado = AnimalController.getInstancia().buscarAnimal(nombreAnimal);
                     if (animalBuscado != null) {
                         System.out.println("\n/-----------------------------/");
-                        System.out.println("ID -> " + animalBuscado.getId());
                         System.out.println("Nombre -> " + animalBuscado.getNombre());
                         System.out.println("Edad -> " + animalBuscado.getEdadAprox());
                         System.out.println("Peso -> " + animalBuscado.getPeso());
@@ -171,9 +327,9 @@ public class Main {
                         System.out.println("Tipo -> " + animalBuscado.getTipoAnimal());
                         System.out.println("/-----------------------------/");
                     }
-                    inicioVeterinario();
+                    inicioGestionarAnimalesVisitador();
                     break;
-                case "3":
+                case "2":
                     System.out.println("\nLista de animales");
                     System.out.println("/-----------------------------/");
                     List<Animal> animales = AnimalController.getInstancia().obtenerAnimales();
@@ -182,19 +338,40 @@ public class Main {
                         System.out.println("Tipo -> " + animal.getTipoAnimal());
                         System.out.println("-----------------------------");
                     });
-                    inicioVeterinario();
+                    inicioGestionarAnimalesVisitador();
                     break;
                 default:
-                    inicioVeterinario();
+                    inicioGestionarAnimalesVisitador();
+                    break;
+            }
+            opcion = scanner.nextLine();
+        }
+        menuVisitador(scanner);
+    }
+
+    private static void inicioGestionarVisitas() {
+        System.out.println("\nQue desea hacer?");
+        System.out.println("1. Elegir animal visitado");
+        System.out.println("2. Menu anterior\n");
+    }
+
+    private static void gestionarVisitas(Scanner scanner){
+        inicioGestionarVisitas();
+
+        String opcion = scanner.nextLine();
+        while (!opcion.equals("2")) {
+            switch (opcion) {
+                case "1":
+                    inicioGestionarVisitas();
+                    break;
+                default:
+                    inicioGestionarVisitas();
                     break;
             }
             opcion = scanner.nextLine();
         }
 
-
-        inicio(scanner);
+        menuVisitador(scanner);
     }
-
-
 
 }

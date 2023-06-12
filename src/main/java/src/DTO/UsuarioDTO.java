@@ -1,6 +1,6 @@
 package src.DTO;
 
-import src.Model.Rol;
+import src.Enum.Rol;
 
 public class UsuarioDTO {
     private String idUsuario;
@@ -15,7 +15,8 @@ public class UsuarioDTO {
 
     private String dni;
 
-    private String tipo;
+    private Rol tipo;
+    private boolean estaAutenticado;
 
     public String getIdUsuario() {
         return idUsuario;
@@ -41,7 +42,7 @@ public class UsuarioDTO {
         return dni;
     }
 
-    public String getTipo() {
+    public Rol getTipo() {
         return tipo;
     }
 
@@ -69,7 +70,13 @@ public class UsuarioDTO {
         this.dni = dni;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(Rol tipo) {
         this.tipo = tipo;
+    }
+
+    public void setEstaAutenticado(boolean estaAutenticado) { this.estaAutenticado = estaAutenticado; }
+
+    public boolean isEstaAutenticado() {
+        return estaAutenticado;
     }
 }

@@ -28,15 +28,11 @@ public class AnimalController {
     }
 
     public void ingresarAnimal(AnimalDTO animal, UsuarioDTO veterinario) {
-        Animal animalParaGuardar = new Animal(animal.getNombre(), animal.getEdadAprox(), animal.getPeso(), animal.getAltura(), animal.getCondicionMedica(), animal.getTipoAnimal());
-        Usuario veterniarioParaAsignar = UsuarioController.getInstancia().getUsuarioPorId(veterinario.getIdUsuario());
-        if (this.animalYaExiste(animalParaGuardar)) {
-            System.out.println("\n El animal ya existe en la base de datos\n");
-        } else {
+            Animal animalParaGuardar = new Animal(animal.getNombre(), animal.getEdadAprox(), animal.getPeso(), animal.getAltura(), animal.getCondicionMedica(), animal.getTipoAnimal());
+
             animales.add(animalParaGuardar);
-            ClinicaController.getInstancia().crearHistoriaClinica(animalParaGuardar, veterniarioParaAsignar);
+            ClinicaController.getInstancia().crearHistoriaClinica(animalParaGuardar.toDTO(), veterinario);
             System.out.println(String.format("Se ingreso el animal %s exitosamente.", animal.getNombre()));
-        }
     }
 
     public boolean animalYaExiste(Animal animal) {

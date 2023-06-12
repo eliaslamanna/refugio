@@ -93,5 +93,17 @@ public class Animal {
         return this.enTratamiento;
     }
 
+    public static Animal toObject(AnimalDTO animalDTO) {
+        Animal animal = new Animal(animalDTO.getNombre(), animalDTO.getEdadAprox(), animalDTO.getPeso()
+                , animalDTO.getAltura(), animalDTO.getCondicionMedica(), animalDTO.getTipoAnimal());
 
+        return animal;
+    }
+
+    public AnimalDTO toDTO() {
+        AnimalDTO animalDTO = new AnimalDTO(this.nombre,this.edadAprox,this.peso,this.altura,this.condicionMedica
+                ,this.tipoAnimal);
+
+        return animalDTO;
+    }
 }

@@ -1,6 +1,7 @@
 package src.Controller;
 
 import src.DTO.UsuarioDTO;
+import src.Enum.Rol;
 import src.Model.Usuario;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ public class UsuarioController {
     private static UsuarioController instancia;
 
     private UsuarioController() {
+
         this.usuarios = new ArrayList<>();
     }
 
@@ -22,11 +24,13 @@ public class UsuarioController {
         return instancia;
     }
 
-    public Usuario getUsuarioPorId(String id){
+    public UsuarioDTO getUsuarioPorId(String id){
         for (Usuario usuario:
              usuarios) {
             if (usuario.getIdUsuario() == id){
-                return usuario;
+                return usuario.toDTO();
+            } else {
+                return new UsuarioDTO();
             }
         }
         return null;

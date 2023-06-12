@@ -1,12 +1,10 @@
-package src.Model;
+package src.Service;
 
-import src.Enum.Rol;
 import src.DTO.UsuarioDTO;
+import src.Enum.Rol;
+import src.Model.Usuario;
 
-import java.util.*;
-
-
-public class Usuario {
+public class UsuarioAutenticado {
 
     private String idUsuario;
 
@@ -22,7 +20,7 @@ public class Usuario {
 
     private Rol tipo;
 
-    public Usuario(String idUsuario, String nombre, String apellido, String telefono, String mail, String dni, Rol tipo) {
+    public UsuarioAutenticado(String idUsuario, String nombre, String apellido, String telefono, String mail, String dni, Rol tipo) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -32,8 +30,8 @@ public class Usuario {
         this.tipo = tipo;
     }
 
-    public static Usuario toObject(UsuarioDTO usuarioDTO) {
-        Usuario usuario = new Usuario(usuarioDTO.getIdUsuario(), usuarioDTO.getNombre(), usuarioDTO.getApellido()
+    public static src.Model.Usuario toObject(UsuarioDTO usuarioDTO) {
+        src.Model.Usuario usuario = new src.Model.Usuario(usuarioDTO.getIdUsuario(), usuarioDTO.getNombre(), usuarioDTO.getApellido()
                 , usuarioDTO.getTelefono(), usuarioDTO.getMail(), usuarioDTO.getDni(), usuarioDTO.getTipo());
 
         return usuario;
@@ -108,4 +106,5 @@ public class Usuario {
 
         return usuarioDTO;
     }
+
 }

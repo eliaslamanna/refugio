@@ -57,9 +57,9 @@ public class ClinicaController {
     }
 
 
-    public void crearHistoriaClinica(Animal animal, Usuario veterinario) {
+    public void crearHistoriaClinica(AnimalDTO animal, UsuarioDTO veterinario) {
 
-        HistoriaClinica historiaClinica = new HistoriaClinica(animal,veterinario);
+        HistoriaClinica historiaClinica = new HistoriaClinica(Animal.toObject(animal),Usuario.toObject(veterinario));
         historiales.add(historiaClinica);
 
     }

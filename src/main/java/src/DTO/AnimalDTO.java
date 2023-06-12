@@ -1,5 +1,7 @@
 package src.DTO;
 
+import src.Model.Animal;
+
 public class AnimalDTO {
     private String Id;
     private String nombre;
@@ -96,4 +98,5 @@ public class AnimalDTO {
     public void setEnTratamiento(Boolean enTratamiento) {
         this.enTratamiento = enTratamiento;
     }
+
 }
