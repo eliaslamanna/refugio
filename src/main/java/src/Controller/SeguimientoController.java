@@ -63,4 +63,8 @@ public class SeguimientoController {
             SeguimientoController.getInstancia().getSeguimientoByAnimal(idAnimal).crearProximaVisita();
         }
     }
+
+    public void agregarSeguimiento(Seguimiento segumiento){
+        this.seguimientos.add(segumiento);
+    }
 }
