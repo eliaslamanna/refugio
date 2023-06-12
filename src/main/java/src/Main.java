@@ -257,10 +257,10 @@ public class Main {
                     System.out.println("Cuantos dias de anticipacion quiere recibir el recordatorio de la visita?");
                     int diasRecordatorio = scanner.nextInt();
                     scanner.nextLine();
-                    while (!medioNotificacion.equalsIgnoreCase("SMS") && !medioNotificacion.equalsIgnoreCase("WHATSAPP") && !medioNotificacion.equalsIgnoreCase("MAIL")) {
+                    while (!medioNotificacion.equals("SMS") && !medioNotificacion.equals("WHATSAPP") && !medioNotificacion.equals("MAIL")) {
                         System.out.println("Por qué medio se notificará el recordatorio? SMS/WHATSAPP/EMAIL");
                         medioNotificacion = scanner.nextLine();
-                        if (!medioNotificacion.equalsIgnoreCase("SMS") && !medioNotificacion.equalsIgnoreCase("WHATSAPP") && !medioNotificacion.equalsIgnoreCase("MAIL")) {
+                        if (!medioNotificacion.equals("SMS") && !medioNotificacion.equals("WHATSAPP") && !medioNotificacion.equals("MAIL")) {
                             System.out.println("OPCIÓN INCORRECTA.\n");
                         }
                     }
@@ -307,11 +307,12 @@ public class Main {
                     System.out.println("1. PDF");
                     System.out.println("2. Excel");
                     String opcion2 = "";
-                    while (opcion2 != "1" && opcion2 != "2") {
+                    while (!opcion2.equals("1") && !opcion2.equals("2")) {
                         opcion2 = scanner.nextLine();
-                        if (opcion2 != "1" && opcion2 != "2") {
+                        if (!opcion2.equals("1") && !opcion2.equals("2")) {
                             System.out.println("\nVALOR INCORRECTE");
                             System.out.println("\nINTRODUZCA ALGUN CARACTER PARA CONTINUAR");
+                            break;
                         }
                         switch (opcion2) {
                             case "1":
@@ -592,62 +593,62 @@ public class Main {
                     String nombre = scanner.nextLine();
                     System.out.println("\nIngrese alguna observacion sobre la visita");
                     String observacion = scanner.nextLine();
-                    while (estadoAnimal != "BUENO" && estadoAnimal != "REGULAR " && estadoAnimal != "MALO") {
+                    while (!estadoAnimal.equals("BUENO") && !estadoAnimal.equals("REGULAR") && !estadoAnimal.equals("MALO")) {
                         System.out.println("\nIngrese el estado general del animal BUENO/MALO/REGULAR");
                         estadoAnimal = scanner.nextLine();
-                        if (estadoAnimal != "BUENO" && estadoAnimal != "REGULAR " && estadoAnimal != "MALO") {
+                        if (!estadoAnimal.equals("BUENO") && !estadoAnimal.equals("REGULAR") && !estadoAnimal.equals("MALO")) {
                             System.out.println("Ingrese una opcion valida.\n");
                         }
                     }
-                    if (estadoAnimal == "BUENO") {
+                    if (estadoAnimal.equals("BUENO")) {
                         estadoAnimalDTO = EstadoLimpiezaAmbiente.BUENO;
                     }
-                    if (estadoAnimal == "MALO") {
+                    if (estadoAnimal.equals("MALO")) {
                         estadoAnimalDTO = EstadoLimpiezaAmbiente.MALO;
                     }
-                    if (estadoAnimal == "REGULAR") {
+                    if (estadoAnimal.equals("REGULAR")) {
                         estadoAnimalDTO = EstadoLimpiezaAmbiente.REGULAR;
                     }
-                    while (estadoLugar != "BUENO" && estadoAnimal != "REGULAR " && estadoLugar != "MALO") {
+                    while (!estadoLugar.equals("BUENO") && !estadoLugar.equals("REGULAR ") && !estadoLugar.equals("MALO")) {
                         System.out.println("\nValore la limpieza del lugar BUENO/MALO/REGULAR");
                         estadoLugar = scanner.nextLine();
-                        if (estadoLugar != "BUENO" && estadoLugar != "REGULAR " && estadoLugar != "MALO") {
+                        if (!estadoLugar.equals("BUENO") && !estadoLugar.equals("REGULAR ") && !estadoLugar.equals("MALO")) {
                             System.out.println("Ingrese una opcion valida.\n");
                         }
                     }
-                    if (estadoLugar == "BUENO") {
+                    if (estadoLugar.equals("BUENO")) {
                         estadoLugarDTO = EstadoLimpiezaAmbiente.BUENO;
                     }
-                    if (estadoLugar == "MALO") {
+                    if (estadoLugar.equals("MALO")) {
                         estadoLugarDTO = EstadoLimpiezaAmbiente.MALO;
                     }
-                    if (estadoLugar == "REGULAR") {
+                    if (estadoLugar.equals("REGULAR")) {
                         estadoLugarDTO = EstadoLimpiezaAmbiente.REGULAR;
                     }
-                    while (estadoAmbiente != "BUENO" && estadoAmbiente != "REGULAR " && estadoAmbiente != "MALO") {
+                    while (!estadoAmbiente.equals("BUENO") && !estadoAmbiente.equals("REGULAR ") && !estadoAmbiente.equals("MALO")) {
                         System.out.println("\nValore el ambiente donde se encuentra el animal BUENO/MALO/REGULAR");
                         estadoAmbiente = scanner.nextLine();
-                        if (estadoAmbiente != "BUENO" && estadoAmbiente != "REGULAR " && estadoAmbiente != "MALO") {
+                        if (!estadoAmbiente.equals("BUENO") && !estadoAmbiente.equals("REGULAR ") && !estadoAmbiente.equals("MALO")) {
                             System.out.println("Ingrese una opcion valida.\n");
                         }
                     }
-                    if (estadoAmbiente == "BUENO") {
+                    if (estadoAmbiente.equals("BUENO")) {
                         estadoAmbienteDTO = EstadoLimpiezaAmbiente.BUENO;
                     }
-                    if (estadoAmbiente == "MALO") {
+                    if (estadoAmbiente.equals("MALO")) {
                         estadoAmbienteDTO = EstadoLimpiezaAmbiente.MALO;
                     }
-                    if (estadoAmbiente == "REGULAR") {
+                    if (estadoAmbiente.equals("REGULAR")) {
                         estadoAmbienteDTO = EstadoLimpiezaAmbiente.REGULAR;
                     }
-                    while (continuarVisitas != "S" && continuarVisitas != "N") {
-                        System.out.println("\nValore el ambiente donde se encuentra el animal BUENO/MALO/REGULAR");
-                        estadoAmbiente = scanner.nextLine();
-                        if (continuarVisitas != "S" && continuarVisitas != "N") {
+                    while (!continuarVisitas.equals("S") && !continuarVisitas.equals("N")) {
+                        System.out.println("\nEs necesario continuar con el seguimiento? S/N");
+                        continuarVisitas = scanner.nextLine();
+                        if (!continuarVisitas.equals("S") && !continuarVisitas.equals("N")) {
                             System.out.println("Ingrese una opcion valida.\n");
                         }
                     }
-                    if (continuarVisitas == "S") {
+                    if (continuarVisitas.equals("S")) {
                         continuarVisitasBoolean = true;
                     } else {
                         continuarVisitasBoolean = false;
