@@ -88,10 +88,6 @@ public class Seguimiento {
         return visitasLista;
     }
 
-    public DatosNotificacion getDatosAdoptante(String id_adoptante){
-        // TODO Como encontrar los datos del adoptante?
-        return null;
-    }
 
     public Usuario getResponsable() {
         return responsable;

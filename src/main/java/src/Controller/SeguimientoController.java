@@ -29,12 +29,6 @@ public class SeguimientoController {
         return instancia;
     }
 
-    public void enviarRecordatorio(String id_adoptante) {
-        for (Seguimiento seguimiento : seguimientos){
-            DatosNotificacion datos = seguimiento.getDatosAdoptante(id_adoptante);
-            seguimiento.enviarRecordatorio(datos);
-        }
-    }
     public Usuario getVisitador(String idVisitador){
         for (Seguimiento seguimiento:
          this.seguimientos) {

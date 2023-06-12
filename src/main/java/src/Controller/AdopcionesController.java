@@ -129,10 +129,10 @@ public class AdopcionesController {
         }
         return null;
     }
-    public void enviarRecordatorio(String id_adoptante, String idVisitador) {
+    public void enviarRecordatorio(String idVisitador) {
         for (Adopcion adopcion : adopciones){
             if (adopcion.getSeguimiento().getResponsable().equals(UsuarioController.getInstancia().getUsuarioPorId(idVisitador))){
-                DatosNotificacion datos = adopcion.getSeguimiento().getDatosAdoptante(id_adoptante);
+                DatosNotificacion datos = new DatosNotificacion(adopcion.getAdoptante().getTelefono(),adopcion.getAdoptante().getDireccion(), adopcion.mensajeNotificacion());
                 adopcion.getSeguimiento().enviarRecordatorio(datos);
             }
 

@@ -36,4 +36,8 @@ public class Adopcion {
         return AdopcionesController.getInstancia().getDatosDeAdoptante(id_adoptante);
     }
 
+    public String mensajeNotificacion(){
+        return " Notificacion para: " + getAdoptante().getNombre() + " " + getAdoptante().getApellido() + " y " + getSeguimiento().getResponsable().getNombre() + " " + getSeguimiento().getResponsable().getNombre() + " // " +  getAnimal().getNombre() + " sera visitado el dia " + getSeguimiento().getUltimaVisita().getFechaVisita().toString();
+    }
+
 }
