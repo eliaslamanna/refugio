@@ -1,30 +1,47 @@
 package src.Model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 public class Alarma {
 
     private String idAlarma;
-    private LocalDateTime periodicidad;
+
+    private int periodicidadDias;
+    private LocalDateTime fechaLimite;
 
     private Control control;
 
-    public Alarma(LocalDateTime periodicidad, Control control) {
+    public Alarma(int periodicidad, Control control) {
 
         this.idAlarma = UUID.randomUUID().toString();
-        this.periodicidad = periodicidad;
+        this.periodicidadDias = periodicidad;
+        this.fechaLimite = LocalDateTime.now();
+        this.fechaLimite.plusDays(periodicidad);
         this.control = control;
 
     }
 
 
-    public LocalDateTime getPeriodicidad(){
-        return periodicidad;
+    public int getPeriodicidad(){
+        return periodicidadDias;
     }
 
     public String getIdAlarma(){
         return idAlarma;
+    }
+
+    public LocalDateTime getFechaLimite(){
+        return fechaLimite;
+    }
+
+    public List<Accion> getAccionesDeControl(){
+        return control.getAcciones();
+    }
+
+    public Control getControl(){
+        return this.control;
     }
 
 }

@@ -2,6 +2,7 @@ package src.DTO;
 
 import src.Model.Animal;
 import src.Model.Control;
+import src.Model.ControlRealizado;
 import src.Model.Seguimiento;
 
 import java.util.Date;
@@ -10,7 +11,7 @@ import java.util.List;
 public class HistoriaClinicaDTO {
     private Animal animal;
 
-    private List<Control> intervenciones;
+    private List<ControlRealizado> intervenciones;
 
     private Seguimiento visitasADomicilio;
 
@@ -22,7 +23,7 @@ public class HistoriaClinicaDTO {
         return animal;
     }
 
-    public List<Control> getIntervenciones() {
+    public List<ControlRealizado> getIntervenciones() {
         return intervenciones;
     }
 
@@ -42,7 +43,7 @@ public class HistoriaClinicaDTO {
         this.animal = animal;
     }
 
-    public void setIntervenciones(List<Control> intervenciones) {
+    public void setIntervenciones(List<ControlRealizado> intervenciones) {
         this.intervenciones = intervenciones;
     }
 
