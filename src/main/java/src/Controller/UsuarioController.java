@@ -45,4 +45,8 @@ public class UsuarioController {
         }
         return veterinarios;
     }
+
+    public void agregarUsuario(Usuario usuario){
+        this.usuarios.add(usuario);
+    }
 }

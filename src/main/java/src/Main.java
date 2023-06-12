@@ -487,6 +487,7 @@ public class Main {
     }
 
     private static void menuVisitador(Scanner scanner) {
+        SeguimientoController.getInstancia().enviarRecordatorio(usuarioAuntenticado.getIdUsuario());
         inicioVisitador();
 
         String opcion = scanner.nextLine();

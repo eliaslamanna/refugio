@@ -2,6 +2,7 @@ package src.Controller;
 
 import src.DTO.AdoptanteDTO;
 import src.DTO.AnimalDTO;
+import src.DTO.UsuarioDTO;
 import src.DTO.VisitaDTO;
 import src.Model.*;
 
@@ -117,6 +118,25 @@ public class AdopcionesController {
             }
         }
         return null;
+    }
+
+    public UsuarioDTO getResponsableDeSeguimiento(String animalID){
+        for (Adopcion adopcion :
+                adopciones) {
+            if (animalID == adopcion.getAnimal().getId()){
+                return adopcion.getSeguimiento().getResponsable().toDTO();
+            }
+        }
+        return null;
+    }
+    public void enviarRecordatorio(String id_adoptante, String idVisitador) {
+        for (Adopcion adopcion : adopciones){
+            if (adopcion.getSeguimiento().getResponsable().equals(UsuarioController.getInstancia().getUsuarioPorId(idVisitador))){
+                DatosNotificacion datos = adopcion.getSeguimiento().getDatosAdoptante(id_adoptante);
+                adopcion.getSeguimiento().enviarRecordatorio(datos);
+            }
+
+        }
     }
 
 }

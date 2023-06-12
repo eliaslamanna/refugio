@@ -81,7 +81,6 @@ public class ClinicaController {
     }
 
     public void agregarAlarma (String idSeguimiento, AlarmaDTO alarma) {
-
         // Se valida si existe el seguimiento y el control para añadir la alarma
         Control control = buscarControl(alarma.getControl());
         SeguimientoMedico seguimiento = buscarSeguimientoMedico(idSeguimiento);
