@@ -10,7 +10,7 @@ public class AdoptanteDTO {
     private int otrasMascotas;
 
     public AdoptanteDTO(String nombre, String apellido, String estadoCivil, String direccion, String telefono,
-                        String ocupacion, int otrasMascotas, String motivoAdopcion, String tipoAnimalInteresado, int id) {
+                        String ocupacion, int otrasMascotas, String motivoAdopcion, String tipoAnimalInteresado) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.estadoCivil = estadoCivil;

@@ -1,9 +1,19 @@
 package src;
 
+import src.Controller.AdopcionesController;
 import src.Controller.AnimalController;
+
 import src.DTO.*;
 import src.Controller.ClinicaController;
 
+import src.DTO.AnimalDTO;
+import src.DTO.AdoptanteDTO;
+import src.DTO.TipoAnimal;
+
+import src.DTO.UsuarioDTO;
+
+
+import src.Model.Adoptante;
 import src.Model.Animal;
 import src.Service.AutenticacionService;
 
@@ -141,11 +151,75 @@ public class Main {
 
     private static void gestionarAdopciones(Scanner scanner){
         inicioGestionarAdopciones();
+        String respuesta;
+        String idadoptante;
+        String idanimal;
 
         String opcion = scanner.nextLine();
         while (!opcion.equals("2")) {
             switch (opcion) {
                 case "1":
+                    System.out.println("Existe el adoptante en el sistema? S/N");
+                     respuesta = scanner.nextLine();
+                     if(respuesta.equalsIgnoreCase("s")) {
+                         System.out.println("Lista de adoptantes disponibles");
+                         System.out.println("-----------------------------");
+                         List<Adoptante> disponiblesadop = AdopcionesController.getInstancia().getaAdoptantesDisponibles();
+                         disponiblesadop.forEach(adoptante -> {
+                             System.out.println("Nombre -> " + adoptante.getNombre());
+                             System.out.println("ID -> " + adoptante.getId());
+                             System.out.println("                              ");
+                         });
+                         System.out.println("-----------------------------");
+                         System.out.println("Ingrese el Id a elegir como adoptante");
+                         idadoptante = scanner.nextLine();
+                     }
+
+                     else{
+                    System.out.println("Ingrese el nombre del adoptante:");
+                    String nombre = scanner.nextLine();
+
+                    System.out.println("Ingrese el apellido del adoptante:");
+                    String apellido = scanner.nextLine();
+
+                    System.out.println("Ingrese el estado civil del adoptante:");
+                    String estadoCivil = scanner.nextLine();
+
+                    System.out.println("Ingrese la dirección del adoptante:");
+                    String direccion = scanner.nextLine();
+
+                    System.out.println("Ingrese el número de teléfono del adoptante:");
+                    String telefono = scanner.nextLine();
+
+                    System.out.println("Ingrese la ocupación del adoptante:");
+                    String ocupacion = scanner.nextLine();
+
+                    System.out.println("Ingrese la cantidad de otras mascotas que tiene el adoptante:");
+                    int otrasMascotas = scanner.nextInt();
+                    scanner.nextLine();
+
+                    System.out.println("Ingrese el motivo de adopción del adoptante:");
+                    String motivoAdopcion = scanner.nextLine();
+
+                    System.out.println("Ingrese el tipo de animal en el que está interesado el adoptante:");
+                    String tipoAnimalInteresado = scanner.nextLine();
+                    AdoptanteDTO adoptanteDTO = new AdoptanteDTO(nombre, apellido, estadoCivil, direccion, telefono,
+                            ocupacion, otrasMascotas, motivoAdopcion, tipoAnimalInteresado);
+                    AdopcionesController.getInstancia().AltaAdoptante(adoptanteDTO);
+                }
+
+                    System.out.println("Que animal desea adoptar?");
+                    List <Animal> animalesDisp = AnimalController.getInstancia().getAnimalesDisponibles();
+                    animalesDisp.forEach(animal -> {
+                        System.out.println("Nombre -> " + animal.getNombre());
+                        System.out.println("ID -> " + animal.getId());
+                        System.out.println("-----------------------------");
+                    });
+                    idanimal = scanner.nextLine();
+                    //pedir datos seguimiento
+
+
+
                     inicioGestionarAdopciones();
                     break;
                 default:

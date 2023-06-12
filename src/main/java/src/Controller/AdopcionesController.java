@@ -50,22 +50,10 @@ public class AdopcionesController {
     public void CrearAdopcion(String idadoptante, String idmascota, int cadenciaVisita, EstrategiaNotificacion notificacion, int diasRecordatorio, String idVisitador){
         Usuario resposableSeguimiento = SeguimientoController.getInstancia().getVisitador(idVisitador);
         Adopcion adopcionParaGuardar = new Adopcion(idadoptante, idmascota,cadenciaVisita, notificacion, diasRecordatorio, resposableSeguimiento);
-        if (adopcionParaGuardar.getAnimal().getenTratamiento()) {
-            System.out.println("Error: La mascota no está disponible para adopción.");
-            return;
-        } else if (adopcionParaGuardar.getAdoptante().getOtrasMascotas() >= 2){
-            System.out.println("Este adoptante ya adoptó mas de 2 mascotas");
-
-
-        }
-        else {
-            adopciones.add(adopcionParaGuardar);
-
-        }
-
-
-
+        adopciones.add(adopcionParaGuardar);
     }
+
+
     public Adopcion obtenerAdopcion(String idAnimal) {
         for (Adopcion adopcion : adopciones) {
             if (adopcion.getAnimal().getId() == idAnimal) {
@@ -83,6 +71,28 @@ public class AdopcionesController {
             }
         }
         return null;
+    }
+
+    public boolean isDisponibleAdoptante(String idadoptante){
+        int contador = 0;
+        for (Adopcion adopcion : adopciones) {
+            if (adopcion.getAdoptante().getId().equals(idadoptante)) {
+                contador++;
+                if (contador == 2) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    public List<Adoptante> getaAdoptantesDisponibles(){
+        List <Adoptante> adoptantesDisponibles = new ArrayList<>();
+        for (Adoptante adoptante : adoptantes) {
+            if(isDisponibleAdoptante(adoptante.getId())){
+                adoptantesDisponibles.add(adoptante);
+            }
+        }
+        return adoptantesDisponibles;
     }
 
 
