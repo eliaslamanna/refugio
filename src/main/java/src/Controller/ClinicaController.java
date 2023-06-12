@@ -63,21 +63,23 @@ public class ClinicaController {
         return controles;
     }
 
-    public HistoriaClinica exportarFichaMedica(AnimalDTO animal, String metodo) {
+    public void exportarFichaMedica(AnimalDTO animal, String metodo) {
         for (HistoriaClinica historia :
                 this.historiales) {
             for (Animal animal1 : AnimalController.getInstancia().getAnimales()) {
                 if (animal.getId() == animal1.getId()) {
-                    if (metodo == "PDF"){
+                    if (metodo.equals("PDF")){
                         historia.setEstrategiaExportacion(new ExportarPDF());
-                    } else if (metodo == "EXCEL") {
+                    } else if (metodo.equals("EXCEL")) {
                         historia.setEstrategiaExportacion(new ExportarExcell());
+                    }
+                    else {
+                        System.out.println("ERROR INTERNO");
                     }
                     historia.exportarFichaMedica(animal);
                 }
             }
         }
-        return null;
     }
 
     public void agregarAlarma (String idSeguimiento, AlarmaDTO alarma) {
