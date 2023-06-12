@@ -30,4 +30,9 @@ public class AlarmaXControlDTO {
         return acciones;
     }
 
+    public void mostrarAcciones(){
+        for (int i = 0 ; i < acciones.size(); i++) {
+            System.out.println("\n Accion: "+acciones.get(i).toString()+ " ");
+        }
+    }
 }

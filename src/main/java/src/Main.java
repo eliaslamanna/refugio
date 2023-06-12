@@ -1,14 +1,13 @@
 package src;
 
 import src.Controller.AnimalController;
-import src.DTO.AnimalDTO;
-import src.DTO.TipoAnimal;
-
-import src.DTO.UsuarioDTO;
+import src.DTO.*;
+import src.Controller.ClinicaController;
 
 import src.Model.Animal;
 import src.Service.AutenticacionService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -189,6 +188,10 @@ public class Main {
         System.out.println("2. Menu anterior\n");
     }
 
+    private static void mostrarControles(){
+        List<>
+    }
+
     private static void programarAlarmas(Scanner scanner){
         inicioProgramarAlarmas();
 
@@ -208,37 +211,91 @@ public class Main {
         menuVeterinario(scanner);
     }
     private static void inicioAtenderAlarmas() {
-        System.out.println("\nQue desea hacer?");
+        System.out.println("\n Animales con alarmas activas");
         System.out.println("1. Elegir animal");
         System.out.println("2. Menu anterior\n");
     }
 
+    private static void mostrarAnimalesConAlarmas(List<AnimalXAlarmaDTO> listaAnimal){
+        System.out.println("\n Animales con alarmas activas");
+        for (int i = 0; i < listaAnimal.size(); i++){
+            int indice = i + 1;
+            System.out.println(indice+") Animal "+ listaAnimal.get(i).getNombreAnimal() + " posee: "+ listaAnimal.get(i).getCantAlarmas() + " alarmas");
+        }
+        System.out.println("\n Ingrese el numero de animal para revisar la alerta");
+        System.out.println("\n O ingrece cero para ir al Menu anterior");
+    }
+
+    private static void mostrarAlarmasConControles(List <AlarmaXControlDTO> listaAlarmas){
+        System.out.println("\n Alarmas activas");
+        for (int i = 0; i < listaAlarmas.size() ; i++){
+            int indice = i +1;
+            System.out.println(indice+") Fecha vencimiento "+ listaAlarmas.get(i).getFechaLimite());
+            listaAlarmas.get(i).mostrarAcciones();
+            System.out.println("\n --------- \n");
+        }
+        System.out.println("\n Ingrese el numero de alarma para cancelarla");
+        System.out.println("\n O ingrece cero para ir al Menu anterior");
+    }
+
+    private static void atenderAlarmasXAnimal(Scanner scanner, String idAnimal){
+        List<AlarmaXControlDTO> listaAlarmas = ClinicaController.getInstancia().traerAlarmasActivasDeSeguimiento(idAnimal);
+        mostrarAlarmasConControles(listaAlarmas);
+        String opcion = scanner.nextLine();
+
+        switch (opcion){
+            case "0":
+                break;
+
+            default:
+
+                ClinicaController.getInstancia().cancelarAlarma(listaAlarmas.get(Integer.parseInt(opcion)-1).getIdAlarma(), idAnimal);
+                break;
+        }
+
+        opcion = scanner.nextLine();
+
+
+        menuVeterinario(scanner);
+
+    }
+
+
     private static void atenderAlarmas(Scanner scanner){
-        inicioAtenderAlarmas();
+        //inicioAtenderAlarmas();
+        String idAnimalDTO;
+        List<AnimalXAlarmaDTO> listaAnimales = new ArrayList<>();
+        listaAnimales = ClinicaController.getInstancia().traerSeguimientosConAlarmasActivas();
+        mostrarAnimalesConAlarmas(listaAnimales);
 
         String opcion = scanner.nextLine();
-        while (!opcion.equals("2")) {
+
             switch (opcion) {
-                case "1":
-                    inicioAtenderAlarmas();
+                case "0":
+
                     break;
                 default:
-                    inicioAtenderAlarmas();
+                    idAnimalDTO = listaAnimales.get(Integer.parseInt(opcion) - 1).getIdAnimal();
+                    atenderAlarmasXAnimal(scanner, idAnimalDTO);
                     break;
             }
             opcion = scanner.nextLine();
-        }
+
 
         menuVeterinario(scanner);
     }
 
+
+
     private static void inicioVeterinario() {
+        int cantAlarmasActivas = ClinicaController.getInstancia().hayAlarmasActivas();
+
         System.out.println("\nQue desea hacer?");
         System.out.println("1. Gestionar Animales");
         System.out.println("2. Gestionar Adopciones");
         System.out.println("3. Gestionar Salud");
         System.out.println("4. Programar Alarmas");
-        System.out.println("5. Atender Alarmas");
+        System.out.println("5. Atender Alarmas ("+cantAlarmasActivas+")");
         System.out.println("6. menu anterior\n");
     }
 
@@ -270,6 +327,8 @@ public class Main {
         }
         inicio(scanner);
     }
+
+
 
 
     private static void inicioVisitador() {

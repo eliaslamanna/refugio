@@ -33,6 +33,7 @@ public class ClinicaController {
 
     private static ClinicaController instancia;
 
+
     private ClinicaController() {
         this.historiales = new ArrayList<>();
         this.seguimientos = new ArrayList<>();
@@ -58,8 +59,9 @@ public class ClinicaController {
         historiales.add(historiaClinica);
 
     }
-
-
+    public List<Control> getControles(){
+        return controles;
+    }
 
     public HistoriaClinica exportarFichaMedica(AnimalDTO animal) {
         for (HistoriaClinica historia :

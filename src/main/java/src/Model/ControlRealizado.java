@@ -17,4 +17,7 @@ public class ControlRealizado {
         this.fechaEjecucion = LocalDateTime.now();
     }
 
+    public Control getControl(){
+        return control;
+    }
 }
