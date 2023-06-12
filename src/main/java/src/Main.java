@@ -257,11 +257,11 @@ public class Main {
                     System.out.println("Cuantos dias de anticipacion quiere recibir el recordatorio de la visita?");
                     int diasRecordatorio = scanner.nextInt();
                     scanner.nextLine();
-                    while (medioNotificacion != "SMS" || medioNotificacion != "WHATSAPP" || medioNotificacion != "MAIL") {
-                        System.out.println("Por que medio se notificara el recordatorio? SMS/WHATSAPP/EMAIL");
+                    while (!medioNotificacion.equalsIgnoreCase("SMS") && !medioNotificacion.equalsIgnoreCase("WHATSAPP") && !medioNotificacion.equalsIgnoreCase("MAIL")) {
+                        System.out.println("Por qué medio se notificará el recordatorio? SMS/WHATSAPP/EMAIL");
                         medioNotificacion = scanner.nextLine();
-                        if (medioNotificacion != "SMS" || medioNotificacion != "WHATSAPP" || medioNotificacion != "MAIL") {
-                            System.out.println("OPCION INCORRECTA.\n");
+                        if (!medioNotificacion.equalsIgnoreCase("SMS") && !medioNotificacion.equalsIgnoreCase("WHATSAPP") && !medioNotificacion.equalsIgnoreCase("MAIL")) {
+                            System.out.println("OPCIÓN INCORRECTA.\n");
                         }
                     }
                     AdopcionesController.getInstancia().CrearAdopcion(idadoptante, idanimal, cadenciaVisitas, medioNotificacion, diasRecordatorio, idVisitadorAAsignar);
