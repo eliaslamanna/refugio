@@ -1,6 +1,8 @@
 package src.Controller;
 
 import src.DTO.AdoptanteDTO;
+import src.DTO.AnimalDTO;
+import src.DTO.VisitaDTO;
 import src.Model.*;
 
 import java.util.*;
@@ -47,9 +49,9 @@ public class AdopcionesController {
     }
 
 
-    public void CrearAdopcion(String idadoptante, String idmascota, int cadenciaVisita, EstrategiaNotificacion notificacion, int diasRecordatorio, String idVisitador){
+    public void CrearAdopcion(String idadoptante, String idmascota, int cadenciaVisita, String medioRecordatorio, int diasRecordatorio, String idVisitador){
         Usuario resposableSeguimiento = SeguimientoController.getInstancia().getVisitador(idVisitador);
-        Adopcion adopcionParaGuardar = new Adopcion(idadoptante, idmascota,cadenciaVisita, notificacion, diasRecordatorio, resposableSeguimiento);
+        Adopcion adopcionParaGuardar = new Adopcion(idadoptante, idmascota,cadenciaVisita, medioRecordatorio, diasRecordatorio, resposableSeguimiento);
         adopciones.add(adopcionParaGuardar);
     }
 
@@ -95,7 +97,26 @@ public class AdopcionesController {
         return adoptantesDisponibles;
     }
 
+    public List<AnimalDTO> getAnimalesConSeguimientoActivo(){
+        ArrayList<AnimalDTO> animales = new ArrayList<>();
+        for (Adopcion adopcion:
+             adopciones) {
+            if (adopcion.getSeguimiento().getContinuarVisitas()){
+                animales.add(adopcion.getAnimal().toDTO());
+            }
+        }
+        return animales;
+    }
 
-
+    public VisitaDTO getUltimaVisitaPorAnimal(String idAnimal){
+        VisitaDTO visita = new VisitaDTO();
+        for (Adopcion adopcion:
+                adopciones) {
+            if (adopcion.getSeguimiento().getContinuarVisitas()){
+                return adopcion.getSeguimiento().getUltimaVisita().toDTO();
+            }
+        }
+        return null;
+    }
 
 }

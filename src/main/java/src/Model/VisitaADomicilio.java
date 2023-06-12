@@ -1,5 +1,8 @@
 package src.Model;
 
+import src.DTO.EncuestaDTO;
+import src.DTO.VisitaDTO;
+
 import java.util.*;
 
 
@@ -28,8 +31,10 @@ public class VisitaADomicilio {
         this.observaciones = observaciones;
     }
 
-    public void setEncuesta(Encuesta encuesta) {
-        this.encuesta = encuesta;
+    public void setEncuesta(EncuestaDTO encuesta) {
+        this.encuesta.setAmbiente(encuesta.getAmbiente());
+        this.encuesta.setEstado(encuesta.getEstado());
+        this.encuesta.setLimpieza(encuesta.getLimpieza());
     }
 
     public Date getFechaVisita() {
@@ -42,5 +47,14 @@ public class VisitaADomicilio {
 
     public Encuesta getEncuesta() {
         return encuesta;
+    }
+
+    public VisitaDTO toDTO(){
+        VisitaDTO visitaDTO = new VisitaDTO();
+        visitaDTO.setEncuesta(encuesta.toDTO());
+        visitaDTO.setFechaVisita(this.fechaVisita);
+        visitaDTO.setObservaciones(this.observaciones);
+
+        return visitaDTO;
     }
 }

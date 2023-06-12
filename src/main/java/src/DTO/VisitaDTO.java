@@ -9,7 +9,7 @@ public class VisitaDTO {
 
     private String observaciones;
 
-    private Encuesta encuesta;
+    private EncuestaDTO encuesta;
 
     public Date getFechaVisita() {
         return fechaVisita;
@@ -19,7 +19,7 @@ public class VisitaDTO {
         return observaciones;
     }
 
-    public Encuesta getEncuesta() {
+    public EncuestaDTO getEncuesta() {
         return encuesta;
     }
 
@@ -31,7 +31,7 @@ public class VisitaDTO {
         this.observaciones = observaciones;
     }
 
-    public void setEncuesta(Encuesta encuesta) {
+    public void setEncuesta(EncuestaDTO encuesta) {
         this.encuesta = encuesta;
     }
 }

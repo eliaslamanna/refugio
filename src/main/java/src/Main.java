@@ -3,6 +3,7 @@ package src;
 import src.Controller.AdopcionesController;
 import src.Controller.AnimalController;
 
+
 import src.DTO.*;
 import src.Controller.ClinicaController;
 
@@ -18,6 +19,18 @@ import src.Model.Animal;
 import src.Service.AutenticacionService;
 
 import java.util.ArrayList;
+
+import src.Controller.SeguimientoController;
+import src.Controller.UsuarioController;
+import src.DTO.*;
+
+import src.Enum.Rol;
+import src.Model.*;
+import src.Service.AutenticacionService;
+
+import java.io.BufferedReader;
+import java.util.EnumSet;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -154,6 +167,8 @@ public class Main {
         String respuesta;
         String idadoptante;
         String idanimal;
+        String idVisitadorAAsignar;
+        String medioNotificacion = "";
 
         String opcion = scanner.nextLine();
         while (!opcion.equals("2")) {
@@ -162,9 +177,14 @@ public class Main {
                     System.out.println("Existe el adoptante en el sistema? S/N");
                      respuesta = scanner.nextLine();
                      if(respuesta.equalsIgnoreCase("s")) {
+
+                         List<Adoptante> disponiblesadop = AdopcionesController.getInstancia().getaAdoptantesDisponibles();
+                         if (disponiblesadop.size() == 0){
+                             System.out.println("NO HAY ADOPTANTES DISPONIBLES EN EL SISTEMA.\nINTRODUZCA CUALQUIER CARACTER PARA SALIR.");
+                             break;
+                         }
                          System.out.println("Lista de adoptantes disponibles");
                          System.out.println("-----------------------------");
-                         List<Adoptante> disponiblesadop = AdopcionesController.getInstancia().getaAdoptantesDisponibles();
                          disponiblesadop.forEach(adoptante -> {
                              System.out.println("Nombre -> " + adoptante.getNombre());
                              System.out.println("ID -> " + adoptante.getId());
@@ -206,21 +226,47 @@ public class Main {
                     AdoptanteDTO adoptanteDTO = new AdoptanteDTO(nombre, apellido, estadoCivil, direccion, telefono,
                             ocupacion, otrasMascotas, motivoAdopcion, tipoAnimalInteresado);
                     AdopcionesController.getInstancia().AltaAdoptante(adoptanteDTO);
+                    idadoptante = AdopcionesController.getInstancia().getaAdoptantesDisponibles().get(AdopcionesController.getInstancia().getaAdoptantesDisponibles().size()-1).getId();
                 }
 
                     System.out.println("Que animal desea adoptar?");
                     List <Animal> animalesDisp = AnimalController.getInstancia().getAnimalesDisponibles();
+                    if (animalesDisp.size() == 0){
+                        System.out.println("NO HAY ANIMALES PARA ADOPTAR EN ESTE MOMENTO.\nINTRODUZCA CUALQUIER CARACTER PARA SALIR.");
+                        break;
+                    }
                     animalesDisp.forEach(animal -> {
                         System.out.println("Nombre -> " + animal.getNombre());
                         System.out.println("ID -> " + animal.getId());
                         System.out.println("-----------------------------");
                     });
                     idanimal = scanner.nextLine();
-                    //pedir datos seguimiento
-
-
-
+                    System.out.println("Quien sera el responsable del seguimiento de la adopcion?");
+                    System.out.println("Visitadores para asignar");
+                    System.out.println("\n/-----------------------------/");
+                    List<UsuarioDTO> veterinarios_seguimiento = AutenticacionService.getInstance().getUsuariosVeterinarios();
+                    veterinarios_seguimiento.forEach(veterinario -> {
+                        System.out.println("Nombre -> " + veterinario.getNombre() + " " + veterinario.getApellido());
+                        System.out.println("ID -> " + veterinario.getIdUsuario());
+                    });
+                    System.out.println("-----------------------------");
+                    idVisitadorAAsignar = scanner.nextLine();
+                    System.out.println("Cada cuanto seran las visitas al domicilio?");
+                    int cadenciaVisitas = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.println("Cuantos dias de anticipacion quiere recibir el recordatorio de la visita?");
+                    int diasRecordatorio = scanner.nextInt();
+                    scanner.nextLine();
+                    while (medioNotificacion != "SMS" || medioNotificacion != "WHATSAPP" || medioNotificacion != "MAIL" ){
+                        System.out.println("Por que medio se notificara el recordatorio? SMS/WHATSAPP/EMAIL");
+                        medioNotificacion = scanner.nextLine();
+                        if (medioNotificacion != "SMS" || medioNotificacion != "WHATSAPP" || medioNotificacion != "MAIL" ){
+                            System.out.println("OPCION INCORRECTA.\n");
+                        }
+                    }
+                    AdopcionesController.getInstancia().CrearAdopcion(idadoptante,idanimal,cadenciaVisitas,medioNotificacion,diasRecordatorio,idVisitadorAAsignar);
                     inicioGestionarAdopciones();
+                    System.out.println("LA ADOPCION SE CARGO CORRECTAMENTE.\n");
                     break;
                 default:
                     inicioGestionarAdopciones();
@@ -228,7 +274,6 @@ public class Main {
             }
             opcion = scanner.nextLine();
         }
-
         menuVeterinario(scanner);
     }
 
@@ -491,11 +536,105 @@ public class Main {
     private static void gestionarVisitas(Scanner scanner){
         inicioGestionarVisitas();
 
+        String estadoAnimal = "";
+        String estadoAmbiente = "";
+        String estadoLugar = "";
+        String continuarVisitas = "";
         String opcion = scanner.nextLine();
+        EstadoLimpiezaAmbiente estadoAmbienteDTO = null;
+        EstadoLimpiezaAmbiente estadoLugarDTO = null;
+        EstadoLimpiezaAmbiente estadoAnimalDTO = null;
+        boolean continuarVisitasBoolean = false;
         while (!opcion.equals("2")) {
             switch (opcion) {
                 case "1":
-                    inicioGestionarVisitas();
+                    List<AnimalDTO> animalesConSeguimientoActivo = AdopcionesController.getInstancia().getAnimalesConSeguimientoActivo();
+                    if (animalesConSeguimientoActivo.size() == 0){
+                        System.out.println("\nNO HAY ANIMALES CON SEGUIMIENTOS ACTIVOS. \nINTRODUZCA CUALQUIER CARACTER PARA SALIR.");
+                        break;
+                    }
+
+                    List<Animal> animales = AnimalController.getInstancia().obtenerAnimales();
+                    System.out.println("/-----------------------------/");
+                    animales.forEach(animal -> {
+                        System.out.println("Nombre -> " + animal.getNombre());
+                        System.out.println("ID -> " + animal.getId());
+                        System.out.println("-----------------------------");
+                    });
+                    String idAnimalSeguido = scanner.nextLine();
+                    VisitaDTO visitaDTO = AdopcionesController.getInstancia().getUltimaVisitaPorAnimal(idAnimalSeguido);
+                    System.out.println("\nIngrese id del animal");
+                    String nombre = scanner.nextLine();
+                    System.out.println("\nIngrese alguna observacion sobre la visita");
+                    String observacion = scanner.nextLine();
+                    while (estadoAnimal != "BUENO" || estadoAnimal != "REGULAR " || estadoAnimal != "MALO"){
+                        System.out.println("\nIngrese el estado general del animal BUENO/MALO/REGULAR");
+                        estadoAnimal = scanner.nextLine();
+                        if (estadoAnimal != "BUENO" || estadoAnimal != "REGULAR " || estadoAnimal != "MALO"){
+                            System.out.println("Ingrese una opcion valida.\n");
+                        }
+                    }
+                    if (estadoAnimal == "BUENO" ){
+                        estadoAnimalDTO = EstadoLimpiezaAmbiente.BUENO;
+                    }
+                    if (estadoAnimal == "MALO" ){
+                        estadoAnimalDTO = EstadoLimpiezaAmbiente.MALO;
+                    }
+                    if (estadoAnimal == "REGULAR" ){
+                        estadoAnimalDTO = EstadoLimpiezaAmbiente.REGULAR;
+                    }
+                    while (estadoLugar != "BUENO" || estadoAnimal != "REGULAR " || estadoLugar != "MALO") {
+                        System.out.println("\nValore la limpieza del lugar BUENO/MALO/REGULAR");
+                        estadoLugar = scanner.nextLine();
+                        if (estadoLugar != "BUENO" || estadoLugar != "REGULAR " || estadoLugar != "MALO"){
+                            System.out.println("Ingrese una opcion valida.\n");
+                        }
+                    }
+                    if (estadoLugar == "BUENO" ){
+                        estadoLugarDTO = EstadoLimpiezaAmbiente.BUENO;
+                    }
+                    if (estadoLugar == "MALO" ){
+                        estadoLugarDTO = EstadoLimpiezaAmbiente.MALO;
+                    }
+                    if (estadoLugar == "REGULAR" ){
+                        estadoLugarDTO = EstadoLimpiezaAmbiente.REGULAR;
+                    }
+                    while (estadoAmbiente != "BUENO" || estadoAmbiente != "REGULAR " || estadoAmbiente != "MALO") {
+                        System.out.println("\nValore el ambiente donde se encuentra el animal BUENO/MALO/REGULAR");
+                        estadoAmbiente = scanner.nextLine();
+                        if (estadoAmbiente != "BUENO" || estadoAmbiente != "REGULAR " || estadoAmbiente != "MALO"){
+                            System.out.println("Ingrese una opcion valida.\n");
+                        }
+                    }
+                    if (estadoAmbiente == "BUENO" ){
+                        estadoAmbienteDTO = EstadoLimpiezaAmbiente.BUENO;
+                    }
+                    if (estadoAmbiente == "MALO" ){
+                        estadoAmbienteDTO = EstadoLimpiezaAmbiente.MALO;
+                    }
+                    if (estadoAmbiente == "REGULAR" ){
+                        estadoAmbienteDTO = EstadoLimpiezaAmbiente.REGULAR;
+                    }
+                    while (continuarVisitas != "S" || continuarVisitas != "N") {
+                        System.out.println("\nValore el ambiente donde se encuentra el animal BUENO/MALO/REGULAR");
+                        estadoAmbiente = scanner.nextLine();
+                        if (continuarVisitas != "S" || continuarVisitas != "N"){
+                            System.out.println("Ingrese una opcion valida.\n");
+                        }
+                    }
+                    if (continuarVisitas == "S"){
+                        continuarVisitasBoolean = true;
+                    }
+                    else{
+                        continuarVisitasBoolean = false;
+                    }
+                    EncuestaDTO encuestaDTO = new EncuestaDTO();
+                    encuestaDTO.setLimpieza(estadoLugarDTO);
+                    encuestaDTO.setAmbiente(estadoAmbienteDTO);
+                    encuestaDTO.setEstado(estadoAnimalDTO);
+                    visitaDTO.setObservaciones(observacion);
+                    visitaDTO.setEncuesta(encuestaDTO);
+                    SeguimientoController.getInstancia().terminarVisita(visitaDTO,idAnimalSeguido, continuarVisitasBoolean);
                     break;
                 default:
                     inicioGestionarVisitas();
@@ -503,7 +642,6 @@ public class Main {
             }
             opcion = scanner.nextLine();
         }
-
         menuVisitador(scanner);
     }
 

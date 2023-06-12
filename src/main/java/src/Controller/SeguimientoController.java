@@ -1,5 +1,6 @@
 package src.Controller;
 
+import src.DTO.AnimalDTO;
 import src.DTO.VisitaDTO;
 import src.Model.DatosNotificacion;
 import src.Model.Seguimiento;
@@ -56,9 +57,10 @@ public class SeguimientoController {
     }
 
     public void terminarVisita(VisitaDTO visita, String idAnimal, boolean continuarVisitas){
-        SeguimientoController.getInstancia().getSeguimientoByAnimal(idAnimal).getUltimaVisita().setEncuesta(visita.getEncuesta());
-        SeguimientoController.getInstancia().getSeguimientoByAnimal(idAnimal).getUltimaVisita().setObservaciones(visita.getObservaciones());
-        SeguimientoController.getInstancia().getSeguimientoByAnimal(idAnimal).setContinuarVisitas(continuarVisitas);
+        instancia.getSeguimientoByAnimal(idAnimal).getUltimaVisita().setEncuesta(visita.getEncuesta());
+        instancia.getSeguimientoByAnimal(idAnimal).getUltimaVisita().setObservaciones(visita.getObservaciones());
+        instancia.getSeguimientoByAnimal(idAnimal).setContinuarVisitas(continuarVisitas);
+        AdopcionesController.getInstancia().obtenerAdopcion(idAnimal).getSeguimiento().getUltimaVisita().setObservaciones(visita.getObservaciones());
         if (continuarVisitas){
             SeguimientoController.getInstancia().getSeguimientoByAnimal(idAnimal).crearProximaVisita();
         }
@@ -67,4 +69,6 @@ public class SeguimientoController {
     public void agregarSeguimiento(Seguimiento segumiento){
         this.seguimientos.add(segumiento);
     }
+
+
 }

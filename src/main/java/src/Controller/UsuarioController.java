@@ -35,4 +35,14 @@ public class UsuarioController {
         }
         return null;
     }
+
+    public List<UsuarioDTO> getUsuariosVeterinarios() {
+        List<UsuarioDTO> veterinarios = new ArrayList<>();
+        for (Usuario usuario : usuarios) {
+            if (usuario.getTipo() == Rol.VETERINARIO) {
+                veterinarios.add(usuario.toDTO());
+            }
+        }
+        return veterinarios;
+    }
 }

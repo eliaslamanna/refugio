@@ -11,10 +11,6 @@ import java.util.*;
 
 public class Seguimiento {
 
-
-    private Usuario Responsable;
-    private String idSeguimiento;
-
     private int cadenciaVisita;
 
     private EstrategiaNotificacion medioNotificacion;
@@ -23,15 +19,20 @@ public class Seguimiento {
 
     private int diasRecordatorio;
 
-    private List<VisitaADomicilio> visitasADomicilio = new ArrayList<>();
+    private List<VisitaADomicilio> visitasADomicilio;
 
     private Usuario responsable;
 
 
-    public Seguimiento(Usuario responsable, int cadenciaVisita, EstrategiaNotificacion medioNotificacion, int diasRecordatorio) {
-        this.idSeguimiento = UUID.randomUUID().toString();
+    public Seguimiento(Usuario responsable, int cadenciaVisita, int diasRecordatorio, String estrategia) {
         this.cadenciaVisita = cadenciaVisita;
-        this.medioNotificacion = medioNotificacion;
+        if (estrategia.equals("SMS")){
+            this.medioNotificacion = new NotificacionSMS();
+        } else if (estrategia.equals("WHATSAPP")) {
+            this.medioNotificacion = new NotificacionWhatApp();
+        } else if (estrategia.equals("EMAIL")) {
+            this.medioNotificacion = new NotificacionEmail();
+        }
         this.continuarVisitas = true;
         this.diasRecordatorio = diasRecordatorio;
         this.visitasADomicilio = generarPrimeraVisita();
@@ -89,7 +90,6 @@ public class Seguimiento {
 
     public DatosNotificacion getDatosAdoptante(String id_adoptante){
         // TODO Como encontrar los datos del adoptante?
-
         return null;
     }
 
@@ -117,18 +117,11 @@ public class Seguimiento {
         return visitasADomicilio;
     }
 
-    public String getIdSeguimiento() {
-        return idSeguimiento;
-    }
-
     public VisitaADomicilio getUltimaVisita(){
         VisitaADomicilio ultimaVisita = visitasADomicilio.get(visitasADomicilio.size()-1);
         return ultimaVisita;
     }
 
-    public void setIdSeguimiento(String idSeguimiento) {
-        this.idSeguimiento = idSeguimiento;
-    }
 
     public void setCadenciaVisita(int cadenciaVisita) {
         this.cadenciaVisita = cadenciaVisita;

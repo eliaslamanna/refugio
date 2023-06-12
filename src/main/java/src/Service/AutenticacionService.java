@@ -68,4 +68,13 @@ public class AutenticacionService {
 
     }
 
+    public List<UsuarioDTO> getUsuariosVeterinarios() {
+        List<UsuarioDTO> veterinarios = new ArrayList<>();
+        for (UsuarioDTO usuario : usuarios) {
+            if (usuario.getTipo() == Rol.VETERINARIO) {
+                veterinarios.add(usuario);
+            }
+        }
+        return veterinarios;
+    }
 }

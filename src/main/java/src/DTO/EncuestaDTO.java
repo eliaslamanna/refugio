@@ -1,20 +1,13 @@
-package src.Model;
+package src.DTO;
 
-import src.DTO.EncuestaDTO;
+import src.Model.EstadoLimpiezaAmbiente;
 
-public class Encuesta {
-
+public class EncuestaDTO {
     private EstadoLimpiezaAmbiente estado;
 
     private EstadoLimpiezaAmbiente limpieza;
 
     private EstadoLimpiezaAmbiente ambiente;
-
-    public Encuesta(EstadoLimpiezaAmbiente estado, EstadoLimpiezaAmbiente limpieza, EstadoLimpiezaAmbiente ambiente) {
-        this.estado = estado;
-        this.limpieza = limpieza;
-        this.ambiente = ambiente;
-    }
 
     public EstadoLimpiezaAmbiente getEstado() {
         return estado;
@@ -38,14 +31,5 @@ public class Encuesta {
 
     public void setAmbiente(EstadoLimpiezaAmbiente ambiente) {
         this.ambiente = ambiente;
-    }
-
-    public EncuestaDTO toDTO(){
-        EncuestaDTO encuestaDTO = new EncuestaDTO();
-        encuestaDTO.setAmbiente(this.ambiente);
-        encuestaDTO.setEstado(this.estado);
-        encuestaDTO.setLimpieza(this.limpieza);
-
-        return encuestaDTO;
     }
 }
