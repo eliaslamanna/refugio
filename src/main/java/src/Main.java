@@ -36,7 +36,8 @@ import java.util.Scanner;
 
 public class Main {
 
-    private static UsuarioDTO usuarioAuntenticado=new UsuarioDTO();
+    private static UsuarioDTO usuarioAuntenticado;
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -63,6 +64,7 @@ public class Main {
                 case "1":
 
                     System.out.println("\nIngrese el id de usuario:");
+                    usuarioAuntenticado = new UsuarioDTO();
                     usuarioAuntenticado.setIdUsuario(scanner.nextLine());
                     usuarioAuntenticado = AutenticacionService.getInstance().autenticarUsuario(usuarioAuntenticado);
 
@@ -162,7 +164,7 @@ public class Main {
         System.out.println("2. Menu anterior\n");
     }
 
-    private static void gestionarAdopciones(Scanner scanner){
+    private static void gestionarAdopciones(Scanner scanner) {
         inicioGestionarAdopciones();
         String respuesta;
         String idadoptante;
@@ -175,63 +177,61 @@ public class Main {
             switch (opcion) {
                 case "1":
                     System.out.println("Existe el adoptante en el sistema? S/N");
-                     respuesta = scanner.nextLine();
-                     if(respuesta.equalsIgnoreCase("s")) {
+                    respuesta = scanner.nextLine();
+                    if (respuesta.equalsIgnoreCase("s")) {
 
-                         List<Adoptante> disponiblesadop = AdopcionesController.getInstancia().getaAdoptantesDisponibles();
-                         if (disponiblesadop.size() == 0){
-                             System.out.println("NO HAY ADOPTANTES DISPONIBLES EN EL SISTEMA.\nINTRODUZCA CUALQUIER CARACTER PARA SALIR.");
-                             break;
-                         }
-                         System.out.println("Lista de adoptantes disponibles");
-                         System.out.println("-----------------------------");
-                         disponiblesadop.forEach(adoptante -> {
-                             System.out.println("Nombre -> " + adoptante.getNombre());
-                             System.out.println("ID -> " + adoptante.getId());
-                             System.out.println("                              ");
-                         });
-                         System.out.println("-----------------------------");
-                         System.out.println("Ingrese el Id a elegir como adoptante");
-                         idadoptante = scanner.nextLine();
-                     }
+                        List<Adoptante> disponiblesadop = AdopcionesController.getInstancia().getaAdoptantesDisponibles();
+                        if (disponiblesadop.size() == 0) {
+                            System.out.println("NO HAY ADOPTANTES DISPONIBLES EN EL SISTEMA.\nINTRODUZCA CUALQUIER CARACTER PARA SALIR.");
+                            break;
+                        }
+                        System.out.println("Lista de adoptantes disponibles");
+                        System.out.println("-----------------------------");
+                        disponiblesadop.forEach(adoptante -> {
+                            System.out.println("Nombre -> " + adoptante.getNombre());
+                            System.out.println("ID -> " + adoptante.getId());
+                            System.out.println("                              ");
+                        });
+                        System.out.println("-----------------------------");
+                        System.out.println("Ingrese el Id a elegir como adoptante");
+                        idadoptante = scanner.nextLine();
+                    } else {
+                        System.out.println("Ingrese el nombre del adoptante:");
+                        String nombre = scanner.nextLine();
 
-                     else{
-                    System.out.println("Ingrese el nombre del adoptante:");
-                    String nombre = scanner.nextLine();
+                        System.out.println("Ingrese el apellido del adoptante:");
+                        String apellido = scanner.nextLine();
 
-                    System.out.println("Ingrese el apellido del adoptante:");
-                    String apellido = scanner.nextLine();
+                        System.out.println("Ingrese el estado civil del adoptante:");
+                        String estadoCivil = scanner.nextLine();
 
-                    System.out.println("Ingrese el estado civil del adoptante:");
-                    String estadoCivil = scanner.nextLine();
+                        System.out.println("Ingrese la dirección del adoptante:");
+                        String direccion = scanner.nextLine();
 
-                    System.out.println("Ingrese la dirección del adoptante:");
-                    String direccion = scanner.nextLine();
+                        System.out.println("Ingrese el número de teléfono del adoptante:");
+                        String telefono = scanner.nextLine();
 
-                    System.out.println("Ingrese el número de teléfono del adoptante:");
-                    String telefono = scanner.nextLine();
+                        System.out.println("Ingrese la ocupación del adoptante:");
+                        String ocupacion = scanner.nextLine();
 
-                    System.out.println("Ingrese la ocupación del adoptante:");
-                    String ocupacion = scanner.nextLine();
+                        System.out.println("Ingrese la cantidad de otras mascotas que tiene el adoptante:");
+                        int otrasMascotas = scanner.nextInt();
+                        scanner.nextLine();
 
-                    System.out.println("Ingrese la cantidad de otras mascotas que tiene el adoptante:");
-                    int otrasMascotas = scanner.nextInt();
-                    scanner.nextLine();
+                        System.out.println("Ingrese el motivo de adopción del adoptante:");
+                        String motivoAdopcion = scanner.nextLine();
 
-                    System.out.println("Ingrese el motivo de adopción del adoptante:");
-                    String motivoAdopcion = scanner.nextLine();
-
-                    System.out.println("Ingrese el tipo de animal en el que está interesado el adoptante:");
-                    String tipoAnimalInteresado = scanner.nextLine();
-                    AdoptanteDTO adoptanteDTO = new AdoptanteDTO(nombre, apellido, estadoCivil, direccion, telefono,
-                            ocupacion, otrasMascotas, motivoAdopcion, tipoAnimalInteresado);
-                    AdopcionesController.getInstancia().AltaAdoptante(adoptanteDTO);
-                    idadoptante = AdopcionesController.getInstancia().getaAdoptantesDisponibles().get(AdopcionesController.getInstancia().getaAdoptantesDisponibles().size()-1).getId();
-                }
+                        System.out.println("Ingrese el tipo de animal en el que está interesado el adoptante:");
+                        String tipoAnimalInteresado = scanner.nextLine();
+                        AdoptanteDTO adoptanteDTO = new AdoptanteDTO(nombre, apellido, estadoCivil, direccion, telefono,
+                                ocupacion, otrasMascotas, motivoAdopcion, tipoAnimalInteresado);
+                        AdopcionesController.getInstancia().AltaAdoptante(adoptanteDTO);
+                        idadoptante = AdopcionesController.getInstancia().getaAdoptantesDisponibles().get(AdopcionesController.getInstancia().getaAdoptantesDisponibles().size() - 1).getId();
+                    }
 
                     System.out.println("Que animal desea adoptar?");
-                    List <Animal> animalesDisp = AnimalController.getInstancia().getAnimalesDisponibles();
-                    if (animalesDisp.size() == 0){
+                    List<Animal> animalesDisp = AnimalController.getInstancia().getAnimalesDisponibles();
+                    if (animalesDisp.size() == 0) {
                         System.out.println("NO HAY ANIMALES PARA ADOPTAR EN ESTE MOMENTO.\nINTRODUZCA CUALQUIER CARACTER PARA SALIR.");
                         break;
                     }
@@ -257,14 +257,14 @@ public class Main {
                     System.out.println("Cuantos dias de anticipacion quiere recibir el recordatorio de la visita?");
                     int diasRecordatorio = scanner.nextInt();
                     scanner.nextLine();
-                    while (medioNotificacion != "SMS" || medioNotificacion != "WHATSAPP" || medioNotificacion != "MAIL" ){
+                    while (medioNotificacion != "SMS" || medioNotificacion != "WHATSAPP" || medioNotificacion != "MAIL") {
                         System.out.println("Por que medio se notificara el recordatorio? SMS/WHATSAPP/EMAIL");
                         medioNotificacion = scanner.nextLine();
-                        if (medioNotificacion != "SMS" || medioNotificacion != "WHATSAPP" || medioNotificacion != "MAIL" ){
+                        if (medioNotificacion != "SMS" || medioNotificacion != "WHATSAPP" || medioNotificacion != "MAIL") {
                             System.out.println("OPCION INCORRECTA.\n");
                         }
                     }
-                    AdopcionesController.getInstancia().CrearAdopcion(idadoptante,idanimal,cadenciaVisitas,medioNotificacion,diasRecordatorio,idVisitadorAAsignar);
+                    AdopcionesController.getInstancia().CrearAdopcion(idadoptante, idanimal, cadenciaVisitas, medioNotificacion, diasRecordatorio, idVisitadorAAsignar);
                     inicioGestionarAdopciones();
                     System.out.println("LA ADOPCION SE CARGO CORRECTAMENTE.\n");
                     break;
@@ -283,7 +283,7 @@ public class Main {
         System.out.println("2. Menu anterior\n");
     }
 
-    private static void gestionarSalud(Scanner scanner){
+    private static void gestionarSalud(Scanner scanner) {
         inicioGestionarSalud();
 
         String opcion = scanner.nextLine();
@@ -298,8 +298,8 @@ public class Main {
                         System.out.println("-----------------------------");
                     });
                     String idAnimal = scanner.nextLine();
-                    AnimalDTO animal =  AnimalController.getInstancia().buscarAnimal(idAnimal).toDTO();
-                    if (animal == null){
+                    AnimalDTO animal = AnimalController.getInstancia().buscarAnimal(idAnimal).toDTO();
+                    if (animal == null) {
                         System.out.println("EL ANIMAL NO EXISTE");
                         break;
                     }
@@ -307,13 +307,13 @@ public class Main {
                     System.out.println("1. PDF");
                     System.out.println("2. Excel");
                     String opcion2 = "";
-                    while (opcion2 != "1" || opcion2 != "2" ){
+                    while (opcion2 != "1" || opcion2 != "2") {
                         opcion2 = scanner.nextLine();
-                        if (opcion2 != "1" || opcion2 != "2" ){
+                        if (opcion2 != "1" || opcion2 != "2") {
                             System.out.println("\nVALOR INCORRECTE");
                             System.out.println("\nINTRODUZCA ALGUN CARACTER PARA CONTINUAR");
                         }
-                        switch (opcion2){
+                        switch (opcion2) {
                             case "1":
                                 ClinicaController.getInstancia().exportarFichaMedica(animal, "PDF");
                             case "2":
@@ -330,17 +330,14 @@ public class Main {
 
         menuVeterinario(scanner);
     }
+
     private static void inicioProgramarAlarmas() {
         System.out.println("\nQue desea hacer?");
         System.out.println("1. Elegir animal");
         System.out.println("2. Menu anterior\n");
     }
 
-    private static void mostrarControles(){
-        List<>
-    }
-
-    private static void programarAlarmas(Scanner scanner){
+    private static void programarAlarmas(Scanner scanner) {
         inicioProgramarAlarmas();
 
         String opcion = scanner.nextLine();
@@ -358,27 +355,28 @@ public class Main {
 
         menuVeterinario(scanner);
     }
+
     private static void inicioAtenderAlarmas() {
         System.out.println("\n Animales con alarmas activas");
         System.out.println("1. Elegir animal");
         System.out.println("2. Menu anterior\n");
     }
 
-    private static void mostrarAnimalesConAlarmas(List<AnimalXAlarmaDTO> listaAnimal){
+    private static void mostrarAnimalesConAlarmas(List<AnimalXAlarmaDTO> listaAnimal) {
         System.out.println("\n Animales con alarmas activas");
-        for (int i = 0; i < listaAnimal.size(); i++){
+        for (int i = 0; i < listaAnimal.size(); i++) {
             int indice = i + 1;
-            System.out.println(indice+") Animal "+ listaAnimal.get(i).getNombreAnimal() + " posee: "+ listaAnimal.get(i).getCantAlarmas() + " alarmas");
+            System.out.println(indice + ") Animal " + listaAnimal.get(i).getNombreAnimal() + " posee: " + listaAnimal.get(i).getCantAlarmas() + " alarmas");
         }
         System.out.println("\n Ingrese el numero de animal para revisar la alerta");
         System.out.println("\n O ingrece cero para ir al Menu anterior");
     }
 
-    private static void mostrarAlarmasConControles(List <AlarmaXControlDTO> listaAlarmas){
+    private static void mostrarAlarmasConControles(List<AlarmaXControlDTO> listaAlarmas) {
         System.out.println("\n Alarmas activas");
-        for (int i = 0; i < listaAlarmas.size() ; i++){
-            int indice = i +1;
-            System.out.println(indice+") Fecha vencimiento "+ listaAlarmas.get(i).getFechaLimite());
+        for (int i = 0; i < listaAlarmas.size(); i++) {
+            int indice = i + 1;
+            System.out.println(indice + ") Fecha vencimiento " + listaAlarmas.get(i).getFechaLimite());
             listaAlarmas.get(i).mostrarAcciones();
             System.out.println("\n --------- \n");
         }
@@ -386,18 +384,18 @@ public class Main {
         System.out.println("\n O ingrece cero para ir al Menu anterior");
     }
 
-    private static void atenderAlarmasXAnimal(Scanner scanner, String idAnimal){
+    private static void atenderAlarmasXAnimal(Scanner scanner, String idAnimal) {
         List<AlarmaXControlDTO> listaAlarmas = ClinicaController.getInstancia().traerAlarmasActivasDeSeguimiento(idAnimal);
         mostrarAlarmasConControles(listaAlarmas);
         String opcion = scanner.nextLine();
 
-        switch (opcion){
+        switch (opcion) {
             case "0":
                 break;
 
             default:
 
-                ClinicaController.getInstancia().cancelarAlarma(listaAlarmas.get(Integer.parseInt(opcion)-1).getIdAlarma(), idAnimal);
+                ClinicaController.getInstancia().cancelarAlarma(listaAlarmas.get(Integer.parseInt(opcion) - 1).getIdAlarma(), idAnimal);
                 break;
         }
 
@@ -409,7 +407,7 @@ public class Main {
     }
 
 
-    private static void atenderAlarmas(Scanner scanner){
+    private static void atenderAlarmas(Scanner scanner) {
         //inicioAtenderAlarmas();
         String idAnimalDTO;
         List<AnimalXAlarmaDTO> listaAnimales = new ArrayList<>();
@@ -418,21 +416,20 @@ public class Main {
 
         String opcion = scanner.nextLine();
 
-            switch (opcion) {
-                case "0":
+        switch (opcion) {
+            case "0":
 
-                    break;
-                default:
-                    idAnimalDTO = listaAnimales.get(Integer.parseInt(opcion) - 1).getIdAnimal();
-                    atenderAlarmasXAnimal(scanner, idAnimalDTO);
-                    break;
-            }
-            opcion = scanner.nextLine();
+                break;
+            default:
+                idAnimalDTO = listaAnimales.get(Integer.parseInt(opcion) - 1).getIdAnimal();
+                atenderAlarmasXAnimal(scanner, idAnimalDTO);
+                break;
+        }
+        opcion = scanner.nextLine();
 
 
         menuVeterinario(scanner);
     }
-
 
 
     private static void inicioVeterinario() {
@@ -443,7 +440,7 @@ public class Main {
         System.out.println("2. Gestionar Adopciones");
         System.out.println("3. Gestionar Salud");
         System.out.println("4. Programar Alarmas");
-        System.out.println("5. Atender Alarmas ("+cantAlarmasActivas+")");
+        System.out.println("5. Atender Alarmas (" + cantAlarmasActivas + ")");
         System.out.println("6. menu anterior\n");
     }
 
@@ -475,8 +472,6 @@ public class Main {
         }
         inicio(scanner);
     }
-
-
 
 
     private static void inicioVisitador() {
@@ -563,7 +558,7 @@ public class Main {
         System.out.println("2. Menu anterior\n");
     }
 
-    private static void gestionarVisitas(Scanner scanner){
+    private static void gestionarVisitas(Scanner scanner) {
         inicioGestionarVisitas();
 
         String estadoAnimal = "";
@@ -579,7 +574,7 @@ public class Main {
             switch (opcion) {
                 case "1":
                     List<AnimalDTO> animalesConSeguimientoActivo = AdopcionesController.getInstancia().getAnimalesConSeguimientoActivo();
-                    if (animalesConSeguimientoActivo.size() == 0){
+                    if (animalesConSeguimientoActivo.size() == 0) {
                         System.out.println("\nNO HAY ANIMALES CON SEGUIMIENTOS ACTIVOS. \nINTRODUZCA CUALQUIER CARACTER PARA SALIR.");
                         break;
                     }
@@ -597,65 +592,64 @@ public class Main {
                     String nombre = scanner.nextLine();
                     System.out.println("\nIngrese alguna observacion sobre la visita");
                     String observacion = scanner.nextLine();
-                    while (estadoAnimal != "BUENO" || estadoAnimal != "REGULAR " || estadoAnimal != "MALO"){
+                    while (estadoAnimal != "BUENO" || estadoAnimal != "REGULAR " || estadoAnimal != "MALO") {
                         System.out.println("\nIngrese el estado general del animal BUENO/MALO/REGULAR");
                         estadoAnimal = scanner.nextLine();
-                        if (estadoAnimal != "BUENO" || estadoAnimal != "REGULAR " || estadoAnimal != "MALO"){
+                        if (estadoAnimal != "BUENO" || estadoAnimal != "REGULAR " || estadoAnimal != "MALO") {
                             System.out.println("Ingrese una opcion valida.\n");
                         }
                     }
-                    if (estadoAnimal == "BUENO" ){
+                    if (estadoAnimal == "BUENO") {
                         estadoAnimalDTO = EstadoLimpiezaAmbiente.BUENO;
                     }
-                    if (estadoAnimal == "MALO" ){
+                    if (estadoAnimal == "MALO") {
                         estadoAnimalDTO = EstadoLimpiezaAmbiente.MALO;
                     }
-                    if (estadoAnimal == "REGULAR" ){
+                    if (estadoAnimal == "REGULAR") {
                         estadoAnimalDTO = EstadoLimpiezaAmbiente.REGULAR;
                     }
                     while (estadoLugar != "BUENO" || estadoAnimal != "REGULAR " || estadoLugar != "MALO") {
                         System.out.println("\nValore la limpieza del lugar BUENO/MALO/REGULAR");
                         estadoLugar = scanner.nextLine();
-                        if (estadoLugar != "BUENO" || estadoLugar != "REGULAR " || estadoLugar != "MALO"){
+                        if (estadoLugar != "BUENO" || estadoLugar != "REGULAR " || estadoLugar != "MALO") {
                             System.out.println("Ingrese una opcion valida.\n");
                         }
                     }
-                    if (estadoLugar == "BUENO" ){
+                    if (estadoLugar == "BUENO") {
                         estadoLugarDTO = EstadoLimpiezaAmbiente.BUENO;
                     }
-                    if (estadoLugar == "MALO" ){
+                    if (estadoLugar == "MALO") {
                         estadoLugarDTO = EstadoLimpiezaAmbiente.MALO;
                     }
-                    if (estadoLugar == "REGULAR" ){
+                    if (estadoLugar == "REGULAR") {
                         estadoLugarDTO = EstadoLimpiezaAmbiente.REGULAR;
                     }
                     while (estadoAmbiente != "BUENO" || estadoAmbiente != "REGULAR " || estadoAmbiente != "MALO") {
                         System.out.println("\nValore el ambiente donde se encuentra el animal BUENO/MALO/REGULAR");
                         estadoAmbiente = scanner.nextLine();
-                        if (estadoAmbiente != "BUENO" || estadoAmbiente != "REGULAR " || estadoAmbiente != "MALO"){
+                        if (estadoAmbiente != "BUENO" || estadoAmbiente != "REGULAR " || estadoAmbiente != "MALO") {
                             System.out.println("Ingrese una opcion valida.\n");
                         }
                     }
-                    if (estadoAmbiente == "BUENO" ){
+                    if (estadoAmbiente == "BUENO") {
                         estadoAmbienteDTO = EstadoLimpiezaAmbiente.BUENO;
                     }
-                    if (estadoAmbiente == "MALO" ){
+                    if (estadoAmbiente == "MALO") {
                         estadoAmbienteDTO = EstadoLimpiezaAmbiente.MALO;
                     }
-                    if (estadoAmbiente == "REGULAR" ){
+                    if (estadoAmbiente == "REGULAR") {
                         estadoAmbienteDTO = EstadoLimpiezaAmbiente.REGULAR;
                     }
                     while (continuarVisitas != "S" || continuarVisitas != "N") {
                         System.out.println("\nValore el ambiente donde se encuentra el animal BUENO/MALO/REGULAR");
                         estadoAmbiente = scanner.nextLine();
-                        if (continuarVisitas != "S" || continuarVisitas != "N"){
+                        if (continuarVisitas != "S" || continuarVisitas != "N") {
                             System.out.println("Ingrese una opcion valida.\n");
                         }
                     }
-                    if (continuarVisitas == "S"){
+                    if (continuarVisitas == "S") {
                         continuarVisitasBoolean = true;
-                    }
-                    else{
+                    } else {
                         continuarVisitasBoolean = false;
                     }
                     EncuestaDTO encuestaDTO = new EncuestaDTO();
@@ -664,7 +658,7 @@ public class Main {
                     encuestaDTO.setEstado(estadoAnimalDTO);
                     visitaDTO.setObservaciones(observacion);
                     visitaDTO.setEncuesta(encuestaDTO);
-                    SeguimientoController.getInstancia().terminarVisita(visitaDTO,idAnimalSeguido, continuarVisitasBoolean);
+                    SeguimientoController.getInstancia().terminarVisita(visitaDTO, idAnimalSeguido, continuarVisitasBoolean);
                     break;
                 default:
                     inicioGestionarVisitas();
