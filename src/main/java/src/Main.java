@@ -307,9 +307,9 @@ public class Main {
                     System.out.println("1. PDF");
                     System.out.println("2. Excel");
                     String opcion2 = "";
-                    while (opcion2 != "1" || opcion2 != "2") {
+                    while (opcion2 != "1" && opcion2 != "2") {
                         opcion2 = scanner.nextLine();
-                        if (opcion2 != "1" || opcion2 != "2") {
+                        if (opcion2 != "1" && opcion2 != "2") {
                             System.out.println("\nVALOR INCORRECTE");
                             System.out.println("\nINTRODUZCA ALGUN CARACTER PARA CONTINUAR");
                         }
@@ -592,10 +592,10 @@ public class Main {
                     String nombre = scanner.nextLine();
                     System.out.println("\nIngrese alguna observacion sobre la visita");
                     String observacion = scanner.nextLine();
-                    while (estadoAnimal != "BUENO" || estadoAnimal != "REGULAR " || estadoAnimal != "MALO") {
+                    while (estadoAnimal != "BUENO" && estadoAnimal != "REGULAR " && estadoAnimal != "MALO") {
                         System.out.println("\nIngrese el estado general del animal BUENO/MALO/REGULAR");
                         estadoAnimal = scanner.nextLine();
-                        if (estadoAnimal != "BUENO" || estadoAnimal != "REGULAR " || estadoAnimal != "MALO") {
+                        if (estadoAnimal != "BUENO" && estadoAnimal != "REGULAR " && estadoAnimal != "MALO") {
                             System.out.println("Ingrese una opcion valida.\n");
                         }
                     }
@@ -608,10 +608,10 @@ public class Main {
                     if (estadoAnimal == "REGULAR") {
                         estadoAnimalDTO = EstadoLimpiezaAmbiente.REGULAR;
                     }
-                    while (estadoLugar != "BUENO" || estadoAnimal != "REGULAR " || estadoLugar != "MALO") {
+                    while (estadoLugar != "BUENO" && estadoAnimal != "REGULAR " && estadoLugar != "MALO") {
                         System.out.println("\nValore la limpieza del lugar BUENO/MALO/REGULAR");
                         estadoLugar = scanner.nextLine();
-                        if (estadoLugar != "BUENO" || estadoLugar != "REGULAR " || estadoLugar != "MALO") {
+                        if (estadoLugar != "BUENO" && estadoLugar != "REGULAR " && estadoLugar != "MALO") {
                             System.out.println("Ingrese una opcion valida.\n");
                         }
                     }
@@ -624,10 +624,10 @@ public class Main {
                     if (estadoLugar == "REGULAR") {
                         estadoLugarDTO = EstadoLimpiezaAmbiente.REGULAR;
                     }
-                    while (estadoAmbiente != "BUENO" || estadoAmbiente != "REGULAR " || estadoAmbiente != "MALO") {
+                    while (estadoAmbiente != "BUENO" && estadoAmbiente != "REGULAR " && estadoAmbiente != "MALO") {
                         System.out.println("\nValore el ambiente donde se encuentra el animal BUENO/MALO/REGULAR");
                         estadoAmbiente = scanner.nextLine();
-                        if (estadoAmbiente != "BUENO" || estadoAmbiente != "REGULAR " || estadoAmbiente != "MALO") {
+                        if (estadoAmbiente != "BUENO" && estadoAmbiente != "REGULAR " && estadoAmbiente != "MALO") {
                             System.out.println("Ingrese una opcion valida.\n");
                         }
                     }
@@ -640,10 +640,10 @@ public class Main {
                     if (estadoAmbiente == "REGULAR") {
                         estadoAmbienteDTO = EstadoLimpiezaAmbiente.REGULAR;
                     }
-                    while (continuarVisitas != "S" || continuarVisitas != "N") {
+                    while (continuarVisitas != "S" && continuarVisitas != "N") {
                         System.out.println("\nValore el ambiente donde se encuentra el animal BUENO/MALO/REGULAR");
                         estadoAmbiente = scanner.nextLine();
-                        if (continuarVisitas != "S" || continuarVisitas != "N") {
+                        if (continuarVisitas != "S" && continuarVisitas != "N") {
                             System.out.println("Ingrese una opcion valida.\n");
                         }
                     }
