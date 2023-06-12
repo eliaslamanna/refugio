@@ -4,15 +4,17 @@ import java.time.LocalDateTime;
 
 public class AlarmaDTO {
 
-    private LocalDateTime periodicidad;
+    private int periodicidad;
 
     private String idControl;
 
-    public LocalDateTime getPeriodicidad() {
+
+
+    public int getPeriodicidad() {
         return this.periodicidad;
     }
 
-    public void setPeriodicidad(LocalDateTime periodicidad){
+    public void setPeriodicidad(int periodicidad){
         this.periodicidad = periodicidad;
     }
 

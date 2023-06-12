@@ -11,7 +11,7 @@ public class HistoriaClinica {
     
     private Animal _animal;
     
-    private List<Control> intervenciones;
+    private List<ControlRealizado> intervenciones;
     
     private Seguimiento visitasADomicilio;
     
@@ -42,7 +42,7 @@ public class HistoriaClinica {
         this._animal = animal;
     }
 
-    public void setIntervenciones(List<Control> intervenciones) {
+    public void setIntervenciones(List<ControlRealizado> intervenciones) {
         this.intervenciones = intervenciones;
     }
 
@@ -62,8 +62,12 @@ public class HistoriaClinica {
         return _animal;
     }
 
-    public List<Control> getIntervenciones() {
+    public List<ControlRealizado> getIntervenciones() {
         return intervenciones;
+    }
+
+    public void agregarIntervencion(ControlRealizado control){
+        intervenciones.add(control);
     }
 
     public Seguimiento getVisitasADomicilio() {
