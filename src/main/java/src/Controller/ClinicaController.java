@@ -63,11 +63,16 @@ public class ClinicaController {
         return controles;
     }
 
-    public HistoriaClinica exportarFichaMedica(AnimalDTO animal) {
+    public HistoriaClinica exportarFichaMedica(AnimalDTO animal, String metodo) {
         for (HistoriaClinica historia :
                 this.historiales) {
             for (Animal animal1 : AnimalController.getInstancia().getAnimales()) {
                 if (animal.getId() == animal1.getId()) {
+                    if (metodo == "PDF"){
+                        historia.setEstrategiaExportacion(new ExportarPDF());
+                    } else if (metodo == "EXCEL") {
+                        historia.setEstrategiaExportacion(new ExportarExcell());
+                    }
                     historia.exportarFichaMedica(animal);
                 }
             }

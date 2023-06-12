@@ -2,6 +2,8 @@ package src.Model;
 
 import src.DTO.HistoriaClinicaDTO;
 
+import java.util.Date;
+
 public class ExportarExcell implements EstrategiaExportacion {
     public void exportar(HistoriaClinicaDTO historia) {
         System.out.println("EXPORTACION EN EXCEL");
@@ -26,6 +28,20 @@ public class ExportarExcell implements EstrategiaExportacion {
                     System.out .println("En tratamiento");
                 }
                 System.out .println(" ");
+
+            }
+            System.out.println("Visitas a domicilio: ");
+            Date hoy = new Date();
+            for (VisitaADomicilio visita:
+                 historia.getVisitasADomicilio().getVisitasADomicilio()) {
+                    if (visita.getFechaVisita().before(hoy)){
+                        System.out .println("Fecha: " + visita.getFechaVisita().toString());
+                        System.out .println("Observaciones: " + visita.getObservaciones());
+                        System.out .println("Estado general del animal: " + visita.getEncuesta().getEstado().toString());
+                        System.out .println("Estado del ambiente: " + visita.getEncuesta().getAmbiente().toString());
+                        System.out .println("Estado de la limpieza : " + visita.getEncuesta().getLimpieza().toString());
+                        System.out.println("");
+                    }
 
             }
         }

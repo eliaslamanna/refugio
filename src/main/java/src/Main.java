@@ -290,7 +290,36 @@ public class Main {
         while (!opcion.equals("2")) {
             switch (opcion) {
                 case "1":
-                    inicioGestionarSalud();
+                    System.out.println("\nElige el animal por id");
+                    List<Animal> animales = AnimalController.getInstancia().obtenerAnimales();
+                    animales.forEach(animal -> {
+                        System.out.println("Nombre -> " + animal.getNombre());
+                        System.out.println("ID -> " + animal.getId());
+                        System.out.println("-----------------------------");
+                    });
+                    String idAnimal = scanner.nextLine();
+                    AnimalDTO animal =  AnimalController.getInstancia().buscarAnimal(idAnimal).toDTO();
+                    if (animal == null){
+                        System.out.println("EL ANIMAL NO EXISTE");
+                        break;
+                    }
+                    System.out.println("\nEn que formato deseas exportar la ficha medica?");
+                    System.out.println("1. PDF");
+                    System.out.println("2. Excel");
+                    String opcion2 = "";
+                    while (opcion2 != "1" || opcion2 != "2" ){
+                        opcion2 = scanner.nextLine();
+                        if (opcion2 != "1" || opcion2 != "2" ){
+                            System.out.println("\nVALOR INCORRECTE");
+                            System.out.println("\nINTRODUZCA ALGUN CARACTER PARA CONTINUAR");
+                        }
+                        switch (opcion2){
+                            case "1":
+                                ClinicaController.getInstancia().exportarFichaMedica(animal, "PDF");
+                            case "2":
+                                ClinicaController.getInstancia().exportarFichaMedica(animal, "EXCEL");
+                        }
+                    }
                     break;
                 default:
                     inicioGestionarSalud();
