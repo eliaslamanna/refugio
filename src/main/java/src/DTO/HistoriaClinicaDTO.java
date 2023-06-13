@@ -5,6 +5,7 @@ import src.Model.Control;
 import src.Model.ControlRealizado;
 import src.Model.Seguimiento;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class HistoriaClinicaDTO {
 
     private List<ControlRealizado> intervenciones;
 
-    private Seguimiento visitasADomicilio;
+    private Seguimiento visitasADomicilio ;
 
     private Date fechaDeCreacion;
 

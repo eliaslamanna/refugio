@@ -23,19 +23,14 @@ public class HistoriaClinica {
 
     public HistoriaClinica (Animal animal, Usuario veterinario){
         _animal = animal;
-
+        intervenciones = new ArrayList<>();
+        fechaDeCreacion = new Date();
+        ultimoCambio = new Date();
         //generar los controles para el animal y agregar el veterinario que controla
-
     }
 
-    public void exportarFichaMedica(AnimalDTO animal) {
-        for (Animal animal1:
-                AnimalController.getInstancia().getAnimales()) {
-            if (animal1.getId() == animal.getId()){
+    public void exportarFichaMedica() {
                 estrategiaExportacion.exportar(this.toDTO());
-            }
-        }
-
     }
 
     public void setAnimal(Animal animal) {

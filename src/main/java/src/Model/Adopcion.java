@@ -40,4 +40,5 @@ public class Adopcion {
         return " Notificacion para: " + getAdoptante().getNombre() + " " + getAdoptante().getApellido() + " y " + getSeguimiento().getResponsable().getNombre() + " " + getSeguimiento().getResponsable().getNombre() + " // " +  getAnimal().getNombre() + " sera visitado el dia " + getSeguimiento().getUltimaVisita().getFechaVisita().toString();
     }
 
+
 }

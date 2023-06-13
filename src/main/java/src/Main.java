@@ -118,7 +118,7 @@ public class Main {
                     System.out.println("El animal es Salvaje o Domestico? -> S/D");
                     String tipo = scanner.nextLine();
                     TipoAnimal tipoAnimal = tipo.equals("S") ? TipoAnimal.SALVAJE : TipoAnimal.DOMESTICO;
-                    AnimalDTO animalDTO = new AnimalDTO(nombre, edadAprox, peso, altura, condicionMedica, tipoAnimal);
+                    AnimalDTO animalDTO = new AnimalDTO("",nombre, edadAprox, peso, altura, condicionMedica, tipoAnimal);
                     AnimalController.getInstancia().ingresarAnimal(animalDTO, usuarioAuntenticado);
                     inicioGestionarAnimalesVeterinario();
                     break;
@@ -299,6 +299,7 @@ public class Main {
                     });
                     String idAnimal = scanner.nextLine();
                     AnimalDTO animal = AnimalController.getInstancia().buscarAnimal(idAnimal).toDTO();
+                    animal.setId(idAnimal);
                     if (animal == null) {
                         System.out.println("EL ANIMAL NO EXISTE");
                         break;
@@ -317,8 +318,10 @@ public class Main {
                         switch (opcion2) {
                             case "1":
                                 ClinicaController.getInstancia().exportarFichaMedica(animal, "PDF");
+                                break;
                             case "2":
                                 ClinicaController.getInstancia().exportarFichaMedica(animal, "EXCEL");
+                                break;
                         }
                     }
                     break;

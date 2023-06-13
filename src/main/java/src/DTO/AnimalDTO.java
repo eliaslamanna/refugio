@@ -21,7 +21,7 @@ public class AnimalDTO {
 
 
 
-    public AnimalDTO(String nombre, Integer edadAprox, Double peso, Double altura, String condicionMedica, TipoAnimal tipoAnimal) {
+    public AnimalDTO(String id, String nombre, Integer edadAprox, Double peso, Double altura, String condicionMedica, TipoAnimal tipoAnimal) {
         this.nombre = nombre;
         this.edadAprox = edadAprox;
         this.peso = peso;

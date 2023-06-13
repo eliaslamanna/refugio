@@ -67,7 +67,7 @@ public class ClinicaController {
         for (HistoriaClinica historia :
                 this.historiales) {
             for (Animal animal1 : AnimalController.getInstancia().getAnimales()) {
-                if (animal.getId() == animal1.getId()) {
+                if (animal.getId().equals(animal1.getId())) {
                     if (metodo.equals("PDF")){
                         historia.setEstrategiaExportacion(new ExportarPDF());
                     } else if (metodo.equals("EXCEL")) {
@@ -76,7 +76,7 @@ public class ClinicaController {
                     else {
                         System.out.println("ERROR INTERNO");
                     }
-                    historia.exportarFichaMedica(animal);
+                    historia.exportarFichaMedica();
                 }
             }
         }

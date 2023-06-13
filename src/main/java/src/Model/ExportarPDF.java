@@ -6,9 +6,14 @@ import java.util.Date;
 
 public class ExportarPDF implements EstrategiaExportacion {
     public void exportar(HistoriaClinicaDTO historia) {
-        System.out.println("EXPORTACION EN EXCEL");
+        System.out.println("EXPORTACION EN PDF");
+        System.out.println("Nombre: " + historia.getAnimal().getNombre());
+        System.out.println("Tipo: " + historia.getAnimal().getTipoAnimal().toString());
         for (ControlRealizado control:
                 historia.getIntervenciones()) {
+            if (control == null){
+                System.out.println("Todavia no se realizaron controles sobre este animal.");
+            }
             System.out.println("Control:" );
             System.out.println("Fecha: " + control.getControl().getMomentoDeEjecucion().toString());
             System.out.println("Veterinario: " + control.getControl().getVeterinario());

@@ -101,7 +101,7 @@ public class Animal {
     }
 
     public AnimalDTO toDTO() {
-        AnimalDTO animalDTO = new AnimalDTO(this.nombre,this.edadAprox,this.peso,this.altura,this.condicionMedica
+        AnimalDTO animalDTO = new AnimalDTO(this.id,this.nombre,this.edadAprox,this.peso,this.altura,this.condicionMedica
                 ,this.tipoAnimal);
 
         return animalDTO;

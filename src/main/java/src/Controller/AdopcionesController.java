@@ -54,6 +54,8 @@ public class AdopcionesController {
         Usuario resposableSeguimiento = SeguimientoController.getInstancia().getVisitador(idVisitador);
         Adopcion adopcionParaGuardar = new Adopcion(idadoptante, idmascota,cadenciaVisita, medioRecordatorio, diasRecordatorio, resposableSeguimiento);
         adopciones.add(adopcionParaGuardar);
+        HistoriaClinica historia =  ClinicaController.getInstancia().buscarHistoriaClinicaXAnimal(idmascota);
+        historia.setVisitasADomicilio(adopcionParaGuardar.getSeguimiento());
     }
 
 
