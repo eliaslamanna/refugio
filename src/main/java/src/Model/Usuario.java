@@ -2,8 +2,7 @@ package src.Model;
 
 import src.Enum.Rol;
 import src.DTO.UsuarioDTO;
-
-import java.util.*;
+import src.Service.AdapterServicioAutenticacion;
 
 
 public class Usuario {
@@ -21,8 +20,10 @@ public class Usuario {
     private String dni;
 
     private Rol tipo;
+    private boolean autenticado;
 
-    public Usuario(String idUsuario, String nombre, String apellido, String telefono, String mail, String dni, Rol tipo) {
+    public Usuario(){}
+    public Usuario(String idUsuario, String nombre, String apellido, String telefono, String mail, String dni, Rol tipo, boolean autenticado) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -30,11 +31,12 @@ public class Usuario {
         this.mail = mail;
         this.dni = dni;
         this.tipo = tipo;
+        this.autenticado = autenticado;
     }
 
     public static Usuario toObject(UsuarioDTO usuarioDTO) {
         Usuario usuario = new Usuario(usuarioDTO.getIdUsuario(), usuarioDTO.getNombre(), usuarioDTO.getApellido()
-                , usuarioDTO.getTelefono(), usuarioDTO.getMail(), usuarioDTO.getDni(), usuarioDTO.getTipo());
+                , usuarioDTO.getTelefono(), usuarioDTO.getMail(), usuarioDTO.getDni(), usuarioDTO.getTipo(),usuarioDTO.isAutenticado());
 
         return usuario;
     }
@@ -96,17 +98,14 @@ public class Usuario {
     }
 
     public UsuarioDTO toDTO() {
-        UsuarioDTO usuarioDTO = new UsuarioDTO();
-
-        usuarioDTO.setIdUsuario(this.idUsuario);
-        usuarioDTO.setNombre(this.nombre);
-        usuarioDTO.setApellido(this.apellido);
-        usuarioDTO.setDni(this.dni);
-        usuarioDTO.setTelefono(this.telefono);
-        usuarioDTO.setMail(this.mail);
-        usuarioDTO.setTipo(this.tipo);
+        UsuarioDTO usuarioDTO = new UsuarioDTO(this.idUsuario,this.nombre,this.apellido,this.telefono,this.mail
+                ,this.dni,this.tipo,this.autenticado);
 
         return usuarioDTO;
+    }
+
+    public static Usuario autenticarUsuario(UsuarioDTO usuario){
+        return AdapterServicioAutenticacion.getInstancia().autenticarUsuario(usuario);
     }
 
 }

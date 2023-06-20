@@ -1,6 +1,6 @@
 package src.DTO;
 
-import src.Model.Accion;
+import src.Enum.Accion;
 
 import java.time.LocalDateTime;
 import java.util.List;

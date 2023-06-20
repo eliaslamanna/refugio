@@ -1,5 +1,7 @@
 package src.Model;
 
+import src.Enum.Accion;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;

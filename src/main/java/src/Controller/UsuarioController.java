@@ -2,13 +2,12 @@ package src.Controller;
 
 import src.DTO.UsuarioDTO;
 import src.Enum.Rol;
-import src.Model.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UsuarioController {
-    private List<Usuario> usuarios;
+    private List<src.Model.Usuario> usuarios;
 
     private static UsuarioController instancia;
 
@@ -25,12 +24,13 @@ public class UsuarioController {
     }
 
     public UsuarioDTO getUsuarioPorId(String id){
-        for (Usuario usuario:
+        for (src.Model.Usuario usuario:
              usuarios) {
             if (usuario.getIdUsuario() == id){
                 return usuario.toDTO();
             } else {
-                return new UsuarioDTO();
+                return new UsuarioDTO(null,null,null,null,null,null,null
+                        ,false);
             }
         }
         return null;
@@ -38,7 +38,7 @@ public class UsuarioController {
 
     public List<UsuarioDTO> getUsuariosVeterinarios() {
         List<UsuarioDTO> veterinarios = new ArrayList<>();
-        for (Usuario usuario : usuarios) {
+        for (src.Model.Usuario usuario : usuarios) {
             if (usuario.getTipo() == Rol.VETERINARIO) {
                 veterinarios.add(usuario.toDTO());
             }
@@ -46,7 +46,12 @@ public class UsuarioController {
         return veterinarios;
     }
 
-    public void agregarUsuario(Usuario usuario){
+    public void agregarUsuario(src.Model.Usuario usuario){
         this.usuarios.add(usuario);
     }
+
+    public UsuarioDTO autenticarUsuario(UsuarioDTO usuarioParaAutenticar){
+        return this.getUsuarioPorId(usuarioParaAutenticar.getIdUsuario());
+    }
+
 }

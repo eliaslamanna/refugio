@@ -1,11 +1,9 @@
 package src;
 
-import src.Controller.AdopcionesController;
-import src.Controller.AnimalController;
+import src.Controller.*;
 
 
 import src.DTO.*;
-import src.Controller.ClinicaController;
 
 import src.DTO.AnimalDTO;
 import src.DTO.AdoptanteDTO;
@@ -16,20 +14,10 @@ import src.DTO.UsuarioDTO;
 
 import src.Model.Adoptante;
 import src.Model.Animal;
-import src.Service.AutenticacionService;
 
 import java.util.ArrayList;
 
-import src.Controller.SeguimientoController;
-import src.Controller.UsuarioController;
-import src.DTO.*;
-
-import src.Enum.Rol;
 import src.Model.*;
-import src.Service.AutenticacionService;
-
-import java.io.BufferedReader;
-import java.util.EnumSet;
 
 import java.util.List;
 import java.util.Scanner;
@@ -64,11 +52,11 @@ public class Main {
                 case "1":
 
                     System.out.println("\nIngrese el id de usuario:");
-                    usuarioAuntenticado = new UsuarioDTO();
-                    usuarioAuntenticado.setIdUsuario(scanner.nextLine());
-                    usuarioAuntenticado = AutenticacionService.getInstance().autenticarUsuario(usuarioAuntenticado);
+                    usuarioAuntenticado = new UsuarioDTO(scanner.nextLine(),null,null,null,null
+                            ,null,null,false);
+                    usuarioAuntenticado = UsuarioController.getInstancia().autenticarUsuario(usuarioAuntenticado);
 
-                    if (usuarioAuntenticado.isEstaAutenticado()) {
+                    if (usuarioAuntenticado.isAutenticado()) {
                         switch (usuarioAuntenticado.getTipo().toString()) {
                             case "VETERINARIO":
                                 menuVeterinario(scanner);
@@ -244,7 +232,7 @@ public class Main {
                     System.out.println("Quien sera el responsable del seguimiento de la adopcion?");
                     System.out.println("Visitadores para asignar");
                     System.out.println("\n/-----------------------------/");
-                    List<UsuarioDTO> veterinarios_seguimiento = AutenticacionService.getInstance().getUsuariosVeterinarios();
+                    List<UsuarioDTO> veterinarios_seguimiento = UsuarioController.getInstancia().getUsuariosVeterinarios();
                     veterinarios_seguimiento.forEach(veterinario -> {
                         System.out.println("Nombre -> " + veterinario.getNombre() + " " + veterinario.getApellido());
                         System.out.println("ID -> " + veterinario.getIdUsuario());

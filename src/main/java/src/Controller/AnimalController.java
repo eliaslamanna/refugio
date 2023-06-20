@@ -1,10 +1,8 @@
 package src.Controller;
 
-import src.DTO.TipoAnimal;
 import src.DTO.UsuarioDTO;
 import src.Model.Animal;
 import src.DTO.AnimalDTO;
-import src.Model.Usuario;
 
 import java.util.*;
 

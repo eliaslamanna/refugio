@@ -1,7 +1,6 @@
 package src.DTO;
 
 import src.Model.EstrategiaNotificacion;
-import src.Model.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;

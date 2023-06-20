@@ -16,7 +16,18 @@ public class UsuarioDTO {
     private String dni;
 
     private Rol tipo;
-    private boolean estaAutenticado;
+    private boolean autenticado;
+    public UsuarioDTO(String idUsuario, String nombre, String apellido, String telefono, String mail, String dni, Rol tipo, boolean autenticado) {
+        this.idUsuario = idUsuario;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.telefono = telefono;
+        this.mail = mail;
+        this.dni = dni;
+        this.tipo = tipo;
+        this.autenticado = autenticado;
+    }
+
 
     public String getIdUsuario() {
         return idUsuario;
@@ -46,37 +57,8 @@ public class UsuarioDTO {
         return tipo;
     }
 
-    public void setIdUsuario(String idUsuario) {
-        this.idUsuario = idUsuario;
+    public boolean isAutenticado() {
+        return autenticado;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
-    public void setDni(String dni) {
-        this.dni = dni;
-    }
-
-    public void setTipo(Rol tipo) {
-        this.tipo = tipo;
-    }
-
-    public void setEstaAutenticado(boolean estaAutenticado) { this.estaAutenticado = estaAutenticado; }
-
-    public boolean isEstaAutenticado() {
-        return estaAutenticado;
-    }
 }

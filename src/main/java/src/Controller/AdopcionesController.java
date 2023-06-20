@@ -51,7 +51,7 @@ public class AdopcionesController {
 
 
     public void CrearAdopcion(String idadoptante, String idmascota, int cadenciaVisita, String medioRecordatorio, int diasRecordatorio, String idVisitador){
-        Usuario resposableSeguimiento = SeguimientoController.getInstancia().getVisitador(idVisitador);
+        src.Model.Usuario resposableSeguimiento = SeguimientoController.getInstancia().getVisitador(idVisitador);
         Adopcion adopcionParaGuardar = new Adopcion(idadoptante, idmascota,cadenciaVisita, medioRecordatorio, diasRecordatorio, resposableSeguimiento);
         adopciones.add(adopcionParaGuardar);
         HistoriaClinica historia =  ClinicaController.getInstancia().buscarHistoriaClinicaXAnimal(idmascota);

@@ -1,6 +1,7 @@
 package src.Model;
 
 import src.DTO.HistoriaClinicaDTO;
+import src.Enum.Accion;
 
 import java.util.Date;
 

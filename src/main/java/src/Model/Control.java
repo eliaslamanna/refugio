@@ -2,6 +2,7 @@ package src.Model;
 
 import src.DTO.AccionDTO;
 import src.DTO.TratamientoDTO;
+import src.Enum.Accion;
 
 import java.util.Date;
 import java.util.List;

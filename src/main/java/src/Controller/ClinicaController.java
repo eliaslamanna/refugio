@@ -2,6 +2,7 @@ package src.Controller;
 
 import src.DTO.*;
 
+import src.DTO.UsuarioDTO;
 import src.Model.Alarma;
 
 import src.Model.Control;
@@ -13,8 +14,8 @@ import src.Model.SeguimientoMedico;
 
 import src.Model.*;
 
+import src.Enum.Accion;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,8 +27,8 @@ public class ClinicaController {
     private List<SeguimientoMedico> seguimientos;
 
     private List<Alarma> alarmas;
-    private List<Usuario> veterinarios;
-    private List<Usuario> visitadores;
+    private List<src.Model.Usuario> veterinarios;
+    private List<src.Model.Usuario> visitadores;
 
     private List<Control> controles;
 
@@ -55,7 +56,7 @@ public class ClinicaController {
 
     public void crearHistoriaClinica(AnimalDTO animal, UsuarioDTO veterinario) {
 
-        HistoriaClinica historiaClinica = new HistoriaClinica(Animal.toObject(animal),Usuario.toObject(veterinario));
+        HistoriaClinica historiaClinica = new HistoriaClinica(Animal.toObject(animal), src.Model.Usuario.toObject(veterinario));
         historiales.add(historiaClinica);
 
     }
