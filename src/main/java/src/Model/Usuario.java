@@ -2,7 +2,6 @@ package src.Model;
 
 import src.Enum.Rol;
 import src.DTO.UsuarioDTO;
-import src.Service.AdapterServicioAutenticacion;
 
 
 public class Usuario {

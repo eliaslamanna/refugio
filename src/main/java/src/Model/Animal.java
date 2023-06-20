@@ -1,8 +1,7 @@
 package src.Model;
 
-import src.Controller.AnimalController;
 import src.DTO.AnimalDTO;
-import src.DTO.TipoAnimal;
+import src.Enum.TipoAnimal;
 
 import java.util.UUID;
 
@@ -89,7 +88,7 @@ public class Animal {
         this.tipoAnimal = tipoAnimal;
     }
 
-    public boolean getenTratamiento(){
+    public boolean getEnTratamiento(){
         return this.enTratamiento;
     }
 
@@ -101,8 +100,8 @@ public class Animal {
     }
 
     public AnimalDTO toDTO() {
-        AnimalDTO animalDTO = new AnimalDTO(this.id,this.nombre,this.edadAprox,this.peso,this.altura,this.condicionMedica
-                ,this.tipoAnimal);
+        AnimalDTO animalDTO = new AnimalDTO(this.id,this.nombre,this.edadAprox,this.peso,this.altura
+                ,this.condicionMedica,this.tipoAnimal);
 
         return animalDTO;
     }

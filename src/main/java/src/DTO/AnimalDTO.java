@@ -1,6 +1,6 @@
 package src.DTO;
 
-import src.Model.Animal;
+import src.Enum.TipoAnimal;
 
 public class AnimalDTO {
     private String Id;

@@ -2,6 +2,7 @@ package src.Controller;
 
 import src.DTO.UsuarioDTO;
 import src.Enum.Rol;
+import src.Model.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,22 +24,22 @@ public class UsuarioController {
         return instancia;
     }
 
-    public UsuarioDTO getUsuarioPorId(String id){
-        for (src.Model.Usuario usuario:
-             usuarios) {
-            if (usuario.getIdUsuario() == id){
-                return usuario.toDTO();
-            } else {
-                return new UsuarioDTO(null,null,null,null,null,null,null
-                        ,false);
-            }
+    public UsuarioDTO getUsuarioPorId(String id) {
+        UsuarioDTO usuarioDTO = new UsuarioDTO(null, null, null, null, null
+                , null, null, false);
+
+        for (Usuario usuario :
+                usuarios) {
+            if (usuario.getIdUsuario() == id)
+                usuarioDTO = usuario.toDTO();
         }
-        return null;
+
+        return usuarioDTO;
     }
 
     public List<UsuarioDTO> getUsuariosVeterinarios() {
         List<UsuarioDTO> veterinarios = new ArrayList<>();
-        for (src.Model.Usuario usuario : usuarios) {
+        for (Usuario usuario : usuarios) {
             if (usuario.getTipo() == Rol.VETERINARIO) {
                 veterinarios.add(usuario.toDTO());
             }

@@ -15,4 +15,6 @@ public class AdoptanteController {
             instancia = new AdoptanteController();
         return instancia;
     }
+
+
 }

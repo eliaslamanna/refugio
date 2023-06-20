@@ -1,5 +1,7 @@
 package src.Model;
 
+import src.DTO.AdoptanteDTO;
+
 import java.util.UUID;
 
 public class Adoptante {
@@ -102,8 +104,23 @@ public class Adoptante {
         Id = UUID.randomUUID().toString();
     }
 
-
     public Adoptante(){
 
+    }
+
+    public static Adoptante toObject(AdoptanteDTO adoptanteDTO){
+        Adoptante adoptante = new Adoptante(adoptanteDTO.getNombre(), adoptanteDTO.getApellido()
+                , adoptanteDTO.getEstadoCivil(), adoptanteDTO.getDireccion(), adoptanteDTO.getTelefono()
+                , adoptanteDTO.getOcupacion(), adoptanteDTO.getOtrasMascotas(), adoptanteDTO.getMotivoAdopcion()
+                , adoptanteDTO.getTipoAnimalInteresado());
+
+        return adoptante;
+    }
+
+    public AdoptanteDTO toDTO(){
+        AdoptanteDTO adoptanteDTO = new AdoptanteDTO(this.nombre, this.apellido, this.estadoCivil, this.direccion
+                , this.telefono, this.ocupacion, this.otrasMascotas, this.motivoAdopcion, this.tipoAnimalInteresado);
+
+        return adoptanteDTO;
     }
 }

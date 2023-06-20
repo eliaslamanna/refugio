@@ -1,9 +1,7 @@
-package src.Service;
+package src.Model;
 
 import src.DTO.UsuarioDTO;
 import src.Enum.Rol;
-import src.Model.AdapterAutenticacion;
-import src.Model.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;

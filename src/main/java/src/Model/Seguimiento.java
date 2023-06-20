@@ -1,8 +1,10 @@
 package src.Model;
 
 
-import src.Controller.AdopcionesController;
+import src.DTO.DatosNotificacion;
+import src.DTO.SeguimientoDTO;
 import src.DTO.VisitaDTO;
+import src.Enum.MedioRecordatorio;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -24,13 +26,13 @@ public class Seguimiento {
     private Usuario responsable;
 
 
-    public Seguimiento(Usuario responsable, int cadenciaVisita, int diasRecordatorio, String estrategia) {
+    public Seguimiento(Usuario responsable, int cadenciaVisita, int diasRecordatorio, MedioRecordatorio estrategia) {
         this.cadenciaVisita = cadenciaVisita;
-        if (estrategia.equals("SMS")){
+        if (estrategia.equals(MedioRecordatorio.SMS)) {
             this.medioNotificacion = new NotificacionSMS();
-        } else if (estrategia.equals("WHATSAPP")) {
-            this.medioNotificacion = new NotificacionWhatApp();
-        } else if (estrategia.equals("EMAIL")) {
+        } else if (estrategia.equals(MedioRecordatorio.WHATSAPP)) {
+            this.medioNotificacion = new NotificacionWhatsApp();
+        } else if (estrategia.equals(MedioRecordatorio.EMAIL)) {
             this.medioNotificacion = new NotificacionEmail();
         }
         this.continuarVisitas = true;
@@ -39,24 +41,35 @@ public class Seguimiento {
         this.responsable = responsable;
     }
 
+    public static Seguimiento toObject(SeguimientoDTO seguimientoDTO) {
+        Seguimiento seguimiento = new Seguimiento(
+                Usuario.toObject(seguimientoDTO.getResponsable())
+                , seguimientoDTO.getCadenciaVisita()
+                , seguimientoDTO.getDiasRecordatorio()
+                , seguimientoDTO.getMedioNotificacion());
+
+        return seguimiento;
+    }
+
     private VisitaADomicilio getVisitaMasReciente() {
         VisitaADomicilio visitaMasReciente = this.visitasADomicilio.get(0);
-        for (int i = 1; i<  this.visitasADomicilio.size(); i++){
+        for (int i = 1; i < this.visitasADomicilio.size(); i++) {
             VisitaADomicilio currentVisita = this.visitasADomicilio.get(i);
-            Date currentDate  = currentVisita.getFechaVisita();
+            Date currentDate = currentVisita.getFechaVisita();
 
-            if (currentDate.after(visitaMasReciente.getFechaVisita())){
+            if (currentDate.after(visitaMasReciente.getFechaVisita())) {
                 visitaMasReciente = currentVisita;
             }
         }
         return visitaMasReciente;
     }
+
     public void enviarRecordatorio(DatosNotificacion datos) {
         VisitaADomicilio visita = getVisitaMasReciente();
         LocalDate fechaActual = LocalDate.now();
         Date fechaVisita = visita.getFechaVisita();
         long diferenciaEnDias = ChronoUnit.DAYS.between(fechaActual, fechaVisita.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-        if (diferenciaEnDias <= this.diasRecordatorio){
+        if (diferenciaEnDias <= this.diasRecordatorio) {
             medioNotificacion.enviarNotificacion(datos);
         }
     }
@@ -66,11 +79,11 @@ public class Seguimiento {
     }
 
     public void crearProximaVisita() {
-        VisitaADomicilio newVisita = new VisitaADomicilio( getProximaFechaDeVisita(getVisitaMasReciente().getFechaVisita()),"", new Encuesta(EstadoLimpiezaAmbiente.MALO,EstadoLimpiezaAmbiente.MALO,EstadoLimpiezaAmbiente.MALO));
+        VisitaADomicilio newVisita = new VisitaADomicilio(getProximaFechaDeVisita(getVisitaMasReciente().getFechaVisita()), "", new Encuesta(EstadoLimpiezaAmbiente.MALO, EstadoLimpiezaAmbiente.MALO, EstadoLimpiezaAmbiente.MALO));
         this.visitasADomicilio.add(newVisita);
     }
 
-    private Date getProximaFechaDeVisita(Date ultimaVisita){
+    private Date getProximaFechaDeVisita(Date ultimaVisita) {
         Calendar calendario = Calendar.getInstance();
 
         calendario.setTime(ultimaVisita);
@@ -80,10 +93,10 @@ public class Seguimiento {
         return calendario.getTime();
     }
 
-    private List<VisitaADomicilio> generarPrimeraVisita(){
+    private List<VisitaADomicilio> generarPrimeraVisita() {
         Date fechaHoy = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
         List<VisitaADomicilio> visitasLista = new ArrayList<>();
-        VisitaADomicilio primeraVisita = new VisitaADomicilio(getProximaFechaDeVisita(fechaHoy),"",new Encuesta(EstadoLimpiezaAmbiente.MALO,EstadoLimpiezaAmbiente.MALO,EstadoLimpiezaAmbiente.MALO));
+        VisitaADomicilio primeraVisita = new VisitaADomicilio(getProximaFechaDeVisita(fechaHoy), "", new Encuesta(EstadoLimpiezaAmbiente.MALO, EstadoLimpiezaAmbiente.MALO, EstadoLimpiezaAmbiente.MALO));
         visitasLista.add(primeraVisita);
         return visitasLista;
     }
@@ -113,8 +126,8 @@ public class Seguimiento {
         return visitasADomicilio;
     }
 
-    public VisitaADomicilio getUltimaVisita(){
-        VisitaADomicilio ultimaVisita = visitasADomicilio.get(visitasADomicilio.size()-1);
+    public VisitaADomicilio getUltimaVisita() {
+        VisitaADomicilio ultimaVisita = visitasADomicilio.get(visitasADomicilio.size() - 1);
         return ultimaVisita;
     }
 
@@ -141,5 +154,22 @@ public class Seguimiento {
 
     public void setResponsable(Usuario responsable) {
         this.responsable = responsable;
+    }
+
+    public SeguimientoDTO toDTO() {
+        SeguimientoDTO seguimientoDTO = new SeguimientoDTO();
+        seguimientoDTO.setDiasRecordatorio(this.diasRecordatorio);
+        seguimientoDTO.setResponsable(this.responsable.toDTO());
+        seguimientoDTO.setCadenciaVisita(this.cadenciaVisita);
+
+        List<VisitaDTO> visitasDTO = new ArrayList<>();
+
+        for (VisitaADomicilio visitaADomicilio : visitasADomicilio) {
+            visitasDTO.add(visitaADomicilio.toDTO());
+        }
+
+        seguimientoDTO.setVisitasADomicilio(visitasDTO);
+
+        return seguimientoDTO;
     }
 }

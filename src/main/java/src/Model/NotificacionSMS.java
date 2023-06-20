@@ -1,6 +1,8 @@
 package src.Model;
 
 
+import src.DTO.DatosNotificacion;
+
 public class NotificacionSMS implements EstrategiaNotificacion {
 
     @Override

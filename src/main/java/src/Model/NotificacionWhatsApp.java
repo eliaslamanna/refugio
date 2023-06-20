@@ -1,7 +1,9 @@
 package src.Model;
 
 
-public class NotificacionWhatApp implements EstrategiaNotificacion {
+import src.DTO.DatosNotificacion;
+
+public class NotificacionWhatsApp implements EstrategiaNotificacion {
 
     @Override
     public void enviarNotificacion(DatosNotificacion notificacion) {

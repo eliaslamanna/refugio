@@ -1,31 +1,26 @@
 package src.Model;
 import src.Controller.AdopcionesController;
-import src.Controller.AnimalController;
-import src.Controller.SeguimientoController;
+import src.DTO.AdopcionDTO;
+import src.DTO.DatosNotificacion;
 
 
 public class Adopcion {
 
     private Adoptante adoptante;
-
     private Animal mascota;
-    
     private Seguimiento seguimiento;
 
 
     public Adoptante getAdoptante(){ return this.adoptante;}
-    public Animal getAnimal(){ return this.mascota; }
+    public Animal getMascota(){ return this.mascota; }
 
 
 
-    public Adopcion( String IdAdoptante, String IdAnimal, int cadenciaVisita, String medioRecordatorio, int diasRecordatorio, Usuario visitador){
-        Seguimiento newSeguimiento = new Seguimiento(visitador ,cadenciaVisita, diasRecordatorio, medioRecordatorio);
-        this.adoptante = AdopcionesController.getInstancia().buscarAdoptante(IdAdoptante);
-        this.mascota = AnimalController.getInstancia().buscarAnimal(IdAnimal);
-        this.seguimiento = newSeguimiento;
-        SeguimientoController.getInstancia().agregarSeguimiento(newSeguimiento);
+    public Adopcion( Adoptante adoptante, Animal mascota, Seguimiento seguimiento){
+        this.adoptante = adoptante;
+        this.mascota = mascota;
+        this.seguimiento = seguimiento;
     }
-
 
     public Seguimiento getSeguimiento() {
         return seguimiento;
@@ -37,8 +32,14 @@ public class Adopcion {
     }
 
     public String mensajeNotificacion(){
-        return " Notificacion para: " + getAdoptante().getNombre() + " " + getAdoptante().getApellido() + " y " + getSeguimiento().getResponsable().getNombre() + " " + getSeguimiento().getResponsable().getNombre() + " // " +  getAnimal().getNombre() + " sera visitado el dia " + getSeguimiento().getUltimaVisita().getFechaVisita().toString();
+        return " Notificacion para: " + getAdoptante().getNombre() + " " + getAdoptante().getApellido() + " y " + getSeguimiento().getResponsable().getNombre() + " " + getSeguimiento().getResponsable().getNombre() + " // " +  getMascota().getNombre() + " sera visitado el dia " + getSeguimiento().getUltimaVisita().getFechaVisita().toString();
     }
 
+    public AdopcionDTO toDTO(){
+        return new AdopcionDTO(
+                this.adoptante.toDTO()
+                , this.mascota.toDTO()
+                , this.seguimiento.toDTO());
+    }
 
 }

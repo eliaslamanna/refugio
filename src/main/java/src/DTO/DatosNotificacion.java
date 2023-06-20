@@ -1,4 +1,4 @@
-package src.Model;
+package src.DTO;
 
 public class DatosNotificacion {
 

@@ -65,20 +65,16 @@ public class ClinicaController {
     }
 
     public void exportarFichaMedica(AnimalDTO animal, String metodo) {
-        for (HistoriaClinica historia :
-                this.historiales) {
-            for (Animal animal1 : AnimalController.getInstancia().getAnimales()) {
-                if (animal.getId().equals(animal1.getId())) {
-                    if (metodo.equals("PDF")){
-                        historia.setEstrategiaExportacion(new ExportarPDF());
-                    } else if (metodo.equals("EXCEL")) {
-                        historia.setEstrategiaExportacion(new ExportarExcell());
-                    }
-                    else {
-                        System.out.println("ERROR INTERNO");
-                    }
-                    historia.exportarFichaMedica();
+        for (HistoriaClinica historia : this.historiales) {
+            if (animal.getId().equals(animal.getId())) {
+                if (metodo.equals("PDF")) {
+                    historia.setEstrategiaExportacion(new ExportarPDF());
+                } else if (metodo.equals("EXCEL")) {
+                    historia.setEstrategiaExportacion(new ExportarExcell());
+                } else {
+                    System.out.println("ERROR INTERNO");
                 }
+                historia.exportarFichaMedica();
             }
         }
     }

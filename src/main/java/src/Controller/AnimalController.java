@@ -33,32 +33,31 @@ public class AnimalController {
             System.out.println(String.format("Se ingreso el animal %s exitosamente.", animal.getNombre()));
     }
 
+    /*
     public boolean animalYaExiste(Animal animal) {
         return animales.contains(animal);
     }
+    */
 
-    public List<Animal> obtenerAnimales() {
-        return animales;
+    public List<AnimalDTO> obtenerAnimales() {
+        List<AnimalDTO> listaAnimales = new ArrayList<>();
+        for (Animal animal : this.animales) {
+            listaAnimales.add(animal.toDTO());
+        }
+        return listaAnimales;
     }
 
-    public Animal buscarAnimal(String idAnimal) {
-        return animales.stream().filter(animal -> animal.getId().equals(idAnimal)).findFirst().orElse(null);
+    public AnimalDTO buscarAnimal(String idAnimal) {
+        return animales.stream().filter(animal -> animal.getId().equals(idAnimal)).findFirst().orElse(null).toDTO();
     }
 
-
-    public List<Animal> getAnimales() {
-        return animales;
-    }
-
-
-    public List<Animal> getAnimalesDisponibles(){
-        List <Animal> animalesDisponibles = new ArrayList<>();
+    public List<AnimalDTO> getAnimalesDisponibles(){
+        List <AnimalDTO> animalesDisponibles = new ArrayList<>();
         for (Animal animal : animales) {
-            if(!animal.getenTratamiento()){
-                animalesDisponibles.add(animal);
+            if(!animal.getEnTratamiento()){
+                animalesDisponibles.add(animal.toDTO());
             }
         }
         return animalesDisponibles;
     }
-
 }
