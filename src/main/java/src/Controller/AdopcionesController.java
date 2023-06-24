@@ -91,7 +91,7 @@ public class AdopcionesController {
         return true;
     }
 
-    public List<Adoptante> getaAdoptantesDisponibles(){
+    public List<Adoptante> getAdoptantesDisponibles(){
         List <Adoptante> adoptantesDisponibles = new ArrayList<>();
         for (Adoptante adoptante : adoptantes) {
             if(isDisponibleAdoptante(adoptante.getId())){

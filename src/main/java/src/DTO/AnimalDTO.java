@@ -3,7 +3,7 @@ package src.DTO;
 import src.Enum.TipoAnimal;
 
 public class AnimalDTO {
-    private String Id;
+    private String id;
     private String nombre;
 
     private Double altura;
@@ -19,9 +19,7 @@ public class AnimalDTO {
     private Boolean enTratamiento;
 
 
-
-
-    public AnimalDTO(String id, String nombre, Integer edadAprox, Double peso, Double altura, String condicionMedica, TipoAnimal tipoAnimal) {
+    public AnimalDTO(String nombre, Integer edadAprox, Double peso, Double altura, String condicionMedica, TipoAnimal tipoAnimal) {
         this.nombre = nombre;
         this.edadAprox = edadAprox;
         this.peso = peso;
@@ -29,6 +27,11 @@ public class AnimalDTO {
         this.condicionMedica = condicionMedica;
         this.tipoAnimal = tipoAnimal;
         this.enTratamiento = false;
+    }
+
+    public AnimalDTO(String id, String nombre, Integer edadAprox, Double peso, Double altura, String condicionMedica, TipoAnimal tipoAnimal) {
+        this(nombre,edadAprox,peso,altura,condicionMedica,tipoAnimal);
+        this.id = id;
     }
 
     public String getNombre() {
@@ -84,7 +87,7 @@ public class AnimalDTO {
     }
 
     public String getId() {
-        return Id;
+        return id;
     }
 
     public Boolean getEnTratamiento() {
@@ -92,7 +95,7 @@ public class AnimalDTO {
     }
 
     public void setId(String id) {
-        Id = id;
+        this.id = id;
     }
 
     public void setEnTratamiento(Boolean enTratamiento) {

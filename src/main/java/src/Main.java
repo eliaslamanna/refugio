@@ -104,7 +104,7 @@ public class Main {
                     System.out.println("El animal es Salvaje o Domestico? -> S/D");
                     String tipo = scanner.nextLine();
                     TipoAnimal tipoAnimal = tipo.equals("S") ? TipoAnimal.SALVAJE : TipoAnimal.DOMESTICO;
-                    AnimalDTO animalDTO = new AnimalDTO("",nombre, edadAprox, peso, altura, condicionMedica, tipoAnimal);
+                    AnimalDTO animalDTO = new AnimalDTO(nombre, edadAprox, peso, altura, condicionMedica, tipoAnimal);
                     AnimalController.getInstancia().ingresarAnimal(animalDTO, usuarioAuntenticado);
                     inicioGestionarAnimalesVeterinario();
                     break;
@@ -171,7 +171,7 @@ public class Main {
                     respuesta = scanner.nextLine();
                     if (respuesta.equalsIgnoreCase("s")) {
 
-                        List<Adoptante> disponiblesadop = AdopcionesController.getInstancia().getaAdoptantesDisponibles();
+                        List<Adoptante> disponiblesadop = AdopcionesController.getInstancia().getAdoptantesDisponibles();
                         if (disponiblesadop.size() == 0) {
                             System.out.println("NO HAY ADOPTANTES DISPONIBLES EN EL SISTEMA.\nINTRODUZCA CUALQUIER CARACTER PARA SALIR.");
                             break;
@@ -604,20 +604,22 @@ public class Main {
                     String nombre = scanner.nextLine();
                     System.out.println("\nIngrese alguna observacion sobre la visita");
                     String observacion = scanner.nextLine();
-                    while (!estadoAnimal.equals("BUENO") && !estadoAnimal.equals("REGULAR") && !estadoAnimal.equals("MALO")) {
+                    while (!estadoAnimal.equals(EstadoLimpiezaAmbiente.BUENO.toString())
+                            && !estadoAnimal.equals(EstadoLimpiezaAmbiente.REGULAR.toString())
+                            && !estadoAnimal.equals(EstadoLimpiezaAmbiente.MALO.toString())) {
                         System.out.println("\nIngrese el estado general del animal BUENO/MALO/REGULAR");
                         estadoAnimal = scanner.nextLine();
                         if (!estadoAnimal.equals("BUENO") && !estadoAnimal.equals("REGULAR") && !estadoAnimal.equals("MALO")) {
                             System.out.println("Ingrese una opcion valida.\n");
                         }
                     }
-                    if (estadoAnimal.equals("BUENO")) {
+                    if (estadoAnimal.equals(EstadoLimpiezaAmbiente.BUENO.toString())) {
                         estadoAnimalDTO = EstadoLimpiezaAmbiente.BUENO;
                     }
-                    if (estadoAnimal.equals("MALO")) {
+                    if (estadoAnimal.equals(EstadoLimpiezaAmbiente.MALO.toString())) {
                         estadoAnimalDTO = EstadoLimpiezaAmbiente.MALO;
                     }
-                    if (estadoAnimal.equals("REGULAR")) {
+                    if (estadoAnimal.equals(EstadoLimpiezaAmbiente.REGULAR.toString())) {
                         estadoAnimalDTO = EstadoLimpiezaAmbiente.REGULAR;
                     }
                     while (!estadoLugar.equals("BUENO") && !estadoLugar.equals("REGULAR ") && !estadoLugar.equals("MALO")) {

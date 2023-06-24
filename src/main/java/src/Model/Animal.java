@@ -34,7 +34,10 @@ public class Animal {
         this.enTratamiento = false;
     }
 
-
+    public Animal(String id, String nombre, Integer edadAprox, Double peso, Double altura, String condicionMedica, TipoAnimal tipoAnimal) {
+        this(nombre, edadAprox, peso, altura, condicionMedica, tipoAnimal);
+        this.id = id;
+    }
 
     public String getNombre() {
         return nombre;
@@ -93,7 +96,7 @@ public class Animal {
     }
 
     public static Animal toObject(AnimalDTO animalDTO) {
-        Animal animal = new Animal(animalDTO.getNombre(), animalDTO.getEdadAprox(), animalDTO.getPeso()
+        Animal animal = new Animal(animalDTO.getId(), animalDTO.getNombre(), animalDTO.getEdadAprox(), animalDTO.getPeso()
                 , animalDTO.getAltura(), animalDTO.getCondicionMedica(), animalDTO.getTipoAnimal());
 
         return animal;
