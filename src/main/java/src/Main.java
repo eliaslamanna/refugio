@@ -1,20 +1,11 @@
 package src;
 
 import src.Controller.*;
-
-
 import src.DTO.*;
 
-import src.DTO.AnimalDTO;
-import src.DTO.AdoptanteDTO;
 import src.Enum.EstadoLimpiezaAmbiente;
 import src.Enum.MedioRecordatorio;
 import src.Enum.TipoAnimal;
-
-import src.DTO.UsuarioDTO;
-
-
-import src.Model.Adoptante;
 
 import java.util.ArrayList;
 
@@ -171,7 +162,7 @@ public class Main {
                     respuesta = scanner.nextLine();
                     if (respuesta.equalsIgnoreCase("s")) {
 
-                        List<Adoptante> disponiblesadop = AdopcionesController.getInstancia().getAdoptantesDisponibles();
+                        List<AdoptanteDTO> disponiblesadop = AdopcionesController.getInstancia().getAdoptantesDisponibles();
                         if (disponiblesadop.size() == 0) {
                             System.out.println("NO HAY ADOPTANTES DISPONIBLES EN EL SISTEMA.\nINTRODUZCA CUALQUIER CARACTER PARA SALIR.");
                             break;

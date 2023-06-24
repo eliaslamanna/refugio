@@ -15,7 +15,7 @@ public class Adoptante {
     private int otrasMascotas;
     private String motivoAdopcion;
     private String tipoAnimalInteresado;
-    private String Id;
+    private String id;
 
     public String getNombre() {
         return nombre;
@@ -88,7 +88,7 @@ public class Adoptante {
     public void setTipoAnimalInteresado(String tipoAnimalInteresado) {
         this.tipoAnimalInteresado = tipoAnimalInteresado;
     }
-    public String getId(){ return Id; }
+    public String getId(){ return id; }
 
     public Adoptante(String nombre, String apellido, String estadoCivil, String direccion, String telefono,
                      String ocupacion, int otrasMascotas, String motivoAdopcion, String tipoAnimalInteresado) {
@@ -101,7 +101,14 @@ public class Adoptante {
         this.otrasMascotas = otrasMascotas;
         this.motivoAdopcion = motivoAdopcion;
         this.tipoAnimalInteresado = tipoAnimalInteresado;
-        Id = UUID.randomUUID().toString();
+        id = UUID.randomUUID().toString();
+    }
+
+    public Adoptante(String id, String nombre, String apellido, String estadoCivil, String direccion, String telefono,
+                     String ocupacion, int otrasMascotas, String motivoAdopcion, String tipoAnimalInteresado) {
+            this(nombre, apellido, estadoCivil, direccion, telefono, ocupacion, otrasMascotas, motivoAdopcion
+                    , tipoAnimalInteresado);
+            this.id = id;
     }
 
     public Adoptante(){
@@ -109,7 +116,7 @@ public class Adoptante {
     }
 
     public static Adoptante toObject(AdoptanteDTO adoptanteDTO){
-        Adoptante adoptante = new Adoptante(adoptanteDTO.getNombre(), adoptanteDTO.getApellido()
+        Adoptante adoptante = new Adoptante(adoptanteDTO.getId(),adoptanteDTO.getNombre(), adoptanteDTO.getApellido()
                 , adoptanteDTO.getEstadoCivil(), adoptanteDTO.getDireccion(), adoptanteDTO.getTelefono()
                 , adoptanteDTO.getOcupacion(), adoptanteDTO.getOtrasMascotas(), adoptanteDTO.getMotivoAdopcion()
                 , adoptanteDTO.getTipoAnimalInteresado());
@@ -118,7 +125,7 @@ public class Adoptante {
     }
 
     public AdoptanteDTO toDTO(){
-        AdoptanteDTO adoptanteDTO = new AdoptanteDTO(this.nombre, this.apellido, this.estadoCivil, this.direccion
+        AdoptanteDTO adoptanteDTO = new AdoptanteDTO(this.id, this.nombre, this.apellido, this.estadoCivil, this.direccion
                 , this.telefono, this.ocupacion, this.otrasMascotas, this.motivoAdopcion, this.tipoAnimalInteresado);
 
         return adoptanteDTO;

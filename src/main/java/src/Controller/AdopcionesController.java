@@ -91,11 +91,11 @@ public class AdopcionesController {
         return true;
     }
 
-    public List<Adoptante> getAdoptantesDisponibles(){
-        List <Adoptante> adoptantesDisponibles = new ArrayList<>();
+    public List<AdoptanteDTO> getAdoptantesDisponibles(){
+        List <AdoptanteDTO> adoptantesDisponibles = new ArrayList<>();
         for (Adoptante adoptante : adoptantes) {
             if(isDisponibleAdoptante(adoptante.getId())){
-                adoptantesDisponibles.add(adoptante);
+                adoptantesDisponibles.add(adoptante.toDTO());
             }
         }
         return adoptantesDisponibles;

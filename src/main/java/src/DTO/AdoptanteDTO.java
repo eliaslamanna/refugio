@@ -1,6 +1,15 @@
 package src.DTO;
 
 public class AdoptanteDTO {
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    private String id;
     private String nombre;
     private String apellido;
     private String estadoCivil;
@@ -20,6 +29,13 @@ public class AdoptanteDTO {
         this.otrasMascotas = otrasMascotas;
         this.motivoAdopcion = motivoAdopcion;
         this.tipoAnimalInteresado = tipoAnimalInteresado;
+    }
+
+    public AdoptanteDTO(String id, String nombre, String apellido, String estadoCivil, String direccion, String telefono,
+                        String ocupacion, int otrasMascotas, String motivoAdopcion, String tipoAnimalInteresado) {
+        this(nombre, apellido, estadoCivil, direccion, telefono, ocupacion, otrasMascotas, motivoAdopcion
+                , tipoAnimalInteresado);
+        this.id = id;
     }
 
     public String getNombre() {
