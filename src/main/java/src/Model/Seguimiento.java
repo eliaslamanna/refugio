@@ -4,6 +4,7 @@ package src.Model;
 import src.DTO.DatosNotificacion;
 import src.DTO.SeguimientoDTO;
 import src.DTO.VisitaDTO;
+import src.Enum.EstadoLimpiezaAmbiente;
 import src.Enum.MedioRecordatorio;
 
 import java.time.LocalDate;
@@ -42,13 +43,11 @@ public class Seguimiento {
     }
 
     public static Seguimiento toObject(SeguimientoDTO seguimientoDTO) {
-        Seguimiento seguimiento = new Seguimiento(
+        return new Seguimiento(
                 Usuario.toObject(seguimientoDTO.getResponsable())
                 , seguimientoDTO.getCadenciaVisita()
                 , seguimientoDTO.getDiasRecordatorio()
                 , seguimientoDTO.getMedioNotificacion());
-
-        return seguimiento;
     }
 
     private VisitaADomicilio getVisitaMasReciente() {
@@ -127,8 +126,7 @@ public class Seguimiento {
     }
 
     public VisitaADomicilio getUltimaVisita() {
-        VisitaADomicilio ultimaVisita = visitasADomicilio.get(visitasADomicilio.size() - 1);
-        return ultimaVisita;
+        return visitasADomicilio.get(visitasADomicilio.size() - 1);
     }
 
 

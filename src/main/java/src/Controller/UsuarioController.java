@@ -8,13 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UsuarioController {
-    private List<src.Model.Usuario> usuarios;
+    private static List<src.Model.Usuario> usuarios;
 
     private static UsuarioController instancia;
 
     private UsuarioController() {
-
-        this.usuarios = new ArrayList<>();
+        usuarios = new ArrayList<>();
     }
 
     public static UsuarioController getInstancia() {
@@ -30,7 +29,7 @@ public class UsuarioController {
 
         for (Usuario usuario :
                 usuarios) {
-            if (usuario.getIdUsuario() == id)
+            if (usuario.getIdUsuario().equals(id))
                 usuarioDTO = usuario.toDTO();
         }
 
@@ -48,11 +47,16 @@ public class UsuarioController {
     }
 
     public void agregarUsuario(src.Model.Usuario usuario){
-        this.usuarios.add(usuario);
+        usuarios.add(usuario);
     }
 
     public UsuarioDTO autenticarUsuario(UsuarioDTO usuarioParaAutenticar){
-        return this.getUsuarioPorId(usuarioParaAutenticar.getIdUsuario());
+        Usuario usuario = Usuario.autenticarUsuario(usuarioParaAutenticar);
+        if (usuario.isAutenticado()) {
+            usuarios.remove(usuario);
+            usuarios.add(usuario);
+        }
+        return usuario.toDTO();
     }
 
 }

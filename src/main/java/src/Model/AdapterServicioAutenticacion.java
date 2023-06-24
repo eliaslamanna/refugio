@@ -9,7 +9,7 @@ import java.util.List;
 public class AdapterServicioAutenticacion implements AdapterAutenticacion {
 
     private static AdapterServicioAutenticacion instance;
-    private List<Usuario> usuarios;
+    private static List<Usuario> usuarios;
 
     private AdapterServicioAutenticacion(){
         usuarios = new ArrayList<>();
@@ -42,12 +42,12 @@ public class AdapterServicioAutenticacion implements AdapterAutenticacion {
         usuario = new Usuario("veterinario01", "Pepe", "Veterinario", "00000000000"
                 , "unMail01@dominio.com.ar", "99999999", Rol.VETERINARIO, true);
 
-        this.usuarios.add(usuario);
+        usuarios.add(usuario);
 
         usuario = new Usuario("visitador01", "Jose", "Visitador", "1111111111111"
                 , "unMail02@dominio.com.ar", "99999998", Rol.VISITADOR, true);
 
-        this.usuarios.add(usuario);
+        usuarios.add(usuario);
 
     }
 

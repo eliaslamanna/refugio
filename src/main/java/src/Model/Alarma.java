@@ -7,12 +7,9 @@ import java.util.List;
 import java.util.UUID;
 
 public class Alarma {
-
     private String idAlarma;
-
     private int periodicidadDias;
     private LocalDateTime fechaLimite;
-
     private Control control;
 
     public Alarma(int periodicidad, Control control) {
@@ -24,7 +21,6 @@ public class Alarma {
         this.control = control;
 
     }
-
 
     public int getPeriodicidad(){
         return periodicidadDias;

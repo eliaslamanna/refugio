@@ -14,8 +14,8 @@ public class AdopcionesController {
     private static AdopcionesController instancia;
 
     private AdopcionesController() {
-        this.adopciones = new ArrayList<>();
-        this.adoptantes = new ArrayList<>();
+        adopciones = new ArrayList<>();
+        adoptantes = new ArrayList<>();
     }
 
     public static AdopcionesController getInstancia() {
@@ -61,7 +61,7 @@ public class AdopcionesController {
     public AdopcionDTO obtenerAdopcion(String idAnimal) {
         AdopcionDTO adopcionDTO = null;
         for (Adopcion adopcion : adopciones) {
-            if (adopcion.getMascota().getId() == idAnimal) {
+            if (adopcion.getMascota().getId().equals(idAnimal)) {
                 adopcionDTO = adopcion.toDTO();
             }
         }
@@ -69,13 +69,13 @@ public class AdopcionesController {
     }
 
     public DatosNotificacion getDatosDeAdoptante(String id_adoptante) {
+        DatosNotificacion datos = null;
         for (Adoptante adoptante : adoptantes) {
-            if (adoptante.getId() == id_adoptante) {
-                DatosNotificacion datos = new DatosNotificacion(adoptante.getTelefono(), adoptante.getDireccion(), "Su visita esta proxima a su fecha!");
-                return datos;
+            if (adoptante.getId().equals(id_adoptante)) {
+                datos = new DatosNotificacion(adoptante.getTelefono(), adoptante.getDireccion(), "Su visita esta proxima a su fecha!");
             }
         }
-        return null;
+        return datos;
     }
 
     public boolean isDisponibleAdoptante(String idadoptante){
@@ -112,19 +112,20 @@ public class AdopcionesController {
         return animales;
     }
 
-    public VisitaDTO getUltimaVisitaPorAnimal(String idAnimal){
+    public VisitaDTO getUltimaVisitaPorAnimal(String idAnimal) {
         VisitaDTO visita = new VisitaDTO();
-        for (Adopcion adopcion: adopciones) {
-            if (adopcion.getSeguimiento().getContinuarVisitas()){
-                return adopcion.getSeguimiento().getUltimaVisita().toDTO();
-            }
+        for (Adopcion adopcion : adopciones) {
+            if (adopcion.getMascota().getId().equals(idAnimal))
+                if (adopcion.getSeguimiento().getContinuarVisitas()) {
+                    visita = adopcion.getSeguimiento().getUltimaVisita().toDTO();
+                }
         }
-        return null;
+        return visita;
     }
 
-    public UsuarioDTO getResponsableDeSeguimiento(String animalID){
+    public UsuarioDTO getResponsableDeSeguimiento(String idAnimal){
         for (Adopcion adopcion : adopciones) {
-            if (animalID == adopcion.getMascota().getId()){
+            if (adopcion.getMascota().getId().equals(idAnimal)){
                 return adopcion.getSeguimiento().getResponsable().toDTO();
             }
         }
@@ -132,7 +133,7 @@ public class AdopcionesController {
     }
     public void enviarRecordatorio(String idVisitador) {
         for (Adopcion adopcion : adopciones){
-            if (adopcion.getSeguimiento().getResponsable().equals(UsuarioController.getInstancia().getUsuarioPorId(idVisitador))){
+            if (adopcion.getSeguimiento().getResponsable().getIdUsuario().equals(idVisitador)){
                 DatosNotificacion datos = new DatosNotificacion(adopcion.getAdoptante().getTelefono(),adopcion.getAdoptante().getDireccion(), adopcion.mensajeNotificacion());
                 adopcion.getSeguimiento().enviarRecordatorio(datos);
             }
@@ -144,21 +145,16 @@ public class AdopcionesController {
         AdoptanteDTO adoptanteDTO = new AdoptanteDTO(null, null, null, null, null
                 , null, 0, null, null);
 
-        for (Adoptante adoptante :
-                this.adoptantes) {
-            if (adoptante.getId() == idAdoptante)
+        for (Adoptante adoptante : adoptantes) {
+            if (adoptante.getId().equals(idAdoptante))
                 adoptanteDTO = adoptante.toDTO();
         }
 
         return adoptanteDTO;
     }
 
-    public SeguimientoDTO getSeguimientoByAnimal(String idAnimal){
-        return this.obtenerAdopcion(idAnimal).getSeguimiento();
-    }
-
     public void terminarVisita(VisitaDTO visita, AnimalDTO mascotaDTO, boolean continuarVisitas){
-        Seguimiento seguimiento = null;
+        Seguimiento seguimiento;
         for (Adopcion adopcion : adopciones){
             if (adopcion.getMascota().getId().equals(mascotaDTO.getId())) {
                 seguimiento = adopcion.getSeguimiento();
@@ -171,6 +167,5 @@ public class AdopcionesController {
             }
         }
     }
-
 
 }

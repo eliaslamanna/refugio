@@ -19,6 +19,11 @@ public class Usuario {
     private String dni;
 
     private Rol tipo;
+
+    public boolean isAutenticado() {
+        return autenticado;
+    }
+
     private boolean autenticado;
 
     public Usuario(){}
@@ -97,10 +102,8 @@ public class Usuario {
     }
 
     public UsuarioDTO toDTO() {
-        UsuarioDTO usuarioDTO = new UsuarioDTO(this.idUsuario,this.nombre,this.apellido,this.telefono,this.mail
+        return new UsuarioDTO(this.idUsuario,this.nombre,this.apellido,this.telefono,this.mail
                 ,this.dni,this.tipo,this.autenticado);
-
-        return usuarioDTO;
     }
 
     public static Usuario autenticarUsuario(UsuarioDTO usuario){

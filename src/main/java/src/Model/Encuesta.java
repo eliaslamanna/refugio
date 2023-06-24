@@ -1,6 +1,7 @@
 package src.Model;
 
 import src.DTO.EncuestaDTO;
+import src.Enum.EstadoLimpiezaAmbiente;
 
 public class Encuesta {
 

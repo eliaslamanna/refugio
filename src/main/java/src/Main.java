@@ -7,6 +7,7 @@ import src.DTO.*;
 
 import src.DTO.AnimalDTO;
 import src.DTO.AdoptanteDTO;
+import src.Enum.EstadoLimpiezaAmbiente;
 import src.Enum.MedioRecordatorio;
 import src.Enum.TipoAnimal;
 
@@ -16,8 +17,6 @@ import src.DTO.UsuarioDTO;
 import src.Model.Adoptante;
 
 import java.util.ArrayList;
-
-import src.Model.*;
 
 import java.util.List;
 import java.util.Scanner;
@@ -34,7 +33,6 @@ public class Main {
 
         System.out.println("Finalizo el programa");
     }
-
 
     private static void inicio(Scanner scanner) {
 
@@ -401,7 +399,7 @@ public class Main {
     }
 
     private static void atenderAlarmasXAnimal(Scanner scanner, String idAnimal) {
-        List<AlarmaXControlDTO> listaAlarmas = ClinicaController.getInstancia().traerAlarmasActivasDeSeguimiento(idAnimal);
+        List<AlarmaXControlDTO> listaAlarmas = AlarmaController.getInstancia().traerAlarmasActivasDeSeguimiento(idAnimal);
         mostrarAlarmasConControles(listaAlarmas);
         String opcion = scanner.nextLine();
 
@@ -411,7 +409,7 @@ public class Main {
 
             default:
 
-                ClinicaController.getInstancia().cancelarAlarma(listaAlarmas.get(Integer.parseInt(opcion) - 1).getIdAlarma(), idAnimal);
+                AlarmaController.getInstancia().cancelarAlarma(listaAlarmas.get(Integer.parseInt(opcion) - 1).getIdAlarma(), idAnimal);
                 break;
         }
 
@@ -422,12 +420,11 @@ public class Main {
 
     }
 
-
     private static void atenderAlarmas(Scanner scanner) {
         //inicioAtenderAlarmas();
         String idAnimalDTO;
         List<AnimalXAlarmaDTO> listaAnimales = new ArrayList<>();
-        listaAnimales = ClinicaController.getInstancia().traerSeguimientosConAlarmasActivas();
+        listaAnimales = AlarmaController.getInstancia().traerSeguimientosConAlarmasActivas();
         mostrarAnimalesConAlarmas(listaAnimales);
 
         String opcion = scanner.nextLine();
@@ -447,9 +444,8 @@ public class Main {
         menuVeterinario(scanner);
     }
 
-
     private static void inicioVeterinario() {
-        int cantAlarmasActivas = ClinicaController.getInstancia().hayAlarmasActivas();
+        int cantAlarmasActivas = AlarmaController.getInstancia().hayAlarmasActivas();
 
         System.out.println("\nQue desea hacer?");
         System.out.println("1. Gestionar Animales");
@@ -457,7 +453,7 @@ public class Main {
         System.out.println("3. Gestionar Salud");
         System.out.println("4. Programar Alarmas");
         System.out.println("5. Atender Alarmas (" + cantAlarmasActivas + ")");
-        System.out.println("6. menu anterior\n");
+        System.out.println("6. Salir\n");
     }
 
     private static void menuVeterinario(Scanner scanner) {
@@ -488,7 +484,6 @@ public class Main {
         }
         inicio(scanner);
     }
-
 
     private static void inicioVisitador() {
         System.out.println("\nQue desea hacer?");

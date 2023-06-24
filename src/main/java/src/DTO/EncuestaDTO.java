@@ -1,6 +1,6 @@
 package src.DTO;
 
-import src.Model.EstadoLimpiezaAmbiente;
+import src.Enum.EstadoLimpiezaAmbiente;
 
 public class EncuestaDTO {
     private EstadoLimpiezaAmbiente estado;
