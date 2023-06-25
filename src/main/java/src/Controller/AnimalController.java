@@ -21,7 +21,6 @@ public class AnimalController {
         if(instancia == null) {
             instancia = new AnimalController();
         }
-
         return instancia;
     }
 
@@ -33,13 +32,7 @@ public class AnimalController {
             System.out.println(String.format("Se ingreso el animal %s exitosamente.", animal.getNombre()));
     }
 
-    /*
-    public boolean animalYaExiste(Animal animal) {
-        return animales.contains(animal);
-    }
-    */
-
-    public List<AnimalDTO> obtenerAnimales() {
+    public List<AnimalDTO> getAnimales() {
         List<AnimalDTO> listaAnimales = new ArrayList<>();
         for (Animal animal : this.animales) {
             listaAnimales.add(animal.toDTO());
@@ -47,7 +40,7 @@ public class AnimalController {
         return listaAnimales;
     }
 
-    public AnimalDTO buscarAnimal(String idAnimal) {
+    public AnimalDTO getAnimalPorId(String idAnimal) {
         return animales.stream().filter(animal -> animal.getId().equals(idAnimal)).findFirst().orElse(null).toDTO();
     }
 

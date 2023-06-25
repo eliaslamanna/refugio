@@ -2,10 +2,7 @@ package src;
 
 import src.Controller.*;
 import src.DTO.*;
-
-import src.Enum.EstadoLimpiezaAmbiente;
-import src.Enum.MedioRecordatorio;
-import src.Enum.TipoAnimal;
+import src.Enum.*;
 
 import java.util.ArrayList;
 
@@ -46,11 +43,11 @@ public class Main {
                     usuarioAuntenticado = UsuarioController.getInstancia().autenticarUsuario(usuarioAuntenticado);
 
                     if (usuarioAuntenticado.isAutenticado()) {
-                        switch (usuarioAuntenticado.getTipo().toString()) {
-                            case "VETERINARIO":
+                        switch (usuarioAuntenticado.getTipo()) {
+                            case VETERINARIO:
                                 menuVeterinario(scanner);
                                 break;
-                            case "VISITADOR":
+                            case VISITADOR:
                                 menuVisitador(scanner);
                                 break;
                         }
@@ -102,7 +99,7 @@ public class Main {
                 case "2":
                     System.out.println("\nIngrese el nombre del animal");
                     String nombreAnimal = scanner.nextLine();
-                    AnimalDTO animalBuscado = AnimalController.getInstancia().buscarAnimal(nombreAnimal);
+                    AnimalDTO animalBuscado = AnimalController.getInstancia().getAnimalPorId(nombreAnimal);
                     if (animalBuscado != null) {
                         System.out.println("\n/-----------------------------/");
                         System.out.println("Nombre -> " + animalBuscado.getNombre());
@@ -118,7 +115,7 @@ public class Main {
                 case "3":
                     System.out.println("\nLista de animales");
                     System.out.println("/-----------------------------/");
-                    List<AnimalDTO> animales = AnimalController.getInstancia().obtenerAnimales();
+                    List<AnimalDTO> animales = AnimalController.getInstancia().getAnimales();
                     animales.forEach(animal -> {
                         System.out.println("Nombre -> " + animal.getNombre());
                         System.out.println("Tipo -> " + animal.getTipoAnimal());
@@ -144,10 +141,9 @@ public class Main {
     private static void gestionarAdopciones(Scanner scanner) {
         inicioGestionarAdopciones();
         String respuesta;
-        String idadoptante;
-        String idanimal;
-        String idVisitadorAAsignar;
         String medioNotificacion = "";
+
+        List<AdoptanteDTO> adoptantesDisponibles;
 
         AdoptanteDTO adoptanteDTO = null;
         UsuarioDTO visitadorDTO = null;
@@ -162,14 +158,15 @@ public class Main {
                     respuesta = scanner.nextLine();
                     if (respuesta.equalsIgnoreCase("s")) {
 
-                        List<AdoptanteDTO> disponiblesadop = AdopcionesController.getInstancia().getAdoptantesDisponibles();
-                        if (disponiblesadop.size() == 0) {
-                            System.out.println("NO HAY ADOPTANTES DISPONIBLES EN EL SISTEMA.\nINTRODUZCA CUALQUIER CARACTER PARA SALIR.");
+                        adoptantesDisponibles = AdopcionesController.getInstancia().getAdoptantesDisponibles();
+
+                        if (adoptantesDisponibles.size() == 0) {
+                            System.out.println("NO HAY ADOPTANTES DISPONIBLES EN EL SISTEMA.\nINTRODUZCA CUALQUIER CARACTER PARA CONTINUAR.");
                             break;
                         }
                         System.out.println("Lista de adoptantes disponibles");
                         System.out.println("-----------------------------");
-                        disponiblesadop.forEach(adoptante -> {
+                        adoptantesDisponibles.forEach(adoptante -> {
                             System.out.println("Nombre -> " + adoptante.getNombre());
                             System.out.println("ID -> " + adoptante.getId());
                             System.out.println("                              ");
@@ -208,14 +205,14 @@ public class Main {
                         System.out.println("Ingrese el tipo de animal en el que está interesado el adoptante:");
                         String tipoAnimalInteresado = scanner.nextLine();
 
-                        adoptanteDTO = AdopcionesController.getInstancia().AltaAdoptante(
+                        adoptanteDTO = AdopcionesController.getInstancia().altaAdoptante(
                                 new AdoptanteDTO(nombre, apellido, estadoCivil, direccion, telefono,
                                         ocupacion, otrasMascotas, motivoAdopcion, tipoAnimalInteresado));
 
                     }
 
                     System.out.println("Que animal desea adoptar?");
-                    List<AnimalDTO> animalesDisp = AnimalController.getInstancia().getAnimalesDisponibles();
+                    List<AnimalDTO> animalesDisp = AdopcionesController.getInstancia().getMascotasDisponiblesParaAdopcion();
                     if (animalesDisp.size() == 0) {
                         System.out.println("NO HAY ANIMALES PARA ADOPTAR EN ESTE MOMENTO.\nINTRODUZCA CUALQUIER CARACTER PARA SALIR.");
                         break;
@@ -226,7 +223,7 @@ public class Main {
                         System.out.println("-----------------------------");
                     });
 
-                    mascotaDTO = AnimalController.getInstancia().buscarAnimal(scanner.nextLine());
+                    mascotaDTO = AnimalController.getInstancia().getAnimalPorId(scanner.nextLine());
 
                     System.out.println("Quien sera el responsable del seguimiento de la adopcion?");
                     System.out.println("Visitadores para asignar");
@@ -264,7 +261,7 @@ public class Main {
                     seguimientoDTO.setDiasRecordatorio(diasRecordatorio);
                     seguimientoDTO.setMedioNotificacion(MedioRecordatorio.valueOf(medioNotificacion));
 
-                    AdopcionesController.getInstancia().CrearAdopcion(adoptanteDTO, mascotaDTO, seguimientoDTO);
+                    AdopcionesController.getInstancia().crearAdopcion(adoptanteDTO, mascotaDTO, seguimientoDTO);
 
                     inicioGestionarAdopciones();
                     System.out.println("LA ADOPCION SE CARGO CORRECTAMENTE.\n");
@@ -292,14 +289,14 @@ public class Main {
             switch (opcion) {
                 case "1":
                     System.out.println("\nElige el animal por id");
-                    List<AnimalDTO> animales = AnimalController.getInstancia().obtenerAnimales();
+                    List<AnimalDTO> animales = AnimalController.getInstancia().getAnimales();
                     animales.forEach(animal -> {
                         System.out.println("Nombre -> " + animal.getNombre());
                         System.out.println("ID -> " + animal.getId());
                         System.out.println("-----------------------------");
                     });
                     String idAnimal = scanner.nextLine();
-                    AnimalDTO animal = AnimalController.getInstancia().buscarAnimal(idAnimal);
+                    AnimalDTO animal = AnimalController.getInstancia().getAnimalPorId(idAnimal);
                     animal.setId(idAnimal);
                     if (animal == null) {
                         System.out.println("EL ANIMAL NO EXISTE");
@@ -521,7 +518,7 @@ public class Main {
                 case "1":
                     System.out.println("\nIngrese el nombre del animal");
                     String nombreAnimal = scanner.nextLine();
-                    AnimalDTO animalBuscado = AnimalController.getInstancia().buscarAnimal(nombreAnimal);
+                    AnimalDTO animalBuscado = AnimalController.getInstancia().getAnimalPorId(nombreAnimal);
                     if (animalBuscado != null) {
                         System.out.println("\n/-----------------------------/");
                         System.out.println("Nombre -> " + animalBuscado.getNombre());
@@ -537,7 +534,7 @@ public class Main {
                 case "2":
                     System.out.println("\nLista de animales");
                     System.out.println("/-----------------------------/");
-                    List<AnimalDTO> animales = AnimalController.getInstancia().obtenerAnimales();
+                    List<AnimalDTO> animales = AnimalController.getInstancia().getAnimales();
                     animales.forEach(animal -> {
                         System.out.println("Nombre -> " + animal.getNombre());
                         System.out.println("Tipo -> " + animal.getTipoAnimal());
@@ -664,8 +661,8 @@ public class Main {
                     visitaDTO.setObservaciones(observacion);
                     visitaDTO.setEncuesta(encuestaDTO);
 
-                    mascotaDTO = AnimalController.getInstancia().buscarAnimal(idAnimalSeguido);
-                    AdopcionesController.getInstancia().terminarVisita(visitaDTO, mascotaDTO, continuarVisitasBoolean);
+                    mascotaDTO = AnimalController.getInstancia().getAnimalPorId(idAnimalSeguido);
+                    AdopcionesController.getInstancia().registrarVisita(visitaDTO, mascotaDTO, continuarVisitasBoolean);
                     break;
                 default:
                     inicioGestionarVisitas();

@@ -1,6 +1,7 @@
 package src.Controller;
 
 import src.DTO.*;
+import src.Enum.TipoAnimal;
 import src.Model.*;
 
 import java.util.*;
@@ -25,10 +26,10 @@ public class AdopcionesController {
         return instancia;
     }
 
-    public AdoptanteDTO AltaAdoptante(AdoptanteDTO adoptante) {
+    public AdoptanteDTO altaAdoptante(AdoptanteDTO adoptante) {
         Adoptante adoptanteParaGuardar = Adoptante.toObject(adoptante);
 
-        if (this.AdoptanteYaExiste(adoptanteParaGuardar)) {
+        if (this.adoptanteYaExiste(adoptanteParaGuardar)) {
             System.out.println("\n El adoptante ya existe en la base de datos\n");
         } else {
             adoptantes.add(adoptanteParaGuardar);
@@ -37,14 +38,14 @@ public class AdopcionesController {
 
         return adoptanteParaGuardar.toDTO();
     }
-    private boolean AdoptanteYaExiste(Adoptante adoptante) {
+    private boolean adoptanteYaExiste(Adoptante adoptante) {
         return adoptantes.contains(adoptante);
     }
     public Adoptante buscarAdoptante(String idAdoptante) {
         return adoptantes.stream().filter(adoptante -> adoptante.getId().equals(idAdoptante)).findFirst().orElse(null);
     }
 
-    public void CrearAdopcion(AdoptanteDTO adoptanteDTO, AnimalDTO mascotaDTO, SeguimientoDTO seguimientoDTO){
+    public void crearAdopcion(AdoptanteDTO adoptanteDTO, AnimalDTO mascotaDTO, SeguimientoDTO seguimientoDTO){
 
         Seguimiento seguimiento = Seguimiento.toObject(seguimientoDTO);
 
@@ -78,10 +79,10 @@ public class AdopcionesController {
         return datos;
     }
 
-    public boolean isDisponibleAdoptante(String idadoptante){
+    public boolean isDisponibleAdoptante(String idAdoptante){
         int contador = 0;
         for (Adopcion adopcion : adopciones) {
-            if (adopcion.getAdoptante().getId().equals(idadoptante)) {
+            if (adopcion.getAdoptante().getId().equals(idAdoptante)) {
                 contador++;
                 if (contador == 2) {
                     return false;
@@ -153,7 +154,7 @@ public class AdopcionesController {
         return adoptanteDTO;
     }
 
-    public void terminarVisita(VisitaDTO visita, AnimalDTO mascotaDTO, boolean continuarVisitas){
+    public void registrarVisita(VisitaDTO visita, AnimalDTO mascotaDTO, boolean continuarVisitas){
         Seguimiento seguimiento;
         for (Adopcion adopcion : adopciones){
             if (adopcion.getMascota().getId().equals(mascotaDTO.getId())) {
@@ -168,4 +169,24 @@ public class AdopcionesController {
         }
     }
 
+    public List<AnimalDTO> getMascotasDisponiblesParaAdopcion(){
+        List<AnimalDTO> mascotasAdoptables = new ArrayList<>();
+        boolean isAdoptable = true;
+
+        for (AnimalDTO animalDTO : AnimalController.getInstancia().getAnimales()){
+            if (animalDTO.getTipoAnimal().equals(TipoAnimal.DOMESTICO)
+                    && !animalDTO.getEnTratamiento()){
+                for (Adopcion adopcion : adopciones){
+                    if (adopcion.getMascota().getId().equals(animalDTO.getId())){
+                        isAdoptable = false;
+                    }
+                }
+                if (isAdoptable)
+                    mascotasAdoptables.add(animalDTO);
+            }
+            isAdoptable = true;
+        }
+
+        return mascotasAdoptables;
+    }
 }
