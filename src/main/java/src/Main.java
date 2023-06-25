@@ -23,6 +23,36 @@ public class Main {
     }
 
     private static void inicio(Scanner scanner) {
+        List<AnimalDTO> animalesDatos = new ArrayList<>();
+
+        // Definir animales de pruebas.
+        AnimalDTO animal1 = new AnimalDTO("Bobby", 2, 5.6, 0.6, "Sin condiciones medicas.", TipoAnimal.SALVAJE);
+        AnimalDTO animal2 = new AnimalDTO("Max", 3, 7.2, 0.8, "Condicion leve.", TipoAnimal.DOMESTICO);
+        AnimalDTO animal3 = new AnimalDTO("Lola", 1, 4.5, 0.5, "Sin condiciones medicas.", TipoAnimal.DOMESTICO);
+        AnimalDTO animal4 = new AnimalDTO("Mora", 7, 8.8, 0.9, "Problemas respiratorios.", TipoAnimal.DOMESTICO);
+        animalesDatos.add(animal1);
+        animalesDatos.add(animal2);
+        animalesDatos.add(animal3);
+        animalesDatos.add(animal4);
+        // Ingresar animales.
+        for (AnimalDTO animal:
+                animalesDatos) {
+            AnimalController.getInstancia().ingresarAnimal(animal, UsuarioController.getInstancia().getUsuarioPorId("veterinario01"));
+        }
+        // --------------------------------------------------------------------------------------------------------------------------------------------------
+
+        List<AdoptanteDTO> adoptantesDatos = new ArrayList<>();
+
+        // Definir adoptantes de pruebas.
+        AdoptanteDTO adoptante1 = new AdoptanteDTO("Carlos","Perez","Soltero","Calle Falsa 123","11 4444-5555","Desempleado",2, "Se siente solo","Perros");
+        AdoptanteDTO adoptante2 = new AdoptanteDTO("Maria","Hernandez","Casada","Calle Falsa 321","11 1234-5678","Maestra",0, "Sin motivo","Gatos");
+        adoptantesDatos.add(adoptante1);
+        adoptantesDatos.add(adoptante2);
+        for (AdoptanteDTO adoptante:
+                adoptantesDatos) {
+            AdoptanteController.getInstancia().altaAdoptante(adoptante);
+        }
+        // --------------------------------------------------------------------------------------------------------------------------------------------------
 
         String tipoUsuario;
         String opcion = "0";
@@ -159,7 +189,7 @@ public class Main {
                     respuesta = scanner.nextLine();
                     if (respuesta.equalsIgnoreCase("s")) {
 
-                        adoptantesDisponibles = AdopcionesController.getInstancia().getAdoptantesDisponibles();
+                        adoptantesDisponibles = AdoptanteController.getInstancia().getAdoptantesDisponibles();
 
                         if (adoptantesDisponibles.size() == 0) {
                             System.out.println("NO HAY ADOPTANTES DISPONIBLES EN EL SISTEMA.\nINTRODUZCA CUALQUIER CARACTER PARA CONTINUAR.");
@@ -175,7 +205,7 @@ public class Main {
                         System.out.println("-----------------------------");
                         System.out.println("Ingrese el Id a elegir como adoptante");
 
-                        adoptanteDTO = AdopcionesController.getInstancia().getAdoptantePorId(scanner.nextLine());
+                        adoptanteDTO = AdoptanteController.getInstancia().getAdoptantePorId(scanner.nextLine());
 
                     } else {
                         System.out.println("Ingrese el nombre del adoptante:");
@@ -206,7 +236,7 @@ public class Main {
                         System.out.println("Ingrese el tipo de animal en el que está interesado el adoptante:");
                         String tipoAnimalInteresado = scanner.nextLine();
 
-                        adoptanteDTO = AdopcionesController.getInstancia().altaAdoptante(
+                        adoptanteDTO = AdoptanteController.getInstancia().altaAdoptante(
                                 new AdoptanteDTO(nombre, apellido, estadoCivil, direccion, telefono,
                                         ocupacion, otrasMascotas, motivoAdopcion, tipoAnimalInteresado));
 

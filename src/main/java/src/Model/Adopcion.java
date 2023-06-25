@@ -1,5 +1,6 @@
 package src.Model;
 import src.Controller.AdopcionesController;
+import src.Controller.AdoptanteController;
 import src.DTO.AdopcionDTO;
 import src.DTO.DatosNotificacion;
 
@@ -28,7 +29,7 @@ public class Adopcion {
 
 
     public static DatosNotificacion getDatosDeAdoptante(String id_adoptante){
-        return AdopcionesController.getInstancia().getDatosDeAdoptante(id_adoptante);
+        return AdoptanteController.getInstancia().getDatosDeAdoptante(id_adoptante);
     }
 
     public String mensajeNotificacion(){

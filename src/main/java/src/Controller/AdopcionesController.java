@@ -8,15 +8,12 @@ import java.util.*;
 
 
 public class AdopcionesController {
-
-    private static List<Adoptante> adoptantes;
     private static List<Adopcion> adopciones;
     private static List<Usuario> visitadores;
     private static AdopcionesController instancia;
 
     private AdopcionesController() {
         adopciones = new ArrayList<>();
-        adoptantes = new ArrayList<>();
     }
 
     public static AdopcionesController getInstancia() {
@@ -26,24 +23,7 @@ public class AdopcionesController {
         return instancia;
     }
 
-    public AdoptanteDTO altaAdoptante(AdoptanteDTO adoptante) {
-        Adoptante adoptanteParaGuardar = Adoptante.toObject(adoptante);
 
-        if (this.adoptanteYaExiste(adoptanteParaGuardar)) {
-            System.out.println("\n El adoptante ya existe en la base de datos\n");
-        } else {
-            adoptantes.add(adoptanteParaGuardar);
-            System.out.println(String.format("Se ingresó el adoptante %s %s exitosamente.", adoptante.getNombre(), adoptante.getApellido()));
-        }
-
-        return adoptanteParaGuardar.toDTO();
-    }
-    private boolean adoptanteYaExiste(Adoptante adoptante) {
-        return adoptantes.contains(adoptante);
-    }
-    public Adoptante buscarAdoptante(String idAdoptante) {
-        return adoptantes.stream().filter(adoptante -> adoptante.getId().equals(idAdoptante)).findFirst().orElse(null);
-    }
 
     public void crearAdopcion(AdoptanteDTO adoptanteDTO, AnimalDTO mascotaDTO, SeguimientoDTO seguimientoDTO){
 
@@ -69,15 +49,6 @@ public class AdopcionesController {
         return adopcionDTO; // Si no se encuentra la adopción con los criterios especificados
     }
 
-    public DatosNotificacion getDatosDeAdoptante(String id_adoptante) {
-        DatosNotificacion datos = null;
-        for (Adoptante adoptante : adoptantes) {
-            if (adoptante.getId().equals(id_adoptante)) {
-                datos = new DatosNotificacion(adoptante.getTelefono(), adoptante.getDireccion(), "Su visita esta proxima a su fecha!");
-            }
-        }
-        return datos;
-    }
 
     public boolean isDisponibleAdoptante(String idAdoptante){
         int contador = 0;
@@ -92,15 +63,7 @@ public class AdopcionesController {
         return true;
     }
 
-    public List<AdoptanteDTO> getAdoptantesDisponibles(){
-        List <AdoptanteDTO> adoptantesDisponibles = new ArrayList<>();
-        for (Adoptante adoptante : adoptantes) {
-            if(isDisponibleAdoptante(adoptante.getId())){
-                adoptantesDisponibles.add(adoptante.toDTO());
-            }
-        }
-        return adoptantesDisponibles;
-    }
+
 
     public List<AnimalDTO> getAnimalesConSeguimientoActivo(){
         ArrayList<AnimalDTO> animales = new ArrayList<>();
@@ -142,17 +105,7 @@ public class AdopcionesController {
         }
     }
 
-    public AdoptanteDTO getAdoptantePorId(String idAdoptante) {
-        AdoptanteDTO adoptanteDTO = new AdoptanteDTO(null, null, null, null, null
-                , null, 0, null, null);
 
-        for (Adoptante adoptante : adoptantes) {
-            if (adoptante.getId().equals(idAdoptante))
-                adoptanteDTO = adoptante.toDTO();
-        }
-
-        return adoptanteDTO;
-    }
 
     public void registrarVisita(VisitaDTO visita, AnimalDTO mascotaDTO, boolean continuarVisitas){
         Seguimiento seguimiento;
