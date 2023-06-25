@@ -127,7 +127,7 @@ public class Main {
     private static void inicioGestionarAnimalesVeterinario() {
         System.out.println("\nQue desea hacer?");
         System.out.println("1. Agregar animal");
-        System.out.println("2. Buscar animal");
+        System.out.println("2. Buscar animal por ID");
         System.out.println("3. Buscar todos los animales");
         System.out.println("4. Menu anterior\n");
     }
@@ -160,7 +160,7 @@ public class Main {
                     inicioGestionarAnimalesVeterinario();
                     break;
                 case "2":
-                    System.out.println("\nIngrese el nombre del animal");
+                    System.out.println("\nIngrese el ID del animal");
                     String idAnimal = scanner.nextLine();
                     AnimalDTO animalBuscado = AnimalController.getInstancia().getAnimalPorId(idAnimal);
                     if (animalBuscado != null) {
@@ -172,6 +172,9 @@ public class Main {
                         System.out.println("Condicion medica -> " + animalBuscado.getCondicionMedica());
                         System.out.println("Tipo -> " + animalBuscado.getTipoAnimal());
                         System.out.println("/-----------------------------/");
+                    }
+                    else {
+                        System.out.println("\nNo se encontro un animal con ese id.");
                     }
                     inicioGestionarAnimalesVeterinario();
                     break;
@@ -239,7 +242,6 @@ public class Main {
                         System.out.println("Ingrese el Id a elegir como adoptante");
 
                         adoptanteDTO = AdoptanteController.getInstancia().getAdoptantePorId(scanner.nextLine());
-
                     } else {
                         System.out.println("Ingrese el nombre del adoptante:");
                         String nombre = scanner.nextLine();
@@ -650,10 +652,9 @@ public class Main {
                         System.out.println("ID -> " + animal.getId());
                         System.out.println("-----------------------------");
                     });
+                    System.out.println("\nIngrese id del animal");
                     String idAnimalSeguido = scanner.nextLine();
                     VisitaDTO visitaDTO = AdopcionesController.getInstancia().getUltimaVisitaPorAnimal(idAnimalSeguido);
-                    System.out.println("\nIngrese id del animal");
-                    String nombre = scanner.nextLine();
                     System.out.println("\nIngrese alguna observacion sobre la visita");
                     String observacion = scanner.nextLine();
                     while (!estadoAnimal.equalsIgnoreCase(EstadoLimpiezaAmbiente.BUENO.toString())
@@ -719,6 +720,14 @@ public class Main {
 
                     mascotaDTO = AnimalController.getInstancia().getAnimalPorId(idAnimalSeguido);
                     AdopcionesController.getInstancia().registrarVisita(visitaDTO, mascotaDTO, continuarVisitasBoolean);
+                    estadoAnimal = "";
+                    estadoAmbiente = "";
+                    estadoLugar = "";
+                    continuarVisitas = "";
+                    estadoAmbienteDTO = null;
+                    estadoLugarDTO = null;
+                    estadoAnimalDTO = null;
+                    mascotaDTO = null;
                     break;
                 default:
                     inicioGestionarVisitas();
