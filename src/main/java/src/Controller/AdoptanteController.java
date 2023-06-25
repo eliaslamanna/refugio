@@ -6,6 +6,7 @@ import src.Model.Adoptante;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class AdoptanteController {
     private static AdoptanteController instancia;
@@ -70,6 +71,16 @@ public class AdoptanteController {
         }
 
         return adoptanteDTO;
+    }
+
+    public AdoptanteDTO getRandomAdoptante(){
+        if (adoptantes.isEmpty()) {
+            return null;
+        }
+
+        Random random = new Random();
+        int randomIndex = random.nextInt(adoptantes.size());
+        return adoptantes.get(randomIndex).toDTO();
     }
 
 }

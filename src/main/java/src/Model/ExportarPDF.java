@@ -39,15 +39,18 @@ public class ExportarPDF implements EstrategiaExportacion {
         }
         System.out.println("Visitas a domicilio: ");
         Date hoy = new Date();
-        for (VisitaADomicilio visita : historia.getVisitasADomicilio().getVisitasADomicilioTerminadas()) {
-            if (visita.isTerminada()) {
-                System.out.println("Fecha: " + visita.getFechaVisita().toString());
-                System.out.println("Observaciones: " + visita.getObservaciones());
-                System.out.println("Estado general del animal: " + visita.getEncuesta().getEstado().toString());
-                System.out.println("Estado del ambiente: " + visita.getEncuesta().getAmbiente().toString());
-                System.out.println("Estado de la limpieza : " + visita.getEncuesta().getLimpieza().toString());
-                System.out.println("");
-            }
+        if (historia.getVisitasADomicilio().getVisitasADomicilioTerminadas() !=  null){
+            for (VisitaADomicilio visita : historia.getVisitasADomicilio().getVisitasADomicilioTerminadas()) {
+                if (visita.isTerminada()) {
+                    System.out.println("Fecha: " + visita.getFechaVisita().toString());
+                    System.out.println("Observaciones: " + visita.getObservaciones());
+                    System.out.println("Estado general del animal: " + visita.getEncuesta().getEstado().toString());
+                    System.out.println("Estado del ambiente: " + visita.getEncuesta().getAmbiente().toString());
+                    System.out.println("Estado de la limpieza : " + visita.getEncuesta().getLimpieza().toString());
+                    System.out.println("");
+                }
+        }
+
 
         }
 

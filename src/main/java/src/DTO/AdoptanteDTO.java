@@ -17,6 +17,9 @@ public class AdoptanteDTO {
     private String telefono;
     private String ocupacion;
     private int otrasMascotas;
+    private String motivoAdopcion;
+    private String tipoAnimalInteresado;
+
 
     public AdoptanteDTO(String nombre, String apellido, String estadoCivil, String direccion, String telefono,
                         String ocupacion, int otrasMascotas, String motivoAdopcion, String tipoAnimalInteresado) {
@@ -110,8 +113,7 @@ public class AdoptanteDTO {
         this.tipoAnimalInteresado = tipoAnimalInteresado;
     }
 
-    private String motivoAdopcion;
-    private String tipoAnimalInteresado;
+
 
 
 }

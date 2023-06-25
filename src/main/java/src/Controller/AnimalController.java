@@ -1,5 +1,6 @@
 package src.Controller;
 
+import src.DTO.AdoptanteDTO;
 import src.DTO.UsuarioDTO;
 import src.Model.Animal;
 import src.DTO.AnimalDTO;
@@ -52,5 +53,15 @@ public class AnimalController {
             }
         }
         return animalesDisponibles;
+    }
+
+    public AnimalDTO getRandomAnimal(){
+        if (animales.isEmpty()) {
+            return null;
+        }
+
+        Random random = new Random();
+        int randomIndex = random.nextInt(animales.size());
+        return animales.get(randomIndex).toDTO();
     }
 }

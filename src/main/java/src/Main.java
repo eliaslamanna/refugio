@@ -4,10 +4,7 @@ import src.Controller.*;
 import src.DTO.*;
 import src.Enum.*;
 
-import java.util.ArrayList;
-
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
@@ -21,38 +18,74 @@ public class Main {
 
         System.out.println("Finalizo el programa");
     }
+    static boolean seCargaronLosDatos = false;
 
     private static void inicio(Scanner scanner) {
-        List<AnimalDTO> animalesDatos = new ArrayList<>();
+        if (!seCargaronLosDatos){
+            List<AnimalDTO> animalesDatos = new ArrayList<>();
 
-        // Definir animales de pruebas.
-        AnimalDTO animal1 = new AnimalDTO("Bobby", 2, 5.6, 0.6, "Sin condiciones medicas.", TipoAnimal.SALVAJE);
-        AnimalDTO animal2 = new AnimalDTO("Max", 3, 7.2, 0.8, "Condicion leve.", TipoAnimal.DOMESTICO);
-        AnimalDTO animal3 = new AnimalDTO("Lola", 1, 4.5, 0.5, "Sin condiciones medicas.", TipoAnimal.DOMESTICO);
-        AnimalDTO animal4 = new AnimalDTO("Mora", 7, 8.8, 0.9, "Problemas respiratorios.", TipoAnimal.DOMESTICO);
-        animalesDatos.add(animal1);
-        animalesDatos.add(animal2);
-        animalesDatos.add(animal3);
-        animalesDatos.add(animal4);
-        // Ingresar animales.
-        for (AnimalDTO animal:
-                animalesDatos) {
-            AnimalController.getInstancia().ingresarAnimal(animal, UsuarioController.getInstancia().getUsuarioPorId("veterinario01"));
+            // Definir animales de pruebas.
+            AnimalDTO animal1 = new AnimalDTO("Bobby", 2, 5.6, 0.6, "Sin condiciones medicas.", TipoAnimal.SALVAJE);
+            AnimalDTO animal2 = new AnimalDTO("Max", 3, 7.2, 0.8, "Condicion leve.", TipoAnimal.DOMESTICO);
+            AnimalDTO animal3 = new AnimalDTO("Lola", 1, 4.5, 0.5, "Sin condiciones medicas.", TipoAnimal.DOMESTICO);
+            AnimalDTO animal4 = new AnimalDTO("Mora", 7, 8.8, 0.9, "Problemas respiratorios.", TipoAnimal.DOMESTICO);
+            animalesDatos.add(animal1);
+            animalesDatos.add(animal2);
+            animalesDatos.add(animal3);
+            animalesDatos.add(animal4);
+            // Ingresar animales.
+            for (AnimalDTO animal:
+                    animalesDatos) {
+                AnimalController.getInstancia().ingresarAnimal(animal, UsuarioController.getInstancia().getUsuarioPorId("veterinario01"));
+            }
+            // --------------------------------------------------------------------------------------------------------------------------------------------------
+
+            List<AdoptanteDTO> adoptantesDatos = new ArrayList<>();
+
+            // Definir adoptantes de pruebas.
+            AdoptanteDTO adoptante1 = new AdoptanteDTO("Carlos","Perez","Soltero","Calle Falsa 123","11 4444-5555","Desempleado",2, "Se siente solo","Perros");
+            AdoptanteDTO adoptante2 = new AdoptanteDTO("Maria","Hernandez","Casada","Calle Falsa 321","11 1234-5678","Maestra",0, "Sin motivo","Gatos");
+            adoptantesDatos.add(adoptante1);
+            adoptantesDatos.add(adoptante2);
+            for (AdoptanteDTO adoptante:
+                    adoptantesDatos) {
+                AdoptanteController.getInstancia().altaAdoptante(adoptante);
+            }
+            // --------------------------------------------------------------------------------------------------------------------------------------------------
+            // Encuesta
+            EncuestaDTO encuesta1 = new EncuestaDTO();
+            encuesta1.setLimpieza(EstadoLimpiezaAmbiente.BUENO);
+            encuesta1.setAmbiente(EstadoLimpiezaAmbiente.REGULAR);
+            encuesta1.setEstado(EstadoLimpiezaAmbiente.MALO);
+
+
+            // Visita
+            VisitaDTO visita1 = new VisitaDTO();
+            visita1.setTerminada(true);
+            visita1.setFechaVisita(new Date());
+            visita1.setObservaciones("Visita de prueba");
+            visita1.setEncuesta(encuesta1);
+
+            //Seguimiento
+            SeguimientoDTO seguimiento1 = new SeguimientoDTO();
+            seguimiento1.setCadenciaVisita(15);
+            seguimiento1.setContinuarVisitas(true);
+            seguimiento1.setResponsable(new UsuarioDTO("visitador01", "Jose", "Visitador", "1111111111111"
+                    , "unMail02@dominio.com.ar", "99999998", Rol.VISITADOR, true));
+            seguimiento1.setMedioNotificacion(MedioRecordatorio.WHATSAPP);
+            seguimiento1.setDiasRecordatorio(5);
+
+            AnimalDTO animalParaAdopcion = AnimalController.getInstancia().getRandomAnimal();
+            System.out.println(animalParaAdopcion.getId());
+            // Adopcion
+            AdopcionesController.getInstancia().crearAdopcion(AdoptanteController.getInstancia().getRandomAdoptante(), animalParaAdopcion, seguimiento1);
+            AdopcionesController.getInstancia().registrarVisita(visita1,animalParaAdopcion,true);
+
+            seCargaronLosDatos = true;
+
         }
-        // --------------------------------------------------------------------------------------------------------------------------------------------------
 
-        List<AdoptanteDTO> adoptantesDatos = new ArrayList<>();
 
-        // Definir adoptantes de pruebas.
-        AdoptanteDTO adoptante1 = new AdoptanteDTO("Carlos","Perez","Soltero","Calle Falsa 123","11 4444-5555","Desempleado",2, "Se siente solo","Perros");
-        AdoptanteDTO adoptante2 = new AdoptanteDTO("Maria","Hernandez","Casada","Calle Falsa 321","11 1234-5678","Maestra",0, "Sin motivo","Gatos");
-        adoptantesDatos.add(adoptante1);
-        adoptantesDatos.add(adoptante2);
-        for (AdoptanteDTO adoptante:
-                adoptantesDatos) {
-            AdoptanteController.getInstancia().altaAdoptante(adoptante);
-        }
-        // --------------------------------------------------------------------------------------------------------------------------------------------------
 
         String tipoUsuario;
         String opcion = "0";

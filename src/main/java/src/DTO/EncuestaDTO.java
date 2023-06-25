@@ -3,6 +3,7 @@ package src.DTO;
 import src.Enum.EstadoLimpiezaAmbiente;
 
 public class EncuestaDTO {
+
     private EstadoLimpiezaAmbiente estado;
 
     private EstadoLimpiezaAmbiente limpieza;
