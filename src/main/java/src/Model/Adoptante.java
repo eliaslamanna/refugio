@@ -108,7 +108,8 @@ public class Adoptante {
                      String ocupacion, int otrasMascotas, String motivoAdopcion, String tipoAnimalInteresado) {
             this(nombre, apellido, estadoCivil, direccion, telefono, ocupacion, otrasMascotas, motivoAdopcion
                     , tipoAnimalInteresado);
-            this.id = id;
+            if (id != null)
+                this.id = id;
     }
 
     public Adoptante(){

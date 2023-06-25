@@ -36,7 +36,9 @@ public class Animal {
 
     public Animal(String id, String nombre, Integer edadAprox, Double peso, Double altura, String condicionMedica, TipoAnimal tipoAnimal) {
         this(nombre, edadAprox, peso, altura, condicionMedica, tipoAnimal);
-        this.id = id;
+
+        if (id != null)
+            this.id = id;
     }
 
     public String getNombre() {

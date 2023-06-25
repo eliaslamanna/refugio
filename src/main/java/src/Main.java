@@ -98,8 +98,8 @@ public class Main {
                     break;
                 case "2":
                     System.out.println("\nIngrese el nombre del animal");
-                    String nombreAnimal = scanner.nextLine();
-                    AnimalDTO animalBuscado = AnimalController.getInstancia().getAnimalPorId(nombreAnimal);
+                    String idAnimal = scanner.nextLine();
+                    AnimalDTO animalBuscado = AnimalController.getInstancia().getAnimalPorId(idAnimal);
                     if (animalBuscado != null) {
                         System.out.println("\n/-----------------------------/");
                         System.out.println("Nombre -> " + animalBuscado.getNombre());
@@ -119,6 +119,7 @@ public class Main {
                     animales.forEach(animal -> {
                         System.out.println("Nombre -> " + animal.getNombre());
                         System.out.println("Tipo -> " + animal.getTipoAnimal());
+                        System.out.println("Id -> " + animal.getId());
                         System.out.println("-----------------------------");
                     });
                     inicioGestionarAnimalesVeterinario();
