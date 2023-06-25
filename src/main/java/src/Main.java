@@ -593,64 +593,55 @@ public class Main {
                     String nombre = scanner.nextLine();
                     System.out.println("\nIngrese alguna observacion sobre la visita");
                     String observacion = scanner.nextLine();
-                    while (!estadoAnimal.equals(EstadoLimpiezaAmbiente.BUENO.toString())
-                            && !estadoAnimal.equals(EstadoLimpiezaAmbiente.REGULAR.toString())
-                            && !estadoAnimal.equals(EstadoLimpiezaAmbiente.MALO.toString())) {
+                    while (!estadoAnimal.equalsIgnoreCase(EstadoLimpiezaAmbiente.BUENO.toString())
+                            && !estadoAnimal.equalsIgnoreCase(EstadoLimpiezaAmbiente.REGULAR.toString())
+                            && !estadoAnimal.equalsIgnoreCase(EstadoLimpiezaAmbiente.MALO.toString())) {
                         System.out.println("\nIngrese el estado general del animal BUENO/MALO/REGULAR");
                         estadoAnimal = scanner.nextLine();
-                        if (!estadoAnimal.equals("BUENO") && !estadoAnimal.equals("REGULAR") && !estadoAnimal.equals("MALO")) {
+                        if (!estadoAnimal.equalsIgnoreCase(EstadoLimpiezaAmbiente.BUENO.toString())
+                                && !estadoAnimal.equalsIgnoreCase(EstadoLimpiezaAmbiente.REGULAR.toString())
+                                && !estadoAnimal.equalsIgnoreCase(EstadoLimpiezaAmbiente.MALO.toString())) {
                             System.out.println("Ingrese una opcion valida.\n");
                         }
                     }
-                    if (estadoAnimal.equals(EstadoLimpiezaAmbiente.BUENO.toString())) {
-                        estadoAnimalDTO = EstadoLimpiezaAmbiente.BUENO;
-                    }
-                    if (estadoAnimal.equals(EstadoLimpiezaAmbiente.MALO.toString())) {
-                        estadoAnimalDTO = EstadoLimpiezaAmbiente.MALO;
-                    }
-                    if (estadoAnimal.equals(EstadoLimpiezaAmbiente.REGULAR.toString())) {
-                        estadoAnimalDTO = EstadoLimpiezaAmbiente.REGULAR;
-                    }
-                    while (!estadoLugar.equals("BUENO") && !estadoLugar.equals("REGULAR ") && !estadoLugar.equals("MALO")) {
+                    estadoAnimalDTO = EstadoLimpiezaAmbiente.valueOf(estadoAnimal.toUpperCase());
+
+                    while (!estadoLugar.equalsIgnoreCase(EstadoLimpiezaAmbiente.BUENO.toString())
+                            && !estadoLugar.equalsIgnoreCase(EstadoLimpiezaAmbiente.REGULAR.toString())
+                            && !estadoLugar.equalsIgnoreCase(EstadoLimpiezaAmbiente.MALO.toString())) {
                         System.out.println("\nValore la limpieza del lugar BUENO/MALO/REGULAR");
                         estadoLugar = scanner.nextLine();
-                        if (!estadoLugar.equals("BUENO") && !estadoLugar.equals("REGULAR ") && !estadoLugar.equals("MALO")) {
+                        if (!estadoLugar.equalsIgnoreCase(EstadoLimpiezaAmbiente.BUENO.toString())
+                                && !estadoLugar.equalsIgnoreCase(EstadoLimpiezaAmbiente.REGULAR.toString())
+                                && !estadoLugar.equalsIgnoreCase(EstadoLimpiezaAmbiente.MALO.toString())) {
                             System.out.println("Ingrese una opcion valida.\n");
                         }
                     }
-                    if (estadoLugar.equals("BUENO")) {
-                        estadoLugarDTO = EstadoLimpiezaAmbiente.BUENO;
-                    }
-                    if (estadoLugar.equals("MALO")) {
-                        estadoLugarDTO = EstadoLimpiezaAmbiente.MALO;
-                    }
-                    if (estadoLugar.equals("REGULAR")) {
-                        estadoLugarDTO = EstadoLimpiezaAmbiente.REGULAR;
-                    }
-                    while (!estadoAmbiente.equals("BUENO") && !estadoAmbiente.equals("REGULAR ") && !estadoAmbiente.equals("MALO")) {
+                    estadoLugarDTO = EstadoLimpiezaAmbiente.valueOf(estadoLugar.toUpperCase());
+
+                    while (!estadoAmbiente.equalsIgnoreCase(EstadoLimpiezaAmbiente.BUENO.toString())
+                            && !estadoAmbiente.equalsIgnoreCase(EstadoLimpiezaAmbiente.REGULAR.toString())
+                            && !estadoAmbiente.equalsIgnoreCase(EstadoLimpiezaAmbiente.MALO.toString())) {
                         System.out.println("\nValore el ambiente donde se encuentra el animal BUENO/MALO/REGULAR");
                         estadoAmbiente = scanner.nextLine();
-                        if (!estadoAmbiente.equals("BUENO") && !estadoAmbiente.equals("REGULAR ") && !estadoAmbiente.equals("MALO")) {
+                        if (!estadoAmbiente.equalsIgnoreCase(EstadoLimpiezaAmbiente.BUENO.toString())
+                                && !estadoAmbiente.equalsIgnoreCase(EstadoLimpiezaAmbiente.REGULAR.toString())
+                                && !estadoAmbiente.equalsIgnoreCase(EstadoLimpiezaAmbiente.MALO.toString())) {
                             System.out.println("Ingrese una opcion valida.\n");
                         }
                     }
-                    if (estadoAmbiente.equals("BUENO")) {
-                        estadoAmbienteDTO = EstadoLimpiezaAmbiente.BUENO;
-                    }
-                    if (estadoAmbiente.equals("MALO")) {
-                        estadoAmbienteDTO = EstadoLimpiezaAmbiente.MALO;
-                    }
-                    if (estadoAmbiente.equals("REGULAR")) {
-                        estadoAmbienteDTO = EstadoLimpiezaAmbiente.REGULAR;
-                    }
-                    while (!continuarVisitas.equals("S") && !continuarVisitas.equals("N")) {
+                    estadoAmbienteDTO = EstadoLimpiezaAmbiente.valueOf(estadoAmbiente.toUpperCase());
+
+                    while (!continuarVisitas.equalsIgnoreCase("S")
+                            && !continuarVisitas.equalsIgnoreCase("N")) {
                         System.out.println("\nEs necesario continuar con el seguimiento? S/N");
                         continuarVisitas = scanner.nextLine();
-                        if (!continuarVisitas.equals("S") && !continuarVisitas.equals("N")) {
+                        if (!continuarVisitas.equalsIgnoreCase("S")
+                                && !continuarVisitas.equalsIgnoreCase("N")) {
                             System.out.println("Ingrese una opcion valida.\n");
                         }
                     }
-                    if (continuarVisitas.equals("S")) {
+                    if (continuarVisitas.equalsIgnoreCase("S")) {
                         continuarVisitasBoolean = true;
                     } else {
                         continuarVisitasBoolean = false;
