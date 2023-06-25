@@ -161,6 +161,7 @@ public class AdopcionesController {
                 seguimiento = adopcion.getSeguimiento();
                 seguimiento.getUltimaVisita().setEncuesta(visita.getEncuesta());
                 seguimiento.getUltimaVisita().setObservaciones(visita.getObservaciones());
+                seguimiento.getUltimaVisita().setTerminada(visita.isTerminada());
                 seguimiento.setContinuarVisitas(continuarVisitas);
                 if (continuarVisitas){
                     seguimiento.crearProximaVisita();

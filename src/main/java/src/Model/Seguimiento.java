@@ -125,6 +125,17 @@ public class Seguimiento {
         return visitasADomicilio;
     }
 
+    public List<VisitaADomicilio> getVisitasADomicilioTerminadas() {
+        List<VisitaADomicilio> visitasTerminadas =  new ArrayList<>();
+
+        for (VisitaADomicilio visitaADomicilio : visitasADomicilio) {
+            if (visitaADomicilio.isTerminada())
+                visitasTerminadas.add(visitaADomicilio);
+        }
+
+        return visitasTerminadas;
+    }
+
     public VisitaADomicilio getUltimaVisita() {
         return visitasADomicilio.get(visitasADomicilio.size() - 1);
     }

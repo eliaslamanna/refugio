@@ -14,6 +14,14 @@ public class VisitaADomicilio {
 
     private Encuesta encuesta;
 
+    public boolean isTerminada() {
+        return terminada;
+    }
+
+    public void setTerminada(boolean terminada) {
+        this.terminada = terminada;
+    }
+
     private boolean terminada;
 
     public VisitaADomicilio(Date fechaVisita, String observaciones, Encuesta encuesta) {
@@ -54,6 +62,7 @@ public class VisitaADomicilio {
         visitaDTO.setEncuesta(encuesta.toDTO());
         visitaDTO.setFechaVisita(this.fechaVisita);
         visitaDTO.setObservaciones(this.observaciones);
+        visitaDTO.setTerminada(this.terminada);
 
         return visitaDTO;
     }

@@ -11,6 +11,12 @@ public class VisitaDTO {
 
     private EncuestaDTO encuesta;
 
+    public boolean isTerminada() {
+        return terminada;
+    }
+
+    private boolean terminada;
+
     public Date getFechaVisita() {
         return fechaVisita;
     }
@@ -33,5 +39,9 @@ public class VisitaDTO {
 
     public void setEncuesta(EncuestaDTO encuesta) {
         this.encuesta = encuesta;
+    }
+
+    public void setTerminada(boolean terminada) {
+        this.terminada = terminada;
     }
 }

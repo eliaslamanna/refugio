@@ -54,7 +54,7 @@ public class ClinicaController {
 
     public void exportarFichaMedica(AnimalDTO animal, String metodo) {
         for (HistoriaClinica historia : historiales) {
-            if (animal.getId().equals(animal.getId())) {
+            if (historia.getAnimal().getId().equals(animal.getId())) {
                 if (metodo.equals("PDF")) {
                     historia.setEstrategiaExportacion(new ExportarPDF());
                 } else if (metodo.equals("EXCEL")) {

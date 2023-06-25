@@ -661,6 +661,7 @@ public class Main {
                     encuestaDTO.setEstado(estadoAnimalDTO);
                     visitaDTO.setObservaciones(observacion);
                     visitaDTO.setEncuesta(encuestaDTO);
+                    visitaDTO.setTerminada(true);
 
                     mascotaDTO = AnimalController.getInstancia().getAnimalPorId(idAnimalSeguido);
                     AdopcionesController.getInstancia().registrarVisita(visitaDTO, mascotaDTO, continuarVisitasBoolean);
