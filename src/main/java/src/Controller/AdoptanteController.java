@@ -62,8 +62,7 @@ public class AdoptanteController {
     }
 
     public AdoptanteDTO getAdoptantePorId(String idAdoptante) {
-        AdoptanteDTO adoptanteDTO = new AdoptanteDTO(null, null, null, null, null
-                , null, 0, null, null);
+        AdoptanteDTO adoptanteDTO = null;
 
         for (Adoptante adoptante : adoptantes) {
             if (adoptante.getId().equals(idAdoptante))

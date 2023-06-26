@@ -242,6 +242,11 @@ public class Main {
                         System.out.println("Ingrese el Id a elegir como adoptante");
 
                         adoptanteDTO = AdoptanteController.getInstancia().getAdoptantePorId(scanner.nextLine());
+
+                        if(adoptanteDTO == null) {
+                            System.out.println("\nNo existe el aninaml con ese id");
+                            break;
+                        }
                     } else {
                         System.out.println("Ingrese el nombre del adoptante:");
                         String nombre = scanner.nextLine();
@@ -336,7 +341,8 @@ public class Main {
                     inicioGestionarAdopciones();
                     break;
             }
-            opcion = scanner.nextLine();
+            gestionarAdopciones(scanner);
+            //opcion = scanner.nextLine();
         }
         menuVeterinario(scanner);
     }
