@@ -52,26 +52,6 @@ public class Main {
                 AdoptanteController.getInstancia().altaAdoptante(adoptante);
             }
             // --------------------------------------------------------------------------------------------------------------------------------------------------
-            // Encuesta
-            EncuestaDTO encuesta1 = new EncuestaDTO();
-            encuesta1.setLimpieza(EstadoLimpiezaAmbiente.BUENO);
-            encuesta1.setAmbiente(EstadoLimpiezaAmbiente.REGULAR);
-            encuesta1.setEstado(EstadoLimpiezaAmbiente.MALO);
-
-
-            // Visita
-            VisitaDTO visita1 = new VisitaDTO();
-            visita1.setTerminada(true);
-
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(new Date());
-            cal.add(Calendar.DATE, -15);
-            visita1.setFechaVisita(cal.getTime());
-
-            visita1.setFechaVisita(new Date());
-            visita1.setObservaciones("Visita de prueba");
-            visita1.setEncuesta(encuesta1);
-
             //Seguimiento
             SeguimientoDTO seguimiento1 = new SeguimientoDTO();
             seguimiento1.setCadenciaVisita(15);
@@ -83,10 +63,8 @@ public class Main {
             seguimiento1.setDiasRecordatorio(16);
 
             AnimalDTO animalParaAdopcion = AnimalController.getInstancia().getRandomAnimal();
-            System.out.println(animalParaAdopcion.getId());
             // Adopcion
             AdopcionesController.getInstancia().crearAdopcion(AdoptanteController.getInstancia().getRandomAdoptante(), animalParaAdopcion, seguimiento1);
-            AdopcionesController.getInstancia().registrarVisita(visita1, animalParaAdopcion, true);
 
             seCargaronLosDatos = true;
 
