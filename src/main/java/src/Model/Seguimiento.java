@@ -59,14 +59,7 @@ public class Seguimiento {
         VisitaADomicilio visita = getVisitaMasReciente();
         LocalDate fechaActual = LocalDate.now();
         Date fechaVisita = visita.getFechaVisita();
-        for (VisitaADomicilio visitaaa:
-             visitasADomicilio) {
-            System.out.println(visita.getFechaVisita());
-        }
-        System.out.println();
         long diferenciaEnDias = ChronoUnit.DAYS.between(fechaActual, fechaVisita.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-        System.out.println(fechaVisita);
-        System.out.println(getProximaFechaDeVisita(fechaVisita));
         if (diferenciaEnDias <= this.diasRecordatorio) {
             medioNotificacion.enviarNotificacion(datos);
         }
@@ -87,9 +80,6 @@ public class Seguimiento {
         calendario.setTime(ultimaVisita);
 
         calendario.add(Calendar.DAY_OF_MONTH, this.cadenciaVisita);
-        System.out.println(ultimaVisita);
-        System.out.println(cadenciaVisita);
-        System.out.println(calendario.getTime());
         return calendario.getTime();
     }
 

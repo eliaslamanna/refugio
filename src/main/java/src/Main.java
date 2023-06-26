@@ -36,7 +36,9 @@ public class Main {
             // Ingresar animales.
             for (AnimalDTO animal :
                     animalesDatos) {
-                AnimalController.getInstancia().ingresarAnimal(animal, UsuarioController.getInstancia().getUsuarioPorId("veterinario01"));
+                AnimalController.getInstancia().ingresarAnimal(animal, UsuarioController.getInstancia().autenticarUsuario(
+                        new UsuarioDTO("visitador01",null,null,null,null,null
+                                ,null,false)));
             }
             // --------------------------------------------------------------------------------------------------------------------------------------------------
 
