@@ -514,59 +514,16 @@ public class Main {
                 }
 
                 AlarmaController.getInstancia().crearAlarma(nuevaAlarma);
+                System.out.println("LA ALARMA SE CARGO CORRECTAMENTE.\n");
+
                 break;
             default:
-                inicioProgramarAlarmas();
                 break;
         }
         menuVeterinario(scanner);
     }
 
     /*
-    private static void mostrarAnimalesConAlarmas(List<AnimalXAlarmaDTO> listaAnimal) {
-        System.out.println("\n Animales con alarmas activas");
-        for (int i = 0; i < listaAnimal.size(); i++) {
-            int indice = i + 1;
-            System.out.println(indice + ") Animal " + listaAnimal.get(i).getNombreAnimal() + " posee: " + listaAnimal.get(i).getCantAlarmas() + " alarmas");
-        }
-        System.out.println("\n Ingrese el numero de animal para revisar la alerta");
-        System.out.println("\n O ingrece cero para ir al Menu anterior");
-    }
-
-    private static void mostrarAlarmasConControles(List<AlarmaXControlDTO> listaAlarmas) {
-        System.out.println("\n Alarmas activas");
-        for (int i = 0; i < listaAlarmas.size(); i++) {
-            int indice = i + 1;
-            System.out.println(indice + ") Fecha vencimiento " + listaAlarmas.get(i).getFechaLimite());
-            listaAlarmas.get(i).mostrarAcciones();
-            System.out.println("\n --------- \n");
-        }
-        System.out.println("\n Ingrese el numero de alarma para cancelarla");
-        System.out.println("\n O ingrece cero para ir al Menu anterior");
-    }
-
-    private static void atenderAlarmasXAnimal(Scanner scanner, String idAnimal) {
-        List<AlarmaXControlDTO> listaAlarmas = AlarmaController.getInstancia().traerAlarmasActivasDeSeguimiento(idAnimal);
-        mostrarAlarmasConControles(listaAlarmas);
-        String opcion = scanner.nextLine();
-
-        switch (opcion) {
-            case "0":
-                break;
-
-            default:
-
-                //AlarmaController.getInstancia().atenderAlarma(listaAlarmas.get(Integer.parseInt(opcion) - 1).getIdAlarma(), idAnimal);
-                break;
-        }
-
-        opcion = scanner.nextLine();
-
-
-        menuVeterinario(scanner);
-
-    }
-
     private static void atenderAlarmas(Scanner scanner) {
         //inicioAtenderAlarmas();
         String idAnimalDTO;
@@ -590,8 +547,7 @@ public class Main {
 
         menuVeterinario(scanner);
     }
-
-     */
+    */
 
     private static void inicioAtenderAlarmas() {
         System.out.println("\n Animales con alarmas activas");
@@ -605,14 +561,14 @@ public class Main {
     }
 
     private static void inicioVeterinario() {
-        int cantAlarmasActivas = AlarmaController.getInstancia().hayAlarmasActivas();
+        int nroAlarmasAtendibles = AlarmaController.getInstancia().contarAlarmasAtendibles();
 
         System.out.println("\nQue desea hacer?");
         System.out.println("1. Gestionar Animales");
         System.out.println("2. Gestionar Adopciones");
         System.out.println("3. Gestionar Salud");
         System.out.println("4. Programar Alarmas");
-        System.out.println("5. Atender Alarmas (" + cantAlarmasActivas + ")");
+        System.out.println("5. Atender Alarmas (" + nroAlarmasAtendibles + ")");
         System.out.println("6. Salir\n");
     }
 

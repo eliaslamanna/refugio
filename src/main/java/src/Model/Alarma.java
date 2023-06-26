@@ -5,7 +5,6 @@ import src.DTO.TratamientoMedicoDTO;
 import src.Enum.Accion;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,6 +13,7 @@ public class Alarma {
     private int periodicidadDias;
     private LocalDateTime fechaInicial;
     private ControlPeriodico control;
+    private EstadoAlarma estadoAlarma;
 
     public Alarma(int periodicidad, LocalDateTime fechaInicial, ControlPeriodico control) {
         this.idAlarma = UUID.randomUUID().toString();
@@ -58,6 +58,18 @@ public class Alarma {
                     ,ControlPeriodico.toObject(alarmaDTO.getControlDeSalud()));
 
         return alarma;
+    }
+
+    public void atenderAlarma(Usuario atendidoPor){
+        this.estadoAlarma.atenderAlarma(this,atendidoPor);
+    }
+
+    public boolean isAtendible(){
+        boolean isAtendible = false;
+        if (fechaInicial.isBefore(LocalDateTime.now())){
+            isAtendible = true;
+        }
+        return isAtendible;
     }
 
 }

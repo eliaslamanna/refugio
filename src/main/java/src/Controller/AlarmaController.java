@@ -1,9 +1,6 @@
 package src.Controller;
 
 import src.DTO.AlarmaDTO;
-import src.DTO.AlarmaXControlDTO;
-import src.DTO.AnimalXAlarmaDTO;
-import src.DTO.SeguimientoMedicoDTO;
 import src.Model.*;
 
 import java.util.ArrayList;
@@ -49,40 +46,49 @@ public class AlarmaController {
     public void crearAlarma(AlarmaDTO alarmaDTO){
         alarmas.add(Alarma.toObject(alarmaDTO));
     }
+
+    /*
     public SeguimientoMedico buscarSeguimientoMedico(String id){
 
         return null; //seguimientos.stream().filter(seguimiento -> seguimiento.getIdSeguimiento().equals(id)).findFirst().orElse(null);
 
     }
-
     public Control buscarControl(String id){
         return null; //controles.stream().filter(control -> control.getIdControl().equals(id)).findFirst().orElse(null);
     }
+    */
 
     // ----------------------------------------------- COMIENZO TRATADO DE ALARMAS ----------------------------------------------------
-    public int hayAlarmasActivas(){
-        int cantAlarmasActivas = 0;
-        /*
-        int aux;
-        for (int i = 0; i < seguimientos.size(); i ++){
-            aux = seguimientos.get(i).buscarAlarmasActivas();
-            if(aux != 0){
-                cantAlarmasActivas = cantAlarmasActivas + aux;
-            }
+    public int contarAlarmasAtendibles(){
+        int cantAlarmasAtendibles = 0;
+
+        for (Alarma alarma : alarmas){
+            if (alarma.isAtendible())
+                cantAlarmasAtendibles++;
         }
-        */
-        return cantAlarmasActivas;
+        return cantAlarmasAtendibles;
     }
 
+    public List<AlarmaDTO> getAlarmasAtendibles(){
+        List<AlarmaDTO> alarmarAtendibles = new ArrayList<>();
+
+        for (Alarma alarma : alarmas){
+            if (alarma.isAtendible())
+                alarmarAtendibles.add(alarma.toDTO());
+        }
+        return alarmarAtendibles;
+    }
+
+    /*
     public List<AnimalXAlarmaDTO> traerSeguimientosConAlarmasActivas(){
         List <SeguimientoMedico> seguimientosConAlarmas = new ArrayList<>();
-        /*
+
         for (int i = 0; i < seguimientos.size(); i ++){
             if(seguimientos.get(i).buscarAlarmasActivas() !=0){
                 seguimientosConAlarmas.add(seguimientos.get(i));
             }
         }
-        */
+
 
         return generarListaAnimalConAlarmas(seguimientosConAlarmas);
 
@@ -121,6 +127,7 @@ public class AlarmaController {
 
         return alarmasXControl;
     }
+    */
 
  /*
     public void atenderAlarma(String idAlarma, String idAnimal) {
@@ -143,10 +150,6 @@ public class AlarmaController {
         //return seguimientos.stream().filter(seguimiento -> seguimiento.getIdSeguimiento().equals(id)).findFirst().orElse(null);
         return alarmas.stream().filter(alarma -> alarma.getIdAlarma().equals(id)).findFirst().orElse(null);
 
-    }
-
-    public void nuevoSeguimientoMedico(SeguimientoMedicoDTO seguimiento) {
-        // TODO implement here
     }
 
     public void enviarAlarma(AlarmaDTO alarma) {

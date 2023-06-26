@@ -6,12 +6,9 @@ import src.DTO.UsuarioDTO;
 import src.Enum.Accion;
 import src.Model.Alarma;
 
-import src.Model.Control;
-
 import src.Model.Animal;
 
 import src.Model.HistoriaClinica;
-import src.Model.SeguimientoMedico;
 
 import src.Model.*;
 
@@ -22,7 +19,6 @@ import java.util.List;
 public class ClinicaController {
 
     private static List<HistoriaClinica> historiales;
-    private static List<SeguimientoMedico> seguimientos;
     private static List<Alarma> alarmas;
     private static List<Usuario> veterinarios;
     private static List<Usuario> visitadores;
@@ -32,7 +28,6 @@ public class ClinicaController {
 
     private ClinicaController() {
         historiales = new ArrayList<>();
-        seguimientos = new ArrayList<>();
         alarmas = new ArrayList<>();
 
         veterinarios = new ArrayList<>();
