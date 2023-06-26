@@ -51,15 +51,7 @@ public class Seguimiento {
     }
 
     private VisitaADomicilio getVisitaMasReciente() {
-        VisitaADomicilio visitaMasReciente = this.visitasADomicilio.get(0);
-        for (int i = 1; i < this.visitasADomicilio.size(); i++) {
-            VisitaADomicilio currentVisita = this.visitasADomicilio.get(i);
-            Date currentDate = currentVisita.getFechaVisita();
-
-            if (currentDate.after(visitaMasReciente.getFechaVisita())) {
-                visitaMasReciente = currentVisita;
-            }
-        }
+        VisitaADomicilio visitaMasReciente = this.visitasADomicilio.get(visitasADomicilio.size()-1);
         return visitaMasReciente;
     }
 
@@ -87,8 +79,7 @@ public class Seguimiento {
 
         calendario.setTime(ultimaVisita);
 
-        calendario.add(Calendar.DAY_OF_YEAR, this.cadenciaVisita);
-
+        calendario.add(Calendar.DAY_OF_MONTH, this.cadenciaVisita);
         return calendario.getTime();
     }
 

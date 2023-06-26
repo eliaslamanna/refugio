@@ -33,7 +33,7 @@ public class Adopcion {
     }
 
     public String mensajeNotificacion(){
-        return " Notificacion para: " + getAdoptante().getNombre() + " " + getAdoptante().getApellido() + " y " + getSeguimiento().getResponsable().getNombre() + " " + getSeguimiento().getResponsable().getNombre() + " // " +  getMascota().getNombre() + " sera visitado el dia " + getSeguimiento().getUltimaVisita().getFechaVisita().toString();
+        return " Notificacion para: " + getAdoptante().getNombre() + " " + getAdoptante().getApellido() + " (Adoptante) " + " y " + getSeguimiento().getResponsable().getNombre() + " " + getSeguimiento().getResponsable().getApellido() +  " (Visitador) "  + " || " +  getMascota().getNombre() + " sera visitado el dia " + getSeguimiento().getUltimaVisita().getFechaVisita().toString();
     }
 
     public AdopcionDTO toDTO(){

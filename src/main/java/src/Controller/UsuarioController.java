@@ -24,8 +24,7 @@ public class UsuarioController {
     }
 
     public UsuarioDTO getUsuarioPorId(String id) {
-        UsuarioDTO usuarioDTO = new UsuarioDTO(null, null, null, null, null
-                , null, null, false);
+        UsuarioDTO usuarioDTO = null;
 
         for (Usuario usuario :
                 usuarios) {

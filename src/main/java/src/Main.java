@@ -38,7 +38,9 @@ public class Main {
             // Ingresar animales.
             for (AnimalDTO animal :
                     animalesDatos) {
-                AnimalController.getInstancia().ingresarAnimal(animal, UsuarioController.getInstancia().getUsuarioPorId("veterinario01"));
+                AnimalController.getInstancia().ingresarAnimal(animal, UsuarioController.getInstancia().autenticarUsuario(
+                        new UsuarioDTO("visitador01",null,null,null,null,null
+                                ,null,false)));
             }
             // --------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -54,26 +56,6 @@ public class Main {
                 AdoptanteController.getInstancia().altaAdoptante(adoptante);
             }
             // --------------------------------------------------------------------------------------------------------------------------------------------------
-            // Encuesta
-            EncuestaDTO encuesta1 = new EncuestaDTO();
-            encuesta1.setLimpieza(EstadoLimpiezaAmbiente.BUENO);
-            encuesta1.setAmbiente(EstadoLimpiezaAmbiente.REGULAR);
-            encuesta1.setEstado(EstadoLimpiezaAmbiente.MALO);
-
-
-            // Visita
-            VisitaDTO visita1 = new VisitaDTO();
-            visita1.setTerminada(true);
-
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(new Date());
-            cal.add(Calendar.DATE, -15);
-            visita1.setFechaVisita(cal.getTime());
-
-            visita1.setFechaVisita(new Date());
-            visita1.setObservaciones("Visita de prueba");
-            visita1.setEncuesta(encuesta1);
-
             //Seguimiento
             SeguimientoDTO seguimiento1 = new SeguimientoDTO();
             seguimiento1.setCadenciaVisita(15);
@@ -85,10 +67,8 @@ public class Main {
             seguimiento1.setDiasRecordatorio(16);
 
             AnimalDTO animalParaAdopcion = AnimalController.getInstancia().getRandomAnimal();
-            System.out.println(animalParaAdopcion.getId());
             // Adopcion
             AdopcionesController.getInstancia().crearAdopcion(AdoptanteController.getInstancia().getRandomAdoptante(), animalParaAdopcion, seguimiento1);
-            AdopcionesController.getInstancia().registrarVisita(visita1, animalParaAdopcion, true);
 
             seCargaronLosDatos = true;
 
@@ -307,6 +287,11 @@ public class Main {
 
                     mascotaDTO = AnimalController.getInstancia().getAnimalPorId(scanner.nextLine());
 
+                    if(mascotaDTO == null) {
+                        System.out.println("\nEl animal con el el id no existe.");
+                        break;
+                    }
+
                     System.out.println("Quien sera el responsable del seguimiento de la adopcion?");
                     System.out.println("Visitadores para asignar");
                     System.out.println("\n/-----------------------------/");
@@ -318,6 +303,11 @@ public class Main {
                     System.out.println("-----------------------------");
 
                     visitadorDTO = UsuarioController.getInstancia().getUsuarioPorId(scanner.nextLine());
+
+                    if(visitadorDTO == null) {
+                        System.out.println("\nEl visitador con ese id no existe.");
+                        break;
+                    }
 
                     System.out.println("Cada cuanto seran las visitas al domicilio?");
                     int cadenciaVisitas = scanner.nextInt();
@@ -380,7 +370,6 @@ public class Main {
                     });
                     String idAnimal = scanner.nextLine();
                     AnimalDTO animal = AnimalController.getInstancia().getAnimalPorId(idAnimal);
-                    animal.setId(idAnimal);
                     if (animal == null) {
                         System.out.println("EL ANIMAL NO EXISTE");
                         break;
@@ -836,6 +825,12 @@ public class Main {
                     visitaDTO.setTerminada(true);
 
                     mascotaDTO = AnimalController.getInstancia().getAnimalPorId(idAnimalSeguido);
+
+                    if(mascotaDTO == null) {
+                        System.out.println("\nEl animal con el id no existe.");
+                        break;
+                    }
+
                     AdopcionesController.getInstancia().registrarVisita(visitaDTO, mascotaDTO, continuarVisitasBoolean);
                     estadoAnimal = "";
                     estadoAmbiente = "";
