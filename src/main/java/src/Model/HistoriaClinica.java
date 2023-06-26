@@ -1,7 +1,5 @@
 package src.Model;
 
-import src.Controller.AnimalController;
-import src.DTO.AnimalDTO;
 import src.DTO.HistoriaClinicaDTO;
 
 import java.util.*;
@@ -11,8 +9,9 @@ public class HistoriaClinica {
     
     private Animal _animal;
     
-    private List<ControlRealizado> intervenciones;
-    
+    private List<ControlDeSalud> controlesRealizados;
+    private List<TratamientoMedico> tratamientosRealizados;
+
     private Seguimiento visitasADomicilio;
     
     private Date fechaDeCreacion;
@@ -23,7 +22,8 @@ public class HistoriaClinica {
 
     public HistoriaClinica (Animal animal, Usuario veterinario){
         _animal = animal;
-        intervenciones = new ArrayList<>();
+        controlesRealizados = new ArrayList<>();
+        tratamientosRealizados = new ArrayList<>();
         fechaDeCreacion = new Date();
         ultimoCambio = new Date();
         //generar los controles para el animal y agregar el veterinario que controla
@@ -37,8 +37,12 @@ public class HistoriaClinica {
         this._animal = animal;
     }
 
-    public void setIntervenciones(List<ControlRealizado> intervenciones) {
-        this.intervenciones = intervenciones;
+    public void setControlesRealizados(List<ControlDeSalud> controlesRealizados) {
+        this.controlesRealizados = controlesRealizados;
+    }
+
+    public void setTratamientosRealizados(List<TratamientoMedico> tratamientosRealizados) {
+        this.tratamientosRealizados = tratamientosRealizados;
     }
 
     public void setVisitasADomicilio(Seguimiento visitasADomicilio) {
@@ -57,12 +61,20 @@ public class HistoriaClinica {
         return _animal;
     }
 
-    public List<ControlRealizado> getIntervenciones() {
-        return intervenciones;
+    public List<ControlDeSalud> getControlesRealizados() {
+        return this.controlesRealizados;
     }
 
-    public void agregarIntervencion(ControlRealizado control){
-        intervenciones.add(control);
+    public List<TratamientoMedico> getTratamientosRealizados() {
+        return this.tratamientosRealizados;
+    }
+
+    public void registrarControlPeriodico(ControlDeSalud control){
+        controlesRealizados.add(control);
+    }
+
+    public void registrarControlPeriodico(TratamientoMedico control){
+        tratamientosRealizados.add(control);
     }
 
     public Seguimiento getVisitasADomicilio() {
@@ -84,7 +96,7 @@ public class HistoriaClinica {
     private HistoriaClinicaDTO toDTO(){
         HistoriaClinicaDTO historia = new HistoriaClinicaDTO();
         historia.setAnimal(this._animal);
-        historia.setIntervenciones(this.intervenciones);
+        //historia.setIntervenciones(this.controlesRealizados);
         historia.setFechaDeCreacion(this.fechaDeCreacion);
         historia.setVisitasADomicilio(this.visitasADomicilio);
         historia.setUltimoCambio(this.ultimoCambio);

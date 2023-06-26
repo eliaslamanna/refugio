@@ -23,6 +23,7 @@ public class AlarmaController {
         return instancia;
     }
 
+    /*
     public void agregarAlarma (String idSeguimiento, AlarmaDTO alarma) {
         // Se valida si existe el seguimiento y el control para añadir la alarma
         Control control = buscarControl(alarma.getControl());
@@ -42,6 +43,8 @@ public class AlarmaController {
         }
 
     }
+
+     */
 
     public SeguimientoMedico buscarSeguimientoMedico(String id){
 
@@ -116,19 +119,20 @@ public class AlarmaController {
         return alarmasXControl;
     }
 
-    public void cancelarAlarma(String idAlarma, String idAnimal) {
+ /*
+    public void atenderAlarma(String idAlarma, String idAnimal) {
         SeguimientoMedico seguimiento = buscarSeguimientoXIdAnimal(idAnimal);
         Alarma alarmaCancelada = buscarAlarma(idAlarma);
 
         ControlRealizado controlRealizado = new ControlRealizado(alarmaCancelada.getControl());
         HistoriaClinica historiaClinica = ClinicaController.getInstancia().buscarHistoriaClinicaXAnimal(idAnimal);
-        historiaClinica.agregarIntervencion(controlRealizado);
+        historiaClinica.registrarControlPeriodico(controlRealizado);
 
         Alarma alarmaNueva = new Alarma(alarmaCancelada.getPeriodicidad(), alarmaCancelada.getControl());
         seguimiento.removarAlarma(alarmaCancelada.getIdAlarma());
         seguimiento.agregarAlarma(alarmaNueva);
     }
-
+ */
     // ----------------------------------------------- FIN TRATADO DE ALARMAS ----------------------------------------------------
 
     private Alarma buscarAlarma(String id){

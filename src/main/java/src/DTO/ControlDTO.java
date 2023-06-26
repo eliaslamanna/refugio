@@ -10,11 +10,8 @@ import java.util.List;
 public class ControlDTO {
 
     private Date momentoDeEjecucion;
-
     private Usuario veterinario;
-
     private List<AccionDTO> acciones;
-
     private List<TratamientoDTO> tratamientos;
 
     //GETTER Y SETTERS

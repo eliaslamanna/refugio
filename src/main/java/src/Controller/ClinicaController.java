@@ -3,6 +3,7 @@ package src.Controller;
 import src.DTO.*;
 
 import src.DTO.UsuarioDTO;
+import src.Enum.Accion;
 import src.Model.Alarma;
 
 import src.Model.Control;
@@ -23,9 +24,10 @@ public class ClinicaController {
     private static List<HistoriaClinica> historiales;
     private static List<SeguimientoMedico> seguimientos;
     private static List<Alarma> alarmas;
-    private static List<src.Model.Usuario> veterinarios;
-    private static List<src.Model.Usuario> visitadores;
-    private static List<Control> controles;
+    private static List<Usuario> veterinarios;
+    private static List<Usuario> visitadores;
+    private List<Accion>  accionesDeTratamientoMedico;
+    private List<Accion> accionesDeControlDeSalud;
     private static ClinicaController instancia;
 
     private ClinicaController() {
@@ -35,6 +37,16 @@ public class ClinicaController {
 
         veterinarios = new ArrayList<>();
         visitadores = new ArrayList<>();
+
+        accionesDeControlDeSalud = new ArrayList<>();
+        accionesDeControlDeSalud.add(Accion.CONTROLAR_PARASITOS);
+        accionesDeControlDeSalud.add(Accion.CONTROLAR_PESO);
+        accionesDeControlDeSalud.add(Accion.CONTROLAR_NUTRICION);
+        accionesDeControlDeSalud.add(Accion.CONTROLAR_TAMANIO);
+
+        accionesDeTratamientoMedico = new ArrayList<>();
+        accionesDeTratamientoMedico.add(Accion.COLOCAR_ANTIPARASITARIO);
+        accionesDeTratamientoMedico.add(Accion.COLOCAR_VACUNA);
     }
 
     public static ClinicaController getInstancia() {
@@ -73,4 +85,11 @@ public class ClinicaController {
 
     }
 
+    public List<Accion> getAccionesDeControlDeSalud() {
+        return accionesDeControlDeSalud;
+    }
+
+    public List<Accion> getAccionesDeTratamientoMedico() {
+        return accionesDeTratamientoMedico;
+    }
 }

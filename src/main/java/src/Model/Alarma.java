@@ -10,35 +10,35 @@ public class Alarma {
     private String idAlarma;
     private int periodicidadDias;
     private LocalDateTime fechaLimite;
-    private Control control;
+    private ControlPeriodico control;
 
-    public Alarma(int periodicidad, Control control) {
-
+    public Alarma(int periodicidad, ControlPeriodico control) {
         this.idAlarma = UUID.randomUUID().toString();
         this.periodicidadDias = periodicidad;
         this.fechaLimite = LocalDateTime.now();
         this.fechaLimite.plusDays(periodicidad);
         this.control = control;
+    }
 
+    public Alarma(String id, int periodicidad, ControlPeriodico control) {
+        this(periodicidad, control);
+        if (id != null)
+            this.idAlarma = id;
     }
 
     public int getPeriodicidad(){
         return periodicidadDias;
     }
-
     public String getIdAlarma(){
         return idAlarma;
     }
-
     public LocalDateTime getFechaLimite(){
         return fechaLimite;
     }
-
     public List<Accion> getAccionesDeControl(){
         return control.getAcciones();
     }
-
-    public Control getControl(){
+    public ControlPeriodico getControl(){
         return this.control;
     }
 

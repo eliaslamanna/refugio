@@ -1,42 +1,11 @@
 package src.Enum;
 
 public enum Accion {
-
-    PARASITOS{
-        public String toString(){
-            return "Control de Parasitos";
-        }
-    },
-    ANTIPARASITARIO{
-        public String toString(){
-            return "Colocar Antiparasitario";
-        }
-    },
-
-
-    PESO{
-        public String toString(){
-            return "Control de Peso";
-        }
-    },
-
-    TAMAÑO{
-        public String toString(){
-            return "Control de Tamaño";
-        }
-    },
-
-    NUTRICION{
-        public String toString(){
-            return "Chequeo de Nutricion";
-        }
-    },
-
-    VACUNAR {
-        public String toString(){
-            return "Aplicar vacuna";
-        }
-    },
-
+    CONTROLAR_PARASITOS,
+    COLOCAR_ANTIPARASITARIO,
+    CONTROLAR_PESO,
+    CONTROLAR_TAMANIO,
+    CONTROLAR_NUTRICION,
+    COLOCAR_VACUNA
     }
 
