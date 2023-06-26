@@ -66,7 +66,8 @@ public class AlarmaController {
             if(aux != 0){
                 cantAlarmasActivas = cantAlarmasActivas + aux;
             }
-        }*/
+        }
+        */
         return cantAlarmasActivas;
     }
 
@@ -78,8 +79,7 @@ public class AlarmaController {
                 seguimientosConAlarmas.add(seguimientos.get(i));
             }
         }
-
-         */
+        */
 
         return generarListaAnimalConAlarmas(seguimientosConAlarmas);
 

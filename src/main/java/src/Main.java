@@ -21,7 +21,7 @@ public class Main {
     static boolean seCargaronLosDatos = false;
 
     private static void inicio(Scanner scanner) {
-        if (!seCargaronLosDatos){
+        if (!seCargaronLosDatos) {
             List<AnimalDTO> animalesDatos = new ArrayList<>();
 
             // Definir animales de pruebas.
@@ -34,7 +34,7 @@ public class Main {
             animalesDatos.add(animal3);
             animalesDatos.add(animal4);
             // Ingresar animales.
-            for (AnimalDTO animal:
+            for (AnimalDTO animal :
                     animalesDatos) {
                 AnimalController.getInstancia().ingresarAnimal(animal, UsuarioController.getInstancia().getUsuarioPorId("veterinario01"));
             }
@@ -43,11 +43,11 @@ public class Main {
             List<AdoptanteDTO> adoptantesDatos = new ArrayList<>();
 
             // Definir adoptantes de pruebas.
-            AdoptanteDTO adoptante1 = new AdoptanteDTO("Carlos","Perez","Soltero","Calle Falsa 123","11 4444-5555","Desempleado",2, "Se siente solo","Perros");
-            AdoptanteDTO adoptante2 = new AdoptanteDTO("Maria","Hernandez","Casada","Calle Falsa 321","11 1234-5678","Maestra",0, "Sin motivo","Gatos");
+            AdoptanteDTO adoptante1 = new AdoptanteDTO("Carlos", "Perez", "Soltero", "Calle Falsa 123", "11 4444-5555", "Desempleado", 2, "Se siente solo", "Perros");
+            AdoptanteDTO adoptante2 = new AdoptanteDTO("Maria", "Hernandez", "Casada", "Calle Falsa 321", "11 1234-5678", "Maestra", 0, "Sin motivo", "Gatos");
             adoptantesDatos.add(adoptante1);
             adoptantesDatos.add(adoptante2);
-            for (AdoptanteDTO adoptante:
+            for (AdoptanteDTO adoptante :
                     adoptantesDatos) {
                 AdoptanteController.getInstancia().altaAdoptante(adoptante);
             }
@@ -62,6 +62,12 @@ public class Main {
             // Visita
             VisitaDTO visita1 = new VisitaDTO();
             visita1.setTerminada(true);
+
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(new Date());
+            cal.add(Calendar.DATE, -15);
+            visita1.setFechaVisita(cal.getTime());
+
             visita1.setFechaVisita(new Date());
             visita1.setObservaciones("Visita de prueba");
             visita1.setEncuesta(encuesta1);
@@ -70,16 +76,17 @@ public class Main {
             SeguimientoDTO seguimiento1 = new SeguimientoDTO();
             seguimiento1.setCadenciaVisita(15);
             seguimiento1.setContinuarVisitas(true);
-            seguimiento1.setResponsable(new UsuarioDTO("visitador01", "Jose", "Visitador", "1111111111111"
-                    , "unMail02@dominio.com.ar", "99999998", Rol.VISITADOR, true));
+            seguimiento1.setResponsable(UsuarioController.getInstancia().autenticarUsuario(
+                    new UsuarioDTO("visitador01",null,null,null,null,null
+                            ,null,false)));
             seguimiento1.setMedioNotificacion(MedioRecordatorio.WHATSAPP);
-            seguimiento1.setDiasRecordatorio(5);
+            seguimiento1.setDiasRecordatorio(16);
 
             AnimalDTO animalParaAdopcion = AnimalController.getInstancia().getRandomAnimal();
             System.out.println(animalParaAdopcion.getId());
             // Adopcion
             AdopcionesController.getInstancia().crearAdopcion(AdoptanteController.getInstancia().getRandomAdoptante(), animalParaAdopcion, seguimiento1);
-            AdopcionesController.getInstancia().registrarVisita(visita1,animalParaAdopcion,true);
+            AdopcionesController.getInstancia().registrarVisita(visita1, animalParaAdopcion, true);
 
             seCargaronLosDatos = true;
 
@@ -115,6 +122,8 @@ public class Main {
                                 break;
                         }
                     }
+                    break;
+                case "2":
                     break;
                 default:
                     System.out.println("\nFinalizo el programa\n");
@@ -440,6 +449,7 @@ public class Main {
                         while (controlesDisponibles.stream().count() > 0
                                 && !accionElegida.equalsIgnoreCase("s")) {
                             System.out.println("\nIngrese la accion disponible ó S para Salir");
+                            System.out.println("-----------------------------");
                             controlesDisponibles.forEach(accion -> {
                                 System.out.println("Accion -> " + accion.toString());
                                 System.out.println("-----------------------------");
@@ -464,16 +474,15 @@ public class Main {
                         while (tratamientosDisponibles.stream().count() > 0
                                 && !accionElegida.equalsIgnoreCase("s")) {
                             System.out.println("\nIngrese la accion disponible ó S para Salir");
+                            System.out.println("-----------------------------");
                             tratamientosDisponibles.forEach(accion -> {
                                 System.out.println("Accion -> " + accion.toString());
                                 System.out.println("-----------------------------");
                             });
                             accionElegida = scanner.nextLine();
 
-                            if (accionElegida.equals(Accion.CONTROLAR_NUTRICION.toString())
-                                    || accionElegida.equals(Accion.CONTROLAR_PARASITOS.toString())
-                                    || accionElegida.equals(Accion.CONTROLAR_PESO.toString())
-                                    || accionElegida.equals(Accion.CONTROLAR_TAMANIO.toString())) {
+                            if (accionElegida.equals(Accion.COLOCAR_ANTIPARASITARIO.toString())
+                                    || accionElegida.equals(Accion.COLOCAR_VACUNA.toString())) {
                                 tratamientosAProgramar.add(Accion.valueOf(accionElegida));
                                 tratamientosDisponibles.remove(Accion.valueOf(accionElegida));
                             }else {
@@ -493,6 +502,7 @@ public class Main {
         menuVeterinario(scanner);
     }
 
+    /*
     private static void mostrarAnimalesConAlarmas(List<AnimalXAlarmaDTO> listaAnimal) {
         System.out.println("\n Animales con alarmas activas");
         for (int i = 0; i < listaAnimal.size(); i++) {
@@ -537,12 +547,6 @@ public class Main {
 
     }
 
-    private static void inicioAtenderAlarmas() {
-        System.out.println("\n Animales con alarmas activas");
-        System.out.println("1. Elegir animal");
-        System.out.println("2. Menu anterior\n");
-    }
-
     private static void atenderAlarmas(Scanner scanner) {
         //inicioAtenderAlarmas();
         String idAnimalDTO;
@@ -564,6 +568,19 @@ public class Main {
         opcion = scanner.nextLine();
 
 
+        menuVeterinario(scanner);
+    }
+
+     */
+
+    private static void inicioAtenderAlarmas() {
+        System.out.println("\n Animales con alarmas activas");
+        System.out.println("1. Elegir animal");
+        System.out.println("2. Menu anterior\n");
+    }
+
+    private static void atenderAlarmas(Scanner scanner) {
+        //inicioAtenderAlarmas();
         menuVeterinario(scanner);
     }
 

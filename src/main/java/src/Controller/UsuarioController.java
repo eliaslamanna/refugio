@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UsuarioController {
-    private static List<src.Model.Usuario> usuarios;
+    private static List<Usuario> usuarios;
 
     private static UsuarioController instancia;
 
