@@ -283,6 +283,11 @@ public class Main {
 
                     mascotaDTO = AnimalController.getInstancia().getAnimalPorId(scanner.nextLine());
 
+                    if(mascotaDTO == null) {
+                        System.out.println("\nEl animal con el el id no existe.");
+                        break;
+                    }
+
                     System.out.println("Quien sera el responsable del seguimiento de la adopcion?");
                     System.out.println("Visitadores para asignar");
                     System.out.println("\n/-----------------------------/");
@@ -294,6 +299,11 @@ public class Main {
                     System.out.println("-----------------------------");
 
                     visitadorDTO = UsuarioController.getInstancia().getUsuarioPorId(scanner.nextLine());
+
+                    if(visitadorDTO == null) {
+                        System.out.println("\nEl visitador con ese id no existe.");
+                        break;
+                    }
 
                     System.out.println("Cada cuanto seran las visitas al domicilio?");
                     int cadenciaVisitas = scanner.nextInt();
@@ -356,7 +366,6 @@ public class Main {
                     });
                     String idAnimal = scanner.nextLine();
                     AnimalDTO animal = AnimalController.getInstancia().getAnimalPorId(idAnimal);
-                    animal.setId(idAnimal);
                     if (animal == null) {
                         System.out.println("EL ANIMAL NO EXISTE");
                         break;
@@ -789,6 +798,12 @@ public class Main {
                     visitaDTO.setTerminada(true);
 
                     mascotaDTO = AnimalController.getInstancia().getAnimalPorId(idAnimalSeguido);
+
+                    if(mascotaDTO == null) {
+                        System.out.println("\nEl animal con el id no existe.");
+                        break;
+                    }
+
                     AdopcionesController.getInstancia().registrarVisita(visitaDTO, mascotaDTO, continuarVisitasBoolean);
                     estadoAnimal = "";
                     estadoAmbiente = "";
