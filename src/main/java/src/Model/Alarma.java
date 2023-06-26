@@ -51,10 +51,10 @@ public class Alarma {
     public static Alarma toObject(AlarmaDTO alarmaDTO){
         Alarma alarma = null;
         if (alarmaDTO.getControlDeSalud() instanceof TratamientoMedicoDTO)
-            alarma = new Alarma(alarmaDTO.getIdAlarma(), alarma.getPeriodicidad(), alarmaDTO.getFechaInicial()
+            alarma = new Alarma(alarmaDTO.getIdAlarma(), alarmaDTO.getPeriodicidad(), alarmaDTO.getFechaInicial()
                     ,TratamientoMedico.toObject(alarmaDTO.getControlDeSalud()));
         else
-            alarma = new Alarma(alarmaDTO.getIdAlarma(), alarma.getPeriodicidad(), alarmaDTO.getFechaInicial()
+            alarma = new Alarma(alarmaDTO.getIdAlarma(), alarmaDTO.getPeriodicidad(), alarmaDTO.getFechaInicial()
                     ,ControlPeriodico.toObject(alarmaDTO.getControlDeSalud()));
 
         return alarma;

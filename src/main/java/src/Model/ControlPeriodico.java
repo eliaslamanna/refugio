@@ -57,6 +57,6 @@ public class ControlPeriodico {
 
     public static ControlPeriodico toObject(ControlPeriodicoDTO controlPeriodicoDTO){
         return new ControlPeriodico(Animal.toObject(controlPeriodicoDTO.getAnimal()), controlPeriodicoDTO.getAcciones()
-                ,Usuario.toObject(controlPeriodicoDTO.getAtendidoPor()));
+                ,controlPeriodicoDTO.getAtendidoPor() == null ? null : Usuario.toObject(controlPeriodicoDTO.getAtendidoPor()));
     }
 }

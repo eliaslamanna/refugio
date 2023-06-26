@@ -476,7 +476,7 @@ public class Main {
                         }
 
                         nuevaAlarma = new AlarmaDTO(Integer.parseInt(periodicidad)
-                                , LocalDateTime.parse(fechaInicial, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                                , LocalDateTime.parse(fechaInicial + " 00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
                                 , new ControlPeriodicoDTO(animalDTO, controlesAProgramar, null));
 
                         break;
@@ -504,7 +504,7 @@ public class Main {
                         }
 
                         nuevaAlarma = new AlarmaDTO(Integer.parseInt(periodicidad)
-                                , LocalDateTime.parse(fechaInicial, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                                , LocalDateTime.parse(fechaInicial + " 00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
                                 , new TratamientoMedicoDTO(animalDTO, controlesAProgramar, null, true
                                 , LocalDateTime.parse(fechaInicial, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
                                 , null));
