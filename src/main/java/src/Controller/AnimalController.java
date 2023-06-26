@@ -42,7 +42,13 @@ public class AnimalController {
     }
 
     public AnimalDTO getAnimalPorId(String idAnimal) {
-        return animales.stream().filter(animal -> animal.getId().equals(idAnimal)).findFirst().orElse(null).toDTO();
+        for (Animal animal:
+             animales) {
+            if (animal.getId().equals(idAnimal)){
+                return animal.toDTO();
+            }
+        }
+        return null;
     }
 
     public List<AnimalDTO> getAnimalesDisponibles(){
