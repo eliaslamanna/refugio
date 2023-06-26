@@ -1,7 +1,6 @@
 package src.Model;
 
 import src.DTO.AlarmaDTO;
-import src.DTO.AnimalDTO;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -51,7 +50,7 @@ public class SeguimientoMedico {
         alarmasActivas.clear();
         LocalDateTime fechaActual = LocalDateTime.now();
         for (int i = 0; i < alarmas.size(); i ++){
-            if(alarmas.get(i).getFechaLimite().isBefore(fechaActual)){
+            if(alarmas.get(i).getFechaInicial().isBefore(fechaActual)){
                 alarmasActivas.add(alarmas.get(i));
             }
         }

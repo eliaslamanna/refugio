@@ -46,6 +46,9 @@ public class AlarmaController {
 
      */
 
+    public void crearAlarma(AlarmaDTO alarmaDTO){
+        alarmas.add(Alarma.toObject(alarmaDTO));
+    }
     public SeguimientoMedico buscarSeguimientoMedico(String id){
 
         return null; //seguimientos.stream().filter(seguimiento -> seguimiento.getIdSeguimiento().equals(id)).findFirst().orElse(null);
@@ -112,7 +115,7 @@ public class AlarmaController {
     public List<AlarmaXControlDTO> generarListaAlarmaConControl(List<Alarma> alarmas){
         List <AlarmaXControlDTO> alarmasXControl = new ArrayList<>();
         for (int i = 0; i < alarmas.size(); i++){
-            AlarmaXControlDTO alarmaNueva = new AlarmaXControlDTO(alarmas.get(i).getIdAlarma(),alarmas.get(i).getFechaLimite(),alarmas.get(i).getAccionesDeControl());
+            AlarmaXControlDTO alarmaNueva = new AlarmaXControlDTO(alarmas.get(i).getIdAlarma(),alarmas.get(i).getFechaInicial(),alarmas.get(i).getAccionesDeControl());
             alarmasXControl.add(alarmaNueva);
         }
 

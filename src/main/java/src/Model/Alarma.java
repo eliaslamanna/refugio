@@ -1,27 +1,29 @@
 package src.Model;
 
+import src.DTO.AlarmaDTO;
+import src.DTO.TratamientoMedicoDTO;
 import src.Enum.Accion;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 public class Alarma {
     private String idAlarma;
     private int periodicidadDias;
-    private LocalDateTime fechaLimite;
+    private LocalDateTime fechaInicial;
     private ControlPeriodico control;
 
-    public Alarma(int periodicidad, ControlPeriodico control) {
+    public Alarma(int periodicidad, LocalDateTime fechaInicial, ControlPeriodico control) {
         this.idAlarma = UUID.randomUUID().toString();
         this.periodicidadDias = periodicidad;
-        this.fechaLimite = LocalDateTime.now();
-        this.fechaLimite.plusDays(periodicidad);
+        this.fechaInicial = fechaInicial;
         this.control = control;
     }
 
-    public Alarma(String id, int periodicidad, ControlPeriodico control) {
-        this(periodicidad, control);
+    public Alarma(String id, int periodicidad, LocalDateTime fechaInicial, ControlPeriodico control) {
+        this(periodicidad, fechaInicial, control);
         if (id != null)
             this.idAlarma = id;
     }
@@ -32,14 +34,30 @@ public class Alarma {
     public String getIdAlarma(){
         return idAlarma;
     }
-    public LocalDateTime getFechaLimite(){
-        return fechaLimite;
+    public LocalDateTime getFechaInicial(){
+        return fechaInicial;
     }
     public List<Accion> getAccionesDeControl(){
         return control.getAcciones();
     }
     public ControlPeriodico getControl(){
         return this.control;
+    }
+
+    public AlarmaDTO toDTO(){
+        return new AlarmaDTO(this.idAlarma, this.periodicidadDias, this.fechaInicial, control.toDTO());
+    }
+
+    public static Alarma toObject(AlarmaDTO alarmaDTO){
+        Alarma alarma = null;
+        if (alarmaDTO.getControlDeSalud() instanceof TratamientoMedicoDTO)
+            alarma = new Alarma(alarmaDTO.getIdAlarma(), alarma.getPeriodicidad(), alarmaDTO.getFechaInicial()
+                    ,TratamientoMedico.toObject(alarmaDTO.getControlDeSalud()));
+        else
+            alarma = new Alarma(alarmaDTO.getIdAlarma(), alarma.getPeriodicidad(), alarmaDTO.getFechaInicial()
+                    ,ControlPeriodico.toObject(alarmaDTO.getControlDeSalud()));
+
+        return alarma;
     }
 
 }

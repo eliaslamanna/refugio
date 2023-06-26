@@ -4,6 +4,8 @@ import src.Controller.*;
 import src.DTO.*;
 import src.Enum.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Main {
@@ -422,28 +424,38 @@ public class Main {
 
     private static void programarAlarmas(Scanner scanner) {
         inicioProgramarAlarmas();
-        List<AnimalDTO> animales;
+
         String tipoDeControl = "";
         List<Accion> controlesDisponibles;
         List<Accion> controlesAProgramar = new ArrayList<>();
-        String controlElegido = "";
         List<Accion> tratamientosDisponibles;
         List<Accion> tratamientosAProgramar = new ArrayList<>();
-        String tratamientoElegido = "";
+
+        String idAnimal;
+        AnimalDTO animalDTO;
+
         String accionElegida = "";
+
+        AlarmaDTO nuevaAlarma = null;
 
         String opcion = scanner.nextLine();
         switch (opcion) {
             case "1":
                 System.out.println("\nElige el animal por id");
-                animales = AnimalController.getInstancia().getAnimales();
-                animales.forEach(animal -> {
+
+                AnimalController.getInstancia().getAnimales().forEach(animal -> {
                     System.out.println("Nombre -> " + animal.getNombre());
                     System.out.println("ID -> " + animal.getId());
                     System.out.println("-----------------------------");
                 });
-                String idAnimal = scanner.nextLine();
+                idAnimal = scanner.nextLine();
+                animalDTO = AnimalController.getInstancia().getAnimalPorId(idAnimal);
 
+                System.out.println("\nIngrese la fecha inicial en el formato yyyy-mm-dd");
+                String fechaInicial = scanner.nextLine();
+
+                System.out.println("\nIngrese la periodicidad en días");
+                String periodicidad = scanner.nextLine();
 
                 System.out.println("\nIngrese C/T/S para crear un Control ó un Tratamiento ó Salir");
                 tipoDeControl = scanner.nextLine();
@@ -468,11 +480,16 @@ public class Main {
                                     || accionElegida.equals(Accion.CONTROLAR_TAMANIO.toString())) {
                                 controlesAProgramar.add(Accion.valueOf(accionElegida));
                                 controlesDisponibles.remove(Accion.valueOf(accionElegida));
-                            }else {
+                            } else {
                                 System.out.println("\nOpcion incorrecta, vuelva a elegir");
                                 System.out.println("-----------------------------");
                             }
                         }
+
+                        nuevaAlarma = new AlarmaDTO(Integer.parseInt(periodicidad)
+                                , LocalDateTime.parse(fechaInicial, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                                , new ControlPeriodicoDTO(animalDTO, controlesAProgramar, null));
+
                         break;
                     case "t":
                     case "T":
@@ -491,15 +508,23 @@ public class Main {
                                     || accionElegida.equals(Accion.COLOCAR_VACUNA.toString())) {
                                 tratamientosAProgramar.add(Accion.valueOf(accionElegida));
                                 tratamientosDisponibles.remove(Accion.valueOf(accionElegida));
-                            }else {
+                            } else {
                                 System.out.println("\nOpcion incorrecta, vuelva a elegir");
                                 System.out.println("-----------------------------");
                             }
                         }
+
+                        nuevaAlarma = new AlarmaDTO(Integer.parseInt(periodicidad)
+                                , LocalDateTime.parse(fechaInicial, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                                , new TratamientoMedicoDTO(animalDTO, controlesAProgramar, null, true
+                                , LocalDateTime.parse(fechaInicial, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                                , null));
                         break;
                     default:
                         break;
                 }
+
+                AlarmaController.getInstancia().crearAlarma(nuevaAlarma);
                 break;
             default:
                 inicioProgramarAlarmas();

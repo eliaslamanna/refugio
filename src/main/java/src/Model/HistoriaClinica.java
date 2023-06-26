@@ -9,7 +9,7 @@ public class HistoriaClinica {
     
     private Animal _animal;
     
-    private List<ControlDeSalud> controlesRealizados;
+    private List<ControlPeriodico> controlesRealizados;
     private List<TratamientoMedico> tratamientosRealizados;
 
     private Seguimiento visitasADomicilio;
@@ -37,7 +37,7 @@ public class HistoriaClinica {
         this._animal = animal;
     }
 
-    public void setControlesRealizados(List<ControlDeSalud> controlesRealizados) {
+    public void setControlesRealizados(List<ControlPeriodico> controlesRealizados) {
         this.controlesRealizados = controlesRealizados;
     }
 
@@ -61,7 +61,7 @@ public class HistoriaClinica {
         return _animal;
     }
 
-    public List<ControlDeSalud> getControlesRealizados() {
+    public List<ControlPeriodico> getControlesRealizados() {
         return this.controlesRealizados;
     }
 
@@ -69,7 +69,7 @@ public class HistoriaClinica {
         return this.tratamientosRealizados;
     }
 
-    public void registrarControlPeriodico(ControlDeSalud control){
+    public void registrarControlPeriodico(ControlPeriodico control){
         controlesRealizados.add(control);
     }
 
