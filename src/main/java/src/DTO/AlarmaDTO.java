@@ -1,5 +1,7 @@
 package src.DTO;
 
+import src.Model.TratamientoMedico;
+
 import java.time.LocalDateTime;
 
 public class AlarmaDTO {
@@ -53,6 +55,23 @@ public class AlarmaDTO {
 
     public void setPeriodicidad(int periodicidad){
         this.periodicidad = periodicidad;
+    }
+
+    public boolean isTratamientoMedico(){
+        boolean isTratamientoMedico = false;
+
+        if (controlDeSalud instanceof TratamientoMedicoDTO)
+            isTratamientoMedico = true;
+
+        return isTratamientoMedico;
+    }
+
+    public TratamientoMedicoDTO getTratamientoMedico(){
+        return (TratamientoMedicoDTO) controlDeSalud;
+    }
+
+    public void setTratamientoMedico(TratamientoMedicoDTO tratamientoMedico){
+        controlDeSalud = tratamientoMedico;
     }
 
 }

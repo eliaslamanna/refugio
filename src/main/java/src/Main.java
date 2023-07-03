@@ -3,6 +3,7 @@ package src;
 import src.Controller.*;
 import src.DTO.*;
 import src.Enum.*;
+import src.Model.Alarma;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -453,7 +454,7 @@ public class Main {
                     case "c":
                     case "C":
                         controlesDisponibles = ClinicaController.getInstancia().getAccionesDeControlDeSalud();
-                        while (controlesDisponibles.stream().count() > 0
+                        while (controlesDisponibles.size() > 0
                                 && !accionElegida.equalsIgnoreCase("s")) {
                             System.out.println("\nIngrese la accion disponible ó S para Salir");
                             System.out.println("-----------------------------");
@@ -463,15 +464,17 @@ public class Main {
                             });
                             accionElegida = scanner.nextLine();
 
-                            if (accionElegida.equals(Accion.CONTROLAR_NUTRICION.toString())
-                                    || accionElegida.equals(Accion.CONTROLAR_PARASITOS.toString())
-                                    || accionElegida.equals(Accion.CONTROLAR_PESO.toString())
-                                    || accionElegida.equals(Accion.CONTROLAR_TAMANIO.toString())) {
-                                controlesAProgramar.add(Accion.valueOf(accionElegida));
-                                controlesDisponibles.remove(Accion.valueOf(accionElegida));
-                            } else {
-                                System.out.println("\nOpcion incorrecta, vuelva a elegir");
-                                System.out.println("-----------------------------");
+                            if (!accionElegida.equalsIgnoreCase("s")) {
+                                if (accionElegida.equals(Accion.CONTROLAR_NUTRICION.toString())
+                                        || accionElegida.equals(Accion.CONTROLAR_PARASITOS.toString())
+                                        || accionElegida.equals(Accion.CONTROLAR_PESO.toString())
+                                        || accionElegida.equals(Accion.CONTROLAR_TAMANIO.toString())) {
+                                    controlesAProgramar.add(Accion.valueOf(accionElegida));
+                                    controlesDisponibles.remove(Accion.valueOf(accionElegida));
+                                } else {
+                                    System.out.println("\nOpcion incorrecta, vuelva a elegir");
+                                    System.out.println("-----------------------------");
+                                }
                             }
                         }
 
@@ -483,7 +486,7 @@ public class Main {
                     case "t":
                     case "T":
                         tratamientosDisponibles = ClinicaController.getInstancia().getAccionesDeTratamientoMedico();
-                        while (tratamientosDisponibles.stream().count() > 0
+                        while (tratamientosDisponibles.size() > 0
                                 && !accionElegida.equalsIgnoreCase("s")) {
                             System.out.println("\nIngrese la accion disponible ó S para Salir");
                             System.out.println("-----------------------------");
@@ -493,13 +496,15 @@ public class Main {
                             });
                             accionElegida = scanner.nextLine();
 
-                            if (accionElegida.equals(Accion.COLOCAR_ANTIPARASITARIO.toString())
-                                    || accionElegida.equals(Accion.COLOCAR_VACUNA.toString())) {
-                                tratamientosAProgramar.add(Accion.valueOf(accionElegida));
-                                tratamientosDisponibles.remove(Accion.valueOf(accionElegida));
-                            } else {
-                                System.out.println("\nOpcion incorrecta, vuelva a elegir");
-                                System.out.println("-----------------------------");
+                            if (!accionElegida.equalsIgnoreCase("s")) {
+                                if (accionElegida.equals(Accion.COLOCAR_ANTIPARASITARIO.toString())
+                                        || accionElegida.equals(Accion.COLOCAR_VACUNA.toString())) {
+                                    tratamientosAProgramar.add(Accion.valueOf(accionElegida));
+                                    tratamientosDisponibles.remove(Accion.valueOf(accionElegida));
+                                } else {
+                                    System.out.println("\nOpcion incorrecta, vuelva a elegir");
+                                    System.out.println("-----------------------------");
+                                }
                             }
                         }
 
@@ -523,40 +528,77 @@ public class Main {
         menuVeterinario(scanner);
     }
 
-    /*
-    private static void atenderAlarmas(Scanner scanner) {
-        //inicioAtenderAlarmas();
-        String idAnimalDTO;
-        List<AnimalXAlarmaDTO> listaAnimales = new ArrayList<>();
-        listaAnimales = AlarmaController.getInstancia().traerSeguimientosConAlarmasActivas();
-        mostrarAnimalesConAlarmas(listaAnimales);
-
-        String opcion = scanner.nextLine();
-
-        switch (opcion) {
-            case "0":
-
-                break;
-            default:
-                idAnimalDTO = listaAnimales.get(Integer.parseInt(opcion) - 1).getIdAnimal();
-                atenderAlarmasXAnimal(scanner, idAnimalDTO);
-                break;
-        }
-        opcion = scanner.nextLine();
-
-
-        menuVeterinario(scanner);
-    }
-    */
-
     private static void inicioAtenderAlarmas() {
         System.out.println("\n Animales con alarmas activas");
         System.out.println("1. Elegir animal");
         System.out.println("2. Menu anterior\n");
     }
 
+    private static List<AlarmaDTO> getAlarmasPorIdAnimal(List<AlarmaDTO> alarmas, String  idAnimal){
+        List<AlarmaDTO> alarmasDeAnimal = new ArrayList<>();
+
+        for (AlarmaDTO alarmaDTO : alarmas){
+            if (alarmaDTO.getControlDeSalud().getAnimal().getId().equals(idAnimal))
+                alarmasDeAnimal.add(alarmaDTO);
+        }
+
+        return alarmasDeAnimal;
+    }
+
+    private static AlarmaDTO getAlarmaPorId(List<AlarmaDTO> alarmas, String idAlarma){
+        AlarmaDTO alarma = null;
+
+        for (AlarmaDTO alarmaDTO : alarmas){
+            if (alarmaDTO.getIdAlarma().equals(idAlarma))
+                alarma = alarmaDTO;
+        }
+
+        return alarma;
+    }
     private static void atenderAlarmas(Scanner scanner) {
-        //inicioAtenderAlarmas();
+        inicioAtenderAlarmas();
+
+        List<AlarmaDTO> alarmasAtendibles = AlarmaController.getInstancia().getAlarmasAtendibles();
+        AlarmaDTO alarmaParaAtender = null;
+        String idAnimal = "";
+
+        alarmasAtendibles.forEach(alarma -> {
+            System.out.println("Nombre -> " + alarma.getControlDeSalud().getAnimal().getNombre());
+            System.out.println("ID -> " + alarma.getControlDeSalud().getAnimal().getId());
+            System.out.println("-----------------------------");
+        });
+        System.out.println("\nElige el animal por id");
+        idAnimal = scanner.nextLine();
+        alarmasAtendibles = getAlarmasPorIdAnimal(alarmasAtendibles, idAnimal);
+
+        if (alarmasAtendibles.size() > 0) {
+            System.out.println("\nElija la alarma a atender por id");
+
+            alarmasAtendibles.forEach(alarma -> {
+                System.out.println("ID -> " + alarma.getIdAlarma());
+                System.out.println("Acciones -> " + alarma.getControlDeSalud().getAcciones().toString());
+                System.out.println("-----------------------------");
+            });
+            alarmaParaAtender = getAlarmaPorId(alarmasAtendibles, scanner.nextLine());
+
+            if (alarmaParaAtender.isTratamientoMedico()){
+                System.out.println("Continuar con el tratamiento (S/N)?");
+                switch (scanner.nextLine()){
+                    case "n":
+                    case "N":
+                        alarmaParaAtender.getTratamientoMedico().finalizarTratamiento();
+                        break;
+                }
+            }
+
+            AlarmaController.getInstancia().atenderAlarma(alarmaParaAtender);
+            System.out.println("\nLa alarma fue actualizada correctamente.");
+
+        } else {
+            System.out.println("\nNo existen alarmas para el animal elegido.");
+        }
+
+
         menuVeterinario(scanner);
     }
 

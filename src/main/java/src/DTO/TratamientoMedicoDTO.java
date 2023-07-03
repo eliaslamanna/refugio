@@ -43,4 +43,15 @@ public class TratamientoMedicoDTO extends ControlPeriodicoDTO {
     public void setFinTratamiento(LocalDateTime finTratamiento) {
         this._finTratamiento = finTratamiento;
     }
+
+    public void finalizarTratamiento(){
+        _finTratamiento = LocalDateTime.now();
+        _enTratamiento = false;
+    }
+
+    public void finalizarTratamiento(LocalDateTime finTratamiento){
+        _finTratamiento = finTratamiento;
+        _enTratamiento = false;
+    }
+
 }

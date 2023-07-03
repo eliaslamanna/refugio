@@ -79,6 +79,9 @@ public class AlarmaController {
         return alarmarAtendibles;
     }
 
+    public void atenderAlarma(AlarmaDTO alarmaDTO){
+
+    }
     /*
     public List<AnimalXAlarmaDTO> traerSeguimientosConAlarmasActivas(){
         List <SeguimientoMedico> seguimientosConAlarmas = new ArrayList<>();
