@@ -52,7 +52,10 @@ public class ControlPeriodico {
     }
 
     public ControlPeriodicoDTO toDTO(){
-        return new ControlPeriodicoDTO(this._animal.toDTO(),this._acciones,this._atendidoPor.toDTO());
+        if (this._atendidoPor != null)
+            return new ControlPeriodicoDTO(this._animal.toDTO(),this._acciones,this._atendidoPor.toDTO());
+        else
+            return new ControlPeriodicoDTO(this._animal.toDTO(),this._acciones,null);
     }
 
     public static ControlPeriodico toObject(ControlPeriodicoDTO controlPeriodicoDTO){

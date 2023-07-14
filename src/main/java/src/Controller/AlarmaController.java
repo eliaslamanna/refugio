@@ -1,6 +1,8 @@
 package src.Controller;
 
 import src.DTO.AlarmaDTO;
+import src.DTO.TratamientoMedicoDTO;
+import src.DTO.UsuarioDTO;
 import src.Model.*;
 
 import java.util.ArrayList;
@@ -47,18 +49,6 @@ public class AlarmaController {
         alarmas.add(Alarma.toObject(alarmaDTO));
     }
 
-    /*
-    public SeguimientoMedico buscarSeguimientoMedico(String id){
-
-        return null; //seguimientos.stream().filter(seguimiento -> seguimiento.getIdSeguimiento().equals(id)).findFirst().orElse(null);
-
-    }
-    public Control buscarControl(String id){
-        return null; //controles.stream().filter(control -> control.getIdControl().equals(id)).findFirst().orElse(null);
-    }
-    */
-
-    // ----------------------------------------------- COMIENZO TRATADO DE ALARMAS ----------------------------------------------------
     public int contarAlarmasAtendibles(){
         int cantAlarmasAtendibles = 0;
 
@@ -79,84 +69,45 @@ public class AlarmaController {
         return alarmarAtendibles;
     }
 
-    public void atenderAlarma(AlarmaDTO alarmaDTO){
+    public void atenderAlarma(AlarmaDTO alarmaDTO, UsuarioDTO atendidoPor){
 
-    }
-    /*
-    public List<AnimalXAlarmaDTO> traerSeguimientosConAlarmasActivas(){
-        List <SeguimientoMedico> seguimientosConAlarmas = new ArrayList<>();
+        Alarma alarmaAAtender = null;
+        Usuario veterinario = Usuario.toObject(atendidoPor);
 
-        for (int i = 0; i < seguimientos.size(); i ++){
-            if(seguimientos.get(i).buscarAlarmasActivas() !=0){
-                seguimientosConAlarmas.add(seguimientos.get(i));
+        for(Alarma alarma : alarmas){
+            if (alarma.getIdAlarma().equals(alarmaDTO.getIdAlarma())) {
+                alarmaAAtender = alarma;
+                if (alarmaDTO.isTratamientoMedico()) {
+                    alarmaAAtender.setControl(TratamientoMedico.toObject(alarmaDTO.getTratamientoMedico()));
+                    alarmaAAtender.getControl().setAtendidoPor(veterinario);
+                }
+                else {
+                    alarmaAAtender.setControl(ControlPeriodico.toObject(alarmaDTO.getControlDeSalud()));
+                    alarmaAAtender.getControl().setAtendidoPor(veterinario);
+                }
             }
         }
 
-
-        return generarListaAnimalConAlarmas(seguimientosConAlarmas);
-
-    }
-
-    public List<AnimalXAlarmaDTO> generarListaAnimalConAlarmas(List<SeguimientoMedico> seguimientos){
-
-        List <AnimalXAlarmaDTO> animalesConAlarmas = new ArrayList<>();
-        for (int i = 0; i < seguimientos.size(); i ++){
-            AnimalXAlarmaDTO animalNuevo = new AnimalXAlarmaDTO(seguimientos.get(i).getAnimal().getId(), seguimientos.get(i).getAnimal().getNombre(), seguimientos.get(i).getCantidadAlarmasActivas());
-            animalesConAlarmas.add(animalNuevo);
+        if (alarmaAAtender != null && alarmaAAtender.isAtendible()){
+            alarmaAAtender.atenderAlarma(veterinario);
+            if (alarmaDTO.isTratamientoMedico()) {
+                ClinicaController.getInstancia().registrarAtencion((TratamientoMedico) alarmaAAtender.getControl());
+                if (alarmaDTO.getTratamientoMedico().isEnTratamiento())
+                    alarmas.add(new Alarma(alarmaDTO.getPeriodicidad(), alarmaAAtender.obtenerProximaFecha()
+                            , new TratamientoMedico(
+                            Animal.toObject(alarmaDTO.getTratamientoMedico().getAnimal())
+                            , alarmaDTO.getTratamientoMedico().getAcciones()
+                            , null
+                            , alarmaDTO.getTratamientoMedico().getInicioTratamiento())));
+            }
+            else {
+                ClinicaController.getInstancia().registrarAtencion(alarmaAAtender.getControl());
+                alarmas.add(new Alarma(alarmaDTO.getPeriodicidad(), alarmaAAtender.obtenerProximaFecha()
+                        , new ControlPeriodico(Animal.toObject(alarmaDTO.getControlDeSalud().getAnimal())
+                        , alarmaDTO.getControlDeSalud().getAcciones()
+                        , null)));
+            }
         }
-        return animalesConAlarmas;
-
-    }
-
-    public List<AlarmaXControlDTO> traerAlarmasActivasDeSeguimiento(String idAnimal){
-
-        SeguimientoMedico seguimiento = buscarSeguimientoXIdAnimal(idAnimal);
-        List<Alarma> alarmasActivas = seguimiento.getAlarmasActivas();
-
-        return generarListaAlarmaConControl(alarmasActivas);
-
-    }
-
-    public SeguimientoMedico buscarSeguimientoXIdAnimal(String idAnimal){
-        return null; //seguimientos.stream().filter(seguimiento -> seguimiento.getIdAnimal().equals(idAnimal)).findFirst().orElse(null);
-    }
-
-    public List<AlarmaXControlDTO> generarListaAlarmaConControl(List<Alarma> alarmas){
-        List <AlarmaXControlDTO> alarmasXControl = new ArrayList<>();
-        for (int i = 0; i < alarmas.size(); i++){
-            AlarmaXControlDTO alarmaNueva = new AlarmaXControlDTO(alarmas.get(i).getIdAlarma(),alarmas.get(i).getFechaInicial(),alarmas.get(i).getAccionesDeControl());
-            alarmasXControl.add(alarmaNueva);
-        }
-
-        return alarmasXControl;
-    }
-    */
-
- /*
-    public void atenderAlarma(String idAlarma, String idAnimal) {
-        SeguimientoMedico seguimiento = buscarSeguimientoXIdAnimal(idAnimal);
-        Alarma alarmaCancelada = buscarAlarma(idAlarma);
-
-        ControlRealizado controlRealizado = new ControlRealizado(alarmaCancelada.getControl());
-        HistoriaClinica historiaClinica = ClinicaController.getInstancia().buscarHistoriaClinicaXAnimal(idAnimal);
-        historiaClinica.registrarControlPeriodico(controlRealizado);
-
-        Alarma alarmaNueva = new Alarma(alarmaCancelada.getPeriodicidad(), alarmaCancelada.getControl());
-        seguimiento.removarAlarma(alarmaCancelada.getIdAlarma());
-        seguimiento.agregarAlarma(alarmaNueva);
-    }
- */
-    // ----------------------------------------------- FIN TRATADO DE ALARMAS ----------------------------------------------------
-
-    private Alarma buscarAlarma(String id){
-
-        //return seguimientos.stream().filter(seguimiento -> seguimiento.getIdSeguimiento().equals(id)).findFirst().orElse(null);
-        return alarmas.stream().filter(alarma -> alarma.getIdAlarma().equals(id)).findFirst().orElse(null);
-
-    }
-
-    public void enviarAlarma(AlarmaDTO alarma) {
-        // TODO implement here
     }
 
 }

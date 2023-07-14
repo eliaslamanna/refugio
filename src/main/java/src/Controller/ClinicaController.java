@@ -87,4 +87,14 @@ public class ClinicaController {
     public List<Accion> getAccionesDeTratamientoMedico() {
         return accionesDeTratamientoMedico;
     }
+
+    public void registrarAtencion(TratamientoMedico control) {
+        HistoriaClinica historiaClinica = buscarHistoriaClinicaXAnimal(control.getAnimal().getId());
+        historiaClinica.registrarControlPeriodico(control);
+    }
+
+    public void registrarAtencion(ControlPeriodico control){
+        HistoriaClinica historiaClinica = buscarHistoriaClinicaXAnimal(control.getAnimal().getId());
+        historiaClinica.registrarControlPeriodico(control);
+    }
 }

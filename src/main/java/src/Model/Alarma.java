@@ -20,6 +20,7 @@ public class Alarma {
         this.periodicidadDias = periodicidad;
         this.fechaInicial = fechaInicial;
         this.control = control;
+        this.estadoAlarma = new AlarmaCreada(this);
     }
 
     public Alarma(String id, int periodicidad, LocalDateTime fechaInicial, ControlPeriodico control) {
@@ -44,6 +45,18 @@ public class Alarma {
         return this.control;
     }
 
+    public void setControl(ControlPeriodico control) {
+        this.control = control;
+    }
+
+    public EstadoAlarma getEstadoAlarma() {
+        return estadoAlarma;
+    }
+
+    public void setEstadoAlarma(EstadoAlarma estadoAlarma) {
+        this.estadoAlarma = estadoAlarma;
+    }
+
     public AlarmaDTO toDTO(){
         return new AlarmaDTO(this.idAlarma, this.periodicidadDias, this.fechaInicial, control.toDTO());
     }
@@ -66,10 +79,15 @@ public class Alarma {
 
     public boolean isAtendible(){
         boolean isAtendible = false;
-        if (fechaInicial.isBefore(LocalDateTime.now())){
+        if (fechaInicial.isBefore(LocalDateTime.now()) && estadoAlarma.isAtendible()){
             isAtendible = true;
         }
         return isAtendible;
+    }
+
+    public LocalDateTime obtenerProximaFecha() {
+        LocalDateTime proximaFecha = this.fechaInicial.plusDays(this.periodicidadDias);
+        return proximaFecha;
     }
 
 }

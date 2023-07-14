@@ -591,7 +591,7 @@ public class Main {
                 }
             }
 
-            AlarmaController.getInstancia().atenderAlarma(alarmaParaAtender);
+            AlarmaController.getInstancia().atenderAlarma(alarmaParaAtender,usuarioAuntenticado);
             System.out.println("\nLa alarma fue actualizada correctamente.");
 
         } else {
