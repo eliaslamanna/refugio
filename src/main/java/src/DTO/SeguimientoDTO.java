@@ -1,7 +1,7 @@
 package src.DTO;
 
 import src.Enum.MedioRecordatorio;
-import src.Model.EstrategiaNotificacion;
+import src.Model.VisitaADomicilio;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ public class SeguimientoDTO {
 
     private int diasRecordatorio;
 
-    private List<VisitaDTO> visitasADomicilio = new ArrayList<>();
+    private List<VisitaADomicilioDTO> visitasADomicilio = new ArrayList<>();
 
     private UsuarioDTO responsable;
 
@@ -52,11 +52,11 @@ public class SeguimientoDTO {
         this.diasRecordatorio = diasRecordatorio;
     }
 
-    public List<VisitaDTO> getVisitasADomicilio() {
+    public List<VisitaADomicilioDTO> getVisitasADomicilio() {
         return visitasADomicilio;
     }
 
-    public void setVisitasADomicilio(List<VisitaDTO> visitasADomicilio) {
+    public void setVisitasADomicilio(List<VisitaADomicilioDTO> visitasADomicilio) {
         this.visitasADomicilio = visitasADomicilio;
     }
 
@@ -66,6 +66,17 @@ public class SeguimientoDTO {
 
     public void setResponsable(UsuarioDTO responsable) {
         this.responsable = responsable;
+    }
+
+    public List<VisitaADomicilioDTO> getVisitasADomicilioTerminadas() {
+        List<VisitaADomicilioDTO> visitasTerminadas =  new ArrayList<>();
+
+        for (VisitaADomicilioDTO visitaADomicilio : visitasADomicilio) {
+            if (visitaADomicilio.isTerminada())
+                visitasTerminadas.add(visitaADomicilio);
+        }
+
+        return visitasTerminadas;
     }
 
 }

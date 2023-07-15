@@ -3,7 +3,6 @@ package src;
 import src.Controller.*;
 import src.DTO.*;
 import src.Enum.*;
-import src.Model.Alarma;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -480,7 +479,7 @@ public class Main {
 
                         nuevaAlarma = new AlarmaDTO(Integer.parseInt(periodicidad)
                                 , LocalDateTime.parse(fechaInicial + " 00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
-                                , new ControlPeriodicoDTO(animalDTO, controlesAProgramar, null));
+                                , new ControlPeriodicoDTO(animalDTO, controlesAProgramar, null,null));
 
                         break;
                     case "t":
@@ -510,9 +509,10 @@ public class Main {
 
                         nuevaAlarma = new AlarmaDTO(Integer.parseInt(periodicidad)
                                 , LocalDateTime.parse(fechaInicial + " 00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
-                                , new TratamientoMedicoDTO(animalDTO, controlesAProgramar, null, true
-                                , LocalDateTime.parse(fechaInicial, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-                                , null));
+                                , new TratamientoMedicoDTO(animalDTO, tratamientosAProgramar, null, true
+                                , LocalDateTime.parse(fechaInicial + " 00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
+                                , null
+                                ,null));
                         break;
                     default:
                         break;
@@ -758,7 +758,7 @@ public class Main {
                     });
                     System.out.println("\nIngrese id del animal");
                     String idAnimalSeguido = scanner.nextLine();
-                    VisitaDTO visitaDTO = AdopcionesController.getInstancia().getUltimaVisitaPorAnimal(idAnimalSeguido);
+                    VisitaADomicilioDTO visitaDTO = AdopcionesController.getInstancia().getUltimaVisitaPorAnimal(idAnimalSeguido);
                     System.out.println("\nIngrese alguna observacion sobre la visita");
                     String observacion = scanner.nextLine();
                     while (!estadoAnimal.equalsIgnoreCase(EstadoLimpiezaAmbiente.BUENO.toString())

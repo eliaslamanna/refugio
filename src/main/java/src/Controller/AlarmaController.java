@@ -5,6 +5,7 @@ import src.DTO.TratamientoMedicoDTO;
 import src.DTO.UsuarioDTO;
 import src.Model.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,12 +80,12 @@ public class AlarmaController {
                 alarmaAAtender = alarma;
                 if (alarmaDTO.isTratamientoMedico()) {
                     alarmaAAtender.setControl(TratamientoMedico.toObject(alarmaDTO.getTratamientoMedico()));
-                    alarmaAAtender.getControl().setAtendidoPor(veterinario);
                 }
                 else {
                     alarmaAAtender.setControl(ControlPeriodico.toObject(alarmaDTO.getControlDeSalud()));
-                    alarmaAAtender.getControl().setAtendidoPor(veterinario);
                 }
+                alarmaAAtender.getControl().setAtendidoPor(veterinario);
+                alarmaAAtender.getControl().setHoraDeAtencion(LocalDateTime.now());
             }
         }
 
@@ -98,13 +99,15 @@ public class AlarmaController {
                             Animal.toObject(alarmaDTO.getTratamientoMedico().getAnimal())
                             , alarmaDTO.getTratamientoMedico().getAcciones()
                             , null
-                            , alarmaDTO.getTratamientoMedico().getInicioTratamiento())));
+                            , alarmaDTO.getTratamientoMedico().getInicioTratamiento()
+                            , null)));
             }
             else {
                 ClinicaController.getInstancia().registrarAtencion(alarmaAAtender.getControl());
                 alarmas.add(new Alarma(alarmaDTO.getPeriodicidad(), alarmaAAtender.obtenerProximaFecha()
                         , new ControlPeriodico(Animal.toObject(alarmaDTO.getControlDeSalud().getAnimal())
                         , alarmaDTO.getControlDeSalud().getAcciones()
+                        , null
                         , null)));
             }
         }

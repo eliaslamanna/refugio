@@ -1,9 +1,6 @@
 package src.DTO;
 
-import src.Model.Animal;
-import src.Model.Control;
-import src.Model.ControlRealizado;
-import src.Model.Seguimiento;
+import src.Model.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,10 +9,9 @@ import java.util.List;
 public class HistoriaClinicaDTO {
     private Animal animal;
 
-    private List<ControlRealizado> intervenciones;
-
-    private Seguimiento visitasADomicilio ;
-
+    private List<ControlPeriodicoDTO> controlesRealizados;
+    private List<TratamientoMedicoDTO> tratamientosRealizados;
+private SeguimientoDTO visitasADomicilio;
     private Date fechaDeCreacion;
 
     private Date ultimoCambio;
@@ -24,12 +20,20 @@ public class HistoriaClinicaDTO {
         return animal;
     }
 
-    public List<ControlRealizado> getIntervenciones() {
-        return intervenciones;
+    public List<ControlPeriodicoDTO> getControlesRealizados() {
+        return controlesRealizados;
     }
 
-    public Seguimiento getVisitasADomicilio() {
-        return visitasADomicilio;
+    public void setControlesRealizados(List<ControlPeriodicoDTO> controlesRealizados) {
+        this.controlesRealizados = controlesRealizados;
+    }
+
+    public List<TratamientoMedicoDTO> getTratamientosRealizados() {
+        return tratamientosRealizados;
+    }
+
+    public void setTratamientosRealizados(List<TratamientoMedicoDTO> tratamientosRealizados) {
+        this.tratamientosRealizados = tratamientosRealizados;
     }
 
     public Date getFechaDeCreacion() {
@@ -44,12 +48,11 @@ public class HistoriaClinicaDTO {
         this.animal = animal;
     }
 
-    public void setIntervenciones(List<ControlRealizado> intervenciones) {
-        this.intervenciones = intervenciones;
-    }
-
-    public void setVisitasADomicilio(Seguimiento visitasADomicilio) {
+    public void setVisitasADomicilio(SeguimientoDTO visitasADomicilio) {
         this.visitasADomicilio = visitasADomicilio;
+    }
+    public SeguimientoDTO getVisitasADomicilio() {
+        return visitasADomicilio;
     }
 
     public void setFechaDeCreacion(Date fechaDeCreacion) {
@@ -58,5 +61,8 @@ public class HistoriaClinicaDTO {
 
     public void setUltimoCambio(Date ultimoCambio) {
         this.ultimoCambio = ultimoCambio;
+    }
+    public boolean tieneSeguimientoActivo(){
+        return this.visitasADomicilio != null;
     }
 }

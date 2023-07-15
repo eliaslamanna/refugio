@@ -75,9 +75,7 @@ public class ClinicaController {
     }
 
     public HistoriaClinica buscarHistoriaClinicaXAnimal(String idAnimal){
-        //return seguimientos.stream().filter(seguimiento -> seguimiento.getIdAnimal().equals(idAnimal)).findFirst().orElse(null);
         return historiales.stream().filter(historia -> historia.getAnimal().getId().equals(idAnimal)).findFirst().orElse(null);
-
     }
 
     public List<Accion> getAccionesDeControlDeSalud() {

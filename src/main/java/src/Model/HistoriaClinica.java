@@ -1,6 +1,9 @@
 package src.Model;
 
+import src.DTO.ControlPeriodicoDTO;
 import src.DTO.HistoriaClinicaDTO;
+import src.DTO.TratamientoMedicoDTO;
+import src.DTO.VisitaADomicilioDTO;
 
 import java.util.*;
 
@@ -28,6 +31,8 @@ public class HistoriaClinica {
         ultimoCambio = new Date();
         //generar los controles para el animal y agregar el veterinario que controla
     }
+
+
 
     public void exportarFichaMedica() {
                 estrategiaExportacion.exportar(this.toDTO());
@@ -96,10 +101,32 @@ public class HistoriaClinica {
     private HistoriaClinicaDTO toDTO(){
         HistoriaClinicaDTO historia = new HistoriaClinicaDTO();
         historia.setAnimal(this._animal);
-        //historia.setIntervenciones(this.controlesRealizados);
+
+        List<ControlPeriodicoDTO> controlesRealizadosDTO = new ArrayList<>();
+
+        for (ControlPeriodico controlPeriodico : this.controlesRealizados) {
+            controlesRealizadosDTO.add(controlPeriodico.toDTO());
+        }
+
+        historia.setControlesRealizados(controlesRealizadosDTO);
+
+        List<TratamientoMedicoDTO> tratamientosRealizadosDTO = new ArrayList<>();
+
+        for (TratamientoMedico tratamientoMedico : this.tratamientosRealizados) {
+            tratamientosRealizadosDTO.add(tratamientoMedico.toDTO());
+        }
+
+        historia.setTratamientosRealizados(tratamientosRealizadosDTO);
+
         historia.setFechaDeCreacion(this.fechaDeCreacion);
-        historia.setVisitasADomicilio(this.visitasADomicilio);
+        if (tieneSeguimientoActivo())
+            historia.setVisitasADomicilio(this.visitasADomicilio.toDTO());
+        else
+            historia.setVisitasADomicilio(null);
         historia.setUltimoCambio(this.ultimoCambio);
         return historia;
+    }
+    public boolean tieneSeguimientoActivo(){
+        return this.visitasADomicilio != null;
     }
 }

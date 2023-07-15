@@ -76,8 +76,8 @@ public class AdopcionesController {
         return animales;
     }
 
-    public VisitaDTO getUltimaVisitaPorAnimal(String idAnimal) {
-        VisitaDTO visita = new VisitaDTO();
+    public VisitaADomicilioDTO getUltimaVisitaPorAnimal(String idAnimal) {
+        VisitaADomicilioDTO visita = new VisitaADomicilioDTO();
         for (Adopcion adopcion : adopciones) {
             if (adopcion.getMascota().getId().equals(idAnimal))
                 if (adopcion.getSeguimiento().getContinuarVisitas()) {
@@ -107,7 +107,7 @@ public class AdopcionesController {
 
 
 
-    public void registrarVisita(VisitaDTO visita, AnimalDTO mascotaDTO, boolean continuarVisitas){
+    public void registrarVisita(VisitaADomicilioDTO visita, AnimalDTO mascotaDTO, boolean continuarVisitas){
         Seguimiento seguimiento;
         for (Adopcion adopcion : adopciones){
             if (adopcion.getMascota().getId().equals(mascotaDTO.getId())) {

@@ -12,8 +12,8 @@ public class TratamientoMedicoDTO extends ControlPeriodicoDTO {
     private LocalDateTime _finTratamiento;
 
     public TratamientoMedicoDTO(AnimalDTO animal, List<Accion> acciones, UsuarioDTO atendidoPor, boolean enTratamiento
-            , LocalDateTime inicioTratamiento, LocalDateTime finTratamiento) {
-        super(animal, acciones, atendidoPor);
+            , LocalDateTime inicioTratamiento, LocalDateTime finTratamiento, LocalDateTime horaDeAtencion) {
+        super(animal, acciones, atendidoPor, horaDeAtencion);
         this._enTratamiento = enTratamiento;
         this._inicioTratamiento = inicioTratamiento;
         this._finTratamiento = finTratamiento;

@@ -1,7 +1,7 @@
 package src.Model;
 
 import src.DTO.EncuestaDTO;
-import src.DTO.VisitaDTO;
+import src.DTO.VisitaADomicilioDTO;
 
 import java.util.*;
 
@@ -57,8 +57,8 @@ public class VisitaADomicilio {
         return encuesta;
     }
 
-    public VisitaDTO toDTO(){
-        VisitaDTO visitaDTO = new VisitaDTO();
+    public VisitaADomicilioDTO toDTO(){
+        VisitaADomicilioDTO visitaDTO = new VisitaADomicilioDTO();
         visitaDTO.setEncuesta(encuesta.toDTO());
         visitaDTO.setFechaVisita(this.fechaVisita);
         visitaDTO.setObservaciones(this.observaciones);

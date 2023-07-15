@@ -1,10 +1,8 @@
 package src.DTO;
 
-import src.Model.Encuesta;
-
 import java.util.Date;
 
-public class VisitaDTO {
+public class VisitaADomicilioDTO {
     private Date fechaVisita;
 
     private String observaciones;

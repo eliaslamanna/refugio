@@ -1,6 +1,9 @@
 package src.Model;
 
+import src.DTO.ControlPeriodicoDTO;
 import src.DTO.HistoriaClinicaDTO;
+import src.DTO.TratamientoMedicoDTO;
+import src.DTO.VisitaADomicilioDTO;
 import src.Enum.Accion;
 
 import java.util.Date;
@@ -10,50 +13,48 @@ public class ExportarPDF implements EstrategiaExportacion {
         System.out.println("EXPORTACION EN PDF");
         System.out.println("Nombre: " + historia.getAnimal().getNombre());
         System.out.println("Tipo: " + historia.getAnimal().getTipoAnimal().toString());
-        for (ControlRealizado control :
-                historia.getIntervenciones()) {
-            if (control == null) {
-                System.out.println("Todavia no se realizaron controles sobre este animal.");
-            }
+        for (ControlPeriodicoDTO controlPeriodicoDTO: historia.getControlesRealizados()){
             System.out.println("Control:");
-            System.out.println("Fecha: " + control.getControl().getMomentoDeEjecucion().toString());
-            System.out.println("Veterinario: " + control.getControl().getVeterinario());
+            System.out.println("Fecha: " + controlPeriodicoDTO.getHoraAtencion().toString());
+            System.out.println("Veterinario: " + controlPeriodicoDTO.getAtendidoPor().getNombre());
             System.out.println("Acciones:");
             for (Accion accion :
-                    control.getControl().getAcciones()) {
+                    controlPeriodicoDTO.getAcciones()) {
                 System.out.println(accion.toString());
             }
-            System.out.println("Tratamientos:");
-            for (Tratamiento tratamiento :
-                    control.getControl().getTratamientos()) {
-                System.out.println("Tratamiento " + tratamiento.getNombre());
-                System.out.println("Duaracion: " + tratamiento.getDuracion());
-                if (tratamiento.getFinalizado()) {
-                    System.out.println("Finalizado");
-                } else {
-                    System.out.println("En tratamiento");
-                }
-                System.out.println(" ");
 
+        }
+        for (TratamientoMedicoDTO tratamientoMedicoDTO: historia.getTratamientosRealizados()){
+            System.out.println("Tratamiento:");
+            System.out.println("Inicio tratamiento: " + tratamientoMedicoDTO.getInicioTratamiento());
+            if (tratamientoMedicoDTO.isEnTratamiento()) {
+                System.out.println("Tratamiento En Curso");
+            } else {
+                System.out.println("Fin tratamiento: " + tratamientoMedicoDTO.getFinTratamiento());
+            }
+            System.out.println("Fecha: " + tratamientoMedicoDTO.getHoraAtencion().toString());
+            System.out.println("Veterinario: " + tratamientoMedicoDTO.getAtendidoPor().getNombre());
+            System.out.println("Acciones:");
+            for (Accion accion :
+                    tratamientoMedicoDTO.getAcciones()) {
+                System.out.println(accion.toString());
             }
         }
-        System.out.println("Visitas a domicilio: ");
-        Date hoy = new Date();
-        if (historia.getVisitasADomicilio().getVisitasADomicilioTerminadas() !=  null){
-            for (VisitaADomicilio visita : historia.getVisitasADomicilio().getVisitasADomicilioTerminadas()) {
-                if (visita.isTerminada()) {
-                    System.out.println("Fecha: " + visita.getFechaVisita().toString());
-                    System.out.println("Observaciones: " + visita.getObservaciones());
-                    System.out.println("Estado general del animal: " + visita.getEncuesta().getEstado().toString());
-                    System.out.println("Estado del ambiente: " + visita.getEncuesta().getAmbiente().toString());
-                    System.out.println("Estado de la limpieza : " + visita.getEncuesta().getLimpieza().toString());
-                    System.out.println("");
+        if (historia.tieneSeguimientoActivo()) {
+            if (historia.getVisitasADomicilio().getVisitasADomicilioTerminadas().size() > 0) {
+                System.out.println("Visitas a domicilio: ");
+                for (VisitaADomicilioDTO visita : historia.getVisitasADomicilio().getVisitasADomicilioTerminadas()) {
+                    if (visita.isTerminada()) {
+                        System.out.println("Fecha: " + visita.getFechaVisita().toString());
+                        System.out.println("Observaciones: " + visita.getObservaciones());
+                        System.out.println("Estado general del animal: " + visita.getEncuesta().getEstado().toString());
+                        System.out.println("Estado del ambiente: " + visita.getEncuesta().getAmbiente().toString());
+                        System.out.println("Estado de la limpieza : " + visita.getEncuesta().getLimpieza().toString());
+                        System.out.println("");
+                    }
                 }
+            }
         }
-
-
-        }
-
         System.out.println("");
     }
 }

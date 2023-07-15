@@ -1,6 +1,7 @@
 package src.Model;
 
 import src.DTO.AlarmaDTO;
+import src.DTO.ControlPeriodicoDTO;
 import src.DTO.TratamientoMedicoDTO;
 import src.Enum.Accion;
 
@@ -29,6 +30,11 @@ public class Alarma {
             this.idAlarma = id;
     }
 
+    public Alarma(String id, int periodicidad, LocalDateTime fechaInicial, TratamientoMedico control) {
+        this(periodicidad, fechaInicial, control);
+        if (id != null)
+            this.idAlarma = id;
+    }
     public int getPeriodicidad(){
         return periodicidadDias;
     }
@@ -63,12 +69,12 @@ public class Alarma {
 
     public static Alarma toObject(AlarmaDTO alarmaDTO){
         Alarma alarma = null;
-        if (alarmaDTO.getControlDeSalud() instanceof TratamientoMedicoDTO)
+        if (alarmaDTO.isTratamientoMedico())
             alarma = new Alarma(alarmaDTO.getIdAlarma(), alarmaDTO.getPeriodicidad(), alarmaDTO.getFechaInicial()
-                    ,TratamientoMedico.toObject(alarmaDTO.getControlDeSalud()));
+                    ,TratamientoMedico.toObject((TratamientoMedicoDTO) alarmaDTO.getControlDeSalud()));
         else
             alarma = new Alarma(alarmaDTO.getIdAlarma(), alarmaDTO.getPeriodicidad(), alarmaDTO.getFechaInicial()
-                    ,ControlPeriodico.toObject(alarmaDTO.getControlDeSalud()));
+                    ,ControlPeriodico.toObject((ControlPeriodicoDTO) alarmaDTO.getControlDeSalud()));
 
         return alarma;
     }

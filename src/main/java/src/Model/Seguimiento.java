@@ -3,7 +3,7 @@ package src.Model;
 
 import src.DTO.DatosNotificacion;
 import src.DTO.SeguimientoDTO;
-import src.DTO.VisitaDTO;
+import src.DTO.VisitaADomicilioDTO;
 import src.Enum.EstadoLimpiezaAmbiente;
 import src.Enum.MedioRecordatorio;
 
@@ -162,7 +162,7 @@ public class Seguimiento {
         seguimientoDTO.setResponsable(this.responsable.toDTO());
         seguimientoDTO.setCadenciaVisita(this.cadenciaVisita);
 
-        List<VisitaDTO> visitasDTO = new ArrayList<>();
+        List<VisitaADomicilioDTO> visitasDTO = new ArrayList<>();
 
         for (VisitaADomicilio visitaADomicilio : visitasADomicilio) {
             visitasDTO.add(visitaADomicilio.toDTO());

@@ -11,15 +11,16 @@ public class ControlPeriodico {
     private Animal _animal;
     private List<Accion> _acciones;
     private Usuario _atendidoPor;
-    private LocalDateTime horaDeAtencion;
+    private LocalDateTime _horaDeAtencion;
 
-    public ControlPeriodico (Animal animal, List<Accion> acciones, Usuario atendidoPor){
+    public ControlPeriodico (Animal animal, List<Accion> acciones, Usuario atendidoPor, LocalDateTime horaDeAtencion){
         _animal = animal;
         if (acciones == null)
             _acciones = new ArrayList<>();
         else
             _acciones = acciones;
         _atendidoPor = atendidoPor;
+        _horaDeAtencion = horaDeAtencion;
     }
     public void agregarAccion(Accion accion){
         _acciones.add(accion);
@@ -43,23 +44,24 @@ public class ControlPeriodico {
         return _atendidoPor;
     }
 
-    public LocalDateTime getHoraDeAtencion() {
-        return horaDeAtencion;
+    public LocalDateTime get_horaDeAtencion() {
+        return _horaDeAtencion;
     }
 
-    public void setHoraDeAtencion(LocalDateTime horaDeAtencion) {
-        this.horaDeAtencion = horaDeAtencion;
+    public void setHoraDeAtencion(LocalDateTime _horaDeAtencion) {
+        this._horaDeAtencion = _horaDeAtencion;
     }
 
     public ControlPeriodicoDTO toDTO(){
         if (this._atendidoPor != null)
-            return new ControlPeriodicoDTO(this._animal.toDTO(),this._acciones,this._atendidoPor.toDTO());
+            return new ControlPeriodicoDTO(this._animal.toDTO(),this._acciones,this._atendidoPor.toDTO(),this._horaDeAtencion);
         else
-            return new ControlPeriodicoDTO(this._animal.toDTO(),this._acciones,null);
+            return new ControlPeriodicoDTO(this._animal.toDTO(),this._acciones,null,null);
     }
 
     public static ControlPeriodico toObject(ControlPeriodicoDTO controlPeriodicoDTO){
         return new ControlPeriodico(Animal.toObject(controlPeriodicoDTO.getAnimal()), controlPeriodicoDTO.getAcciones()
-                ,controlPeriodicoDTO.getAtendidoPor() == null ? null : Usuario.toObject(controlPeriodicoDTO.getAtendidoPor()));
+                ,controlPeriodicoDTO.getAtendidoPor() == null ? null : Usuario.toObject(controlPeriodicoDTO.getAtendidoPor())
+                ,controlPeriodicoDTO.getHoraAtencion());
     }
 }
