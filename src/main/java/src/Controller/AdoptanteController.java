@@ -37,9 +37,7 @@ public class AdoptanteController {
     private boolean adoptanteYaExiste(Adoptante adoptante) {
         return adoptantes.contains(adoptante);
     }
-    public Adoptante buscarAdoptante(String idAdoptante) {
-        return adoptantes.stream().filter(adoptante -> adoptante.getId().equals(idAdoptante)).findFirst().orElse(null);
-    }
+
 
     public DatosNotificacion getDatosDeAdoptante(String id_adoptante) {
         DatosNotificacion datos = null;

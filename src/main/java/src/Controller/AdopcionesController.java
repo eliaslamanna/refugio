@@ -9,7 +9,6 @@ import java.util.*;
 
 public class AdopcionesController {
     private static List<Adopcion> adopciones;
-    private static List<Usuario> visitadores;
     private static AdopcionesController instancia;
 
     private AdopcionesController() {
@@ -33,21 +32,10 @@ public class AdopcionesController {
                 , Animal.toObject(mascotaDTO)
                 , seguimiento);
         adopciones.add(adopcionParaGuardar);
-
-        //agregamos el nuevo seguimiento en la historia clínica
         HistoriaClinica historia =  ClinicaController.getInstancia().buscarHistoriaClinicaXAnimal(mascotaDTO.getId());
         historia.setVisitasADomicilio(seguimiento);
     }
 
-    public AdopcionDTO obtenerAdopcion(String idAnimal) {
-        AdopcionDTO adopcionDTO = null;
-        for (Adopcion adopcion : adopciones) {
-            if (adopcion.getMascota().getId().equals(idAnimal)) {
-                adopcionDTO = adopcion.toDTO();
-            }
-        }
-        return adopcionDTO; // Si no se encuentra la adopción con los criterios especificados
-    }
 
 
     public boolean isDisponibleAdoptante(String idAdoptante){
@@ -87,14 +75,7 @@ public class AdopcionesController {
         return visita;
     }
 
-    public UsuarioDTO getResponsableDeSeguimiento(String idAnimal){
-        for (Adopcion adopcion : adopciones) {
-            if (adopcion.getMascota().getId().equals(idAnimal)){
-                return adopcion.getSeguimiento().getResponsable().toDTO();
-            }
-        }
-        return null;
-    }
+
     public void enviarRecordatorio(String idVisitador) {
         for (Adopcion adopcion : adopciones){
             if (adopcion.getSeguimiento().getResponsable().getIdUsuario().equals(idVisitador)){

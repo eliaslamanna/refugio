@@ -45,9 +45,6 @@ public class UsuarioController {
         return veterinarios;
     }
 
-    public void agregarUsuario(src.Model.Usuario usuario){
-        usuarios.add(usuario);
-    }
 
     public UsuarioDTO autenticarUsuario(UsuarioDTO usuarioParaAutenticar){
         Usuario usuario = Usuario.autenticarUsuario(usuarioParaAutenticar);

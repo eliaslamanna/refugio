@@ -112,9 +112,6 @@ public class Adoptante {
                 this.id = id;
     }
 
-    public Adoptante(){
-
-    }
 
     public static Adoptante toObject(AdoptanteDTO adoptanteDTO){
         Adoptante adoptante = new Adoptante(adoptanteDTO.getId(),adoptanteDTO.getNombre(), adoptanteDTO.getApellido()

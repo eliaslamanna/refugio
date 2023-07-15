@@ -27,11 +27,6 @@ public class Adopcion {
         return seguimiento;
     }
 
-
-    public static DatosNotificacion getDatosDeAdoptante(String id_adoptante){
-        return AdoptanteController.getInstancia().getDatosDeAdoptante(id_adoptante);
-    }
-
     public String mensajeNotificacion(){
         return " Notificacion para: " + getAdoptante().getNombre() + " " + getAdoptante().getApellido() + " (Adoptante) " + " y " + getSeguimiento().getResponsable().getNombre() + " " + getSeguimiento().getResponsable().getApellido() +  " (Visitador) "  + " || " +  getMascota().getNombre() + " sera visitado el dia " + getSeguimiento().getUltimaVisita().getFechaVisita().toString();
     }

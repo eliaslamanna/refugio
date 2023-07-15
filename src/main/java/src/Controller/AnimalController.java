@@ -9,8 +9,6 @@ import java.util.*;
 
 
 public class AnimalController {
-
-    private Animal animal;
     private static AnimalController instancia;
     private static List<Animal> animales;
 
@@ -51,15 +49,6 @@ public class AnimalController {
         return null;
     }
 
-    public List<AnimalDTO> getAnimalesDisponibles(){
-        List <AnimalDTO> animalesDisponibles = new ArrayList<>();
-        for (Animal animal : animales) {
-            if(!animal.getEnTratamiento()){
-                animalesDisponibles.add(animal.toDTO());
-            }
-        }
-        return animalesDisponibles;
-    }
 
     public AnimalDTO getRandomAnimal(){
         if (animales.isEmpty()) {

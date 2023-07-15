@@ -19,20 +19,13 @@ import java.util.List;
 public class ClinicaController {
 
     private static List<HistoriaClinica> historiales;
-    private static List<Alarma> alarmas;
-    private static List<Usuario> veterinarios;
-    private static List<Usuario> visitadores;
     private List<Accion>  accionesDeTratamientoMedico;
     private List<Accion> accionesDeControlDeSalud;
     private static ClinicaController instancia;
 
     private ClinicaController() {
         historiales = new ArrayList<>();
-        alarmas = new ArrayList<>();
-
-        veterinarios = new ArrayList<>();
-        visitadores = new ArrayList<>();
-
+        
         accionesDeControlDeSalud = new ArrayList<>();
         accionesDeControlDeSalud.add(Accion.CONTROLAR_PARASITOS);
         accionesDeControlDeSalud.add(Accion.CONTROLAR_PESO);

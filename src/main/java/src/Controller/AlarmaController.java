@@ -23,28 +23,7 @@ public class AlarmaController {
         return instancia;
     }
 
-    /*
-    public void agregarAlarma (String idSeguimiento, AlarmaDTO alarma) {
-        // Se valida si existe el seguimiento y el control para añadir la alarma
-        Control control = buscarControl(alarma.getControl());
-        SeguimientoMedico seguimiento = buscarSeguimientoMedico(idSeguimiento);
-        if(seguimiento != null ){
-            if(control != null) {
-                Alarma alarmaNueva = new Alarma(alarma.getPeriodicidad(), control);
-                alarmas.add(alarmaNueva);
-                seguimiento.agregarAlarma(alarmaNueva);
-            }
-            else {
-                System.out.println("\n No se encontró el Control ingresado \n No se dió de alta la nueva alarma \n");
-            }
-        }
-        else {
-            System.out.println("\n No se encontró el Seguimiento Medico ingresado \n No se dió de alta la nueva alarma \n");
-        }
 
-    }
-
-     */
 
     public void crearAlarma(AlarmaDTO alarmaDTO){
         alarmas.add(Alarma.toObject(alarmaDTO));
