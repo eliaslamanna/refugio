@@ -79,11 +79,21 @@ public class ClinicaController {
     }
 
     public List<Accion> getAccionesDeControlDeSalud() {
-        return accionesDeControlDeSalud;
+        List<Accion> acciones = new ArrayList<>();
+
+        for (Accion accion: accionesDeControlDeSalud){
+            acciones.add(accion);
+        }
+        return acciones;
     }
 
     public List<Accion> getAccionesDeTratamientoMedico() {
-        return accionesDeTratamientoMedico;
+        List<Accion> acciones = new ArrayList<>();
+
+        for (Accion accion: accionesDeTratamientoMedico){
+            acciones.add(accion);
+        }
+        return acciones;
     }
 
     public void registrarAtencion(TratamientoMedico control) {
